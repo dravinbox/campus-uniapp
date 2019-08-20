@@ -1,7 +1,7 @@
 import api from "./base.js";
 
-function getCategory(success){
-    api.post("/api/v1/user/discover/getCategory",
+function getCategory(data,success){
+    api.post("/api/v1/user/discover/getCategory",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -9,8 +9,8 @@ function getCategory(success){
     })
 }
 
-function getPostList(success){
-    api.post("/api/v1/user/discover/getPostList",
+function getPostList(data,success){
+    api.post("/api/v1/user/discover/getPostList",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -18,8 +18,8 @@ function getPostList(success){
     })
 }
 
-function sendAPost(success){
-    api.get("/api/v1/user/discover/sendAPost",
+function sendAPost(data,success){
+    api.get("/api/v1/user/discover/sendAPost",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{

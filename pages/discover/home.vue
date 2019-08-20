@@ -8,7 +8,7 @@
 		
 		<scroll-view scroll-x class="bg-white nav"  scroll-with-animation :scroll-left="scrollLeft">
 			<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item,index) in cateList" :key="index" @tap="tabSelect" :data-id="index">
-				{{index}}
+				{{item.oneCateName}}
 			</view>
 		</scroll-view>
 		
@@ -195,27 +195,23 @@
 		mounted() {
 			console.log('jin来')
 			//获得帖子的分类
-			discoverApi.getCategory((res)=>{
-				//this.cateList = res.data.data;
-				console.log(res)
-				console.log('kkkkk')
-				//console.log("get Category:  ",this.cateList);
+			discoverApi.getCategory({},(res)=>{
+				this.cateList = res.data.data;
+				console.log("get Category:  ",this.cateList);
 			})
 
-			uni.request({
-				url: '/api/v1/user/discover/getCategory', //仅为示例，并非真实接口地址。
-				method:'POST',
-				complete: (res)=> {
-					console.log(res)
-				}
-			});
 			//获取帖子列表
-			// discoverApi.getPostList((res)=>{
-			// 	console.log("get tPostList:  ",res);
-			// })
+			discoverApi.getPostList({
+  "oneCateId": 1,
+  "pageNum": 1,
+  "pageSize": 5,
+  "pullLast": false,
+  "twoCateId": 1},(res)=>{
+				console.log("get tPostList:  ",res);
+			})
 
 			//发帖子
-			// discoverApi.sendAPost((res) =>{
+			// discoverApi.sendAPost({},(res) =>{
 			// 	console.log(res)
 			// })
 		},
