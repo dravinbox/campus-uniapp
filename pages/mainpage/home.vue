@@ -224,6 +224,13 @@
 				this.cuIconList = res.data.data
 				console.log("get navigation:  ",this.cuIconList);
 			})
+
+			indexApi.getCategory((res)=>{
+				//this.cateList = res.data.data;
+				console.log(res)
+				console.log('kkkkk')
+				//console.log("get Category:  ",this.cateList);
+			})
 		}
 	}
 </script>

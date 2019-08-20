@@ -4,7 +4,7 @@ export default {
 		//本地开发环境
 		"dev":{
 			protocol: "http",
-			domain: "localhost",
+			domain: "120.24.236.181",
 			port: "8080",
 		},
 		//演示环境
@@ -34,7 +34,15 @@ export default {
 		if(env==undefined|| env == null){
 			env = "dev"
 		}
-		return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
+		try {
+			console.log(window.location.href)
+			return ''
+		} catch (error) {
+			//console.log(error)
+			return this.map[env].protocol+"://"+this.map[env].domain
+		}
+
+		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 	},
 	
 	
