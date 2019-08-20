@@ -179,7 +179,15 @@
 				isCard:true,
 				TabCur: 0,
 				scrollLeft: 0,
+				params:{
+					"oneCateId": 1,
+					"pageNum": 1,
+					"pageSize": 5,
+					"pullLast": false,
+					"twoCateId": 1
+				},
 				cateList:[0,1,2,3,4,5,6,7,8,9],
+				list:[],
 			}
 		},
 		onHide: function(){
@@ -201,12 +209,7 @@
 			})
 
 			//获取帖子列表
-			discoverApi.getPostList({
-  "oneCateId": 1,
-  "pageNum": 1,
-  "pageSize": 5,
-  "pullLast": false,
-  "twoCateId": 1},(res)=>{
+			discoverApi.getPostList(this.params,(res)=>{
 				console.log("get tPostList:  ",res);
 			})
 

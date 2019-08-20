@@ -192,7 +192,10 @@
 				gridCol: 4,
 				gridRow: 3,
 				gridBorder: false,
-				
+				hotdData:{
+					"pageNum": 1,
+					"pageSize": 5
+				}
 			};
 		},
 		methods: {
@@ -221,6 +224,11 @@
 			})
 			//获取导航栏
 			indexApi.getNavigation((res)=>{
+				this.cuIconList = res.data.data
+				console.log("get navigation:  ",this.cuIconList);
+			})
+			//获取热门帖子
+			indexApi.getHotPost(this.hotdData,(res)=>{
 				this.cuIconList = res.data.data
 				console.log("get navigation:  ",this.cuIconList);
 			})
