@@ -10,7 +10,7 @@ function getCategory(data,success){
 }
 
 function getPostList(data,success){
-    api.post("/api/v1/user/discover/getPostList",data,
+    api.postToken("/api/v1/user/discover/getPostList",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -19,7 +19,7 @@ function getPostList(data,success){
 }
 
 function sendAPost(data,success){
-    api.get("/api/v1/user/discover/sendAPost",data,
+    api.postToken("/api/v1/user/discover/sendAPost",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{

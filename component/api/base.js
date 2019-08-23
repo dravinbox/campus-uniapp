@@ -88,5 +88,21 @@ export default {
 			complete: complete
 		})
 	},
+
+	postToken: function(url,data,success,fail,complete){
+		uni.request({
+			url: this.getPath() + url,
+			header:{
+				"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNokjEEKwjAQAP-y5wRqtrs1vQl6ELSCHyjbZgspqMW0IIh_b4rXmWG-kJYOapDwiE8wsCR9tzFAvTOQ-tek2d1vl1N7OF7PTQ70M2VJzOwYcW8gyvwHhN5vYJzjNqwURbmw1dAXtgwlWU_CNojryA2OWRF-KwAAAP__.zFyPEi5c0u1e75-LX63LuYeEk9MHNW9m7Zds03PlvdE"
+			},
+			method: "POST",
+			data:data,
+			dataType: "json",
+			responseType: "text",
+			success: success,
+			fail: fail,
+			complete: complete
+		})
+	},
 	
 }
