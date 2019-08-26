@@ -5,7 +5,7 @@
 		
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-title text-orange"></text> 菜单列表
+				<text class="cuIcon-title text-orange"></text> 个人主页
 			</view>
 			<view class="action">
 				<button class="cu-btn bg-green shadow" @tap="showModal" data-target="menuModal">设置</button>
@@ -45,31 +45,37 @@
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<view class="content">
 					<text class="cuIcon-circlefill text-grey"></text>
-					<text class="text-grey">图标 + 标题</text>
+					<text class="text-grey">校园通知</text>
 				</view>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<view class="content">
 					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
-					<text class="text-grey">图片 + 标题</text>
+					<text class="text-grey">校园圈子</text>
+				</view>
+			</view>
+			<view class="cu-item" :class="menuArrow?'arrow':''" @click="openMsg">
+				<view class="content">
+					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
+					<text class="text-grey">交友系列</text>
 				</view>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<button class="cu-btn content" open-type="contact">
 					<text class="cuIcon-btn text-olive"></text>
-					<text class="text-grey">Open-type 按钮</text>
+					<text class="text-grey">创业园</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<navigator class="content" hover-class="none" url="../list/list" open-type="redirect">
 					<text class="cuIcon-discoverfill text-orange"></text>
-					<text class="text-grey">Navigator 跳转</text>
+					<text class="text-grey">跳骚市场</text>
 				</navigator>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<view class="content">
 					<text class="cuIcon-emojiflashfill text-pink"></text>
-					<text class="text-grey">头像组</text>
+					<text class="text-grey">潮流街</text>
 				</view>
 				<view class="action">
 					<view class="cu-avatar-group">
@@ -105,11 +111,17 @@
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<view class="content">
 					<text class="cuIcon-warn text-green"></text>
-					<text class="text-grey">文本</text>
+					<text class="text-grey">游戏组队</text>
 				</view>
 				<view class="action">
-					<text class="text-grey text-sm">小目标还没有实现！</text>
+					<text class="text-grey text-sm">学习组队</text>
 				</view>
+				<!-- <view class="action">
+					<text class="text-grey text-sm">我爱公益</text>
+				</view>
+				<view class="action">
+					<text class="text-grey text-sm">交友大厅</text>
+				</view> -->
 			</view>
 			<view class="cu-item">
 				<view class="content padding-tb-sm">
@@ -135,7 +147,7 @@
 			return {
 				modalName: null,
 				menuBorder: false,
-				menuArrow: false,
+				menuArrow: true,
 				menuCard: false,
 				skin: false,
 			}
@@ -159,7 +171,11 @@
 			SwitchSex(e) {
 				this.skin = e.detail.value
 			},
-			
+			openMsg(){
+				uni.navigateTo({
+				    url: '../me/friendship'
+				});
+			}
 		}
 	}
 </script>

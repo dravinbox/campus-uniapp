@@ -1,7 +1,7 @@
 <template name="discover">
 	<view>
 		<!-- 标题 -->
-		<cu-custom bgColor="bg-gradual-pink" >
+		<cu-custom  >
 			<block slot="content">发现</block>
 		</cu-custom>
 		
@@ -231,13 +231,16 @@
 			discoverApi.getPostList(this.params,(res)=>{
 				console.log("get tPostList:  ",res.data.data);
 				this.list = [];
-				res.data.data.list.forEach((item,index) => {
-					console.log(typeof(item.imagesJsonList));
-					console.log(JSON.parse(item.imagesJsonList));
-					item.imagesJsonList = JSON.parse(item.imagesJsonList);
-					this.list.push(item);
-					
-				});
+				if(res.data.data.list){
+					res.data.data.list.forEach((item,index) => {
+						console.log(typeof(item.imagesJsonList));
+						console.log(JSON.parse(item.imagesJsonList));
+						item.imagesJsonList = JSON.parse(item.imagesJsonList);
+						this.list.push(item);
+						
+					});
+				}
+				
 				console.log(this.list)
 			})
 

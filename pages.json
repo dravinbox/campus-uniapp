@@ -16,8 +16,13 @@
 		{
 			"path":"pages/message/chat",
 			"style":{}
+		},	
+		{
+			"path": "pages/me/friendship",
+			"style": {
+				"navigationBarTitleText": "聊天系列"
+			}
 		}
-	   
      
       
     ],
