@@ -1,19 +1,42 @@
 <template name="discover">
 	<view>
 		<!-- 标题 -->
-		<cu-custom  bgColor="bg-gradual-pink">
-			<block slot="content">发现</block>
+		<cu-custom  bgColor="bg-gradual-white">
+			<block slot="content">好友列表</block>
 		</cu-custom>
 		
-		
-		<scroll-view scroll-x class="bg-white nav"  scroll-with-animation :scroll-left="scrollLeft">
-			<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item,index) in cateList" :key="index" @tap="tabSelect" :data-id="index">
-				{{item.oneCateName}}
+		<!-- 栏目 -->
+        <!-- <view class=" bg-white " style="padding:0 25upx;">
+            <view class="cu-bar tabbar bg-white new-solids-bottom">
+                <view class="action new-size" :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
+                    <view :class="PageCur=='mainpage'?'list-border':' '">文字匹配</view>
+                </view>
+                <view class="action new-size" :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
+                    <view :class="PageCur=='discover'?'list-border':' '">语音匹配</view>
+                </view>
+                
+                <view class="action new-size" :class="PageCur=='me'?'new-text-blue list-border':'new-text-black'" @click="NavChange" data-cur="me" >
+                    <view :class="PageCur=='me'?'list-border':' '">关注</view>
+                </view>
+			</view>
+		</view> -->
+
+		<!-- <scroll-view scroll-x class="bg-white nav text-center"  scroll-with-animation :scroll-left="scrollLeft">
+			<view class="cu-item" :class="index==TabCur?'new-text-blue cur':'new-text-black'" v-for="(item,index) in cateList" :key="index" @tap="tabSelect" :data-id="index">
+				{{item}}
+			</view>
+		</scroll-view> -->
+
+        <scroll-view scroll-x class="bg-white nav" style="padding:0 25upx;">
+			<view class="flex text-center new-solids-bottom">
+				<view class="cu-item flex-sub" :class="index==TabCur?'new-text-blue new-border':'new-text-black'" v-for="(item,index) in cateList" :key="index" @tap="tabSelect" :data-id="index">
+					{{item}}
+				</view>
 			</view>
 		</scroll-view>
 		
 		<!-- 帖子 -->
-		<view class="cu-card dynamic margin-top" :class="isCard?'no-card':''">
+		<view class="cu-card dynamic " :class="isCard?'no-card':''">
 			<view class="cu-item shadow">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item">
@@ -176,7 +199,7 @@
 </template>
 
 <script>
-	import { discoverApi } from '../../component/api/discover.js';
+	import { discoverApi } from '../api/discover.js';
 	export default {
 		name: "discover",
 		data() {
@@ -191,8 +214,9 @@
 					"pullLast": false,
 					"twoCateId": 1
 				},
-				cateList:[0,1,2,3,4,5,6,7,8,9],
-				list:[],
+				cateList:['文字匹配','语音匹配','关注'],
+                list:[],
+                PageCur: 'discover',
 			}
 		},
 		onHide: function(){
@@ -223,8 +247,8 @@
 			console.log('jin来')
 			//获得帖子的分类
 			discoverApi.getCategory({},(res)=>{
-				this.cateList = res.data.data;
-				console.log("get Category:  ",this.cateList);
+				//this.cateList = res.data.data;
+				//console.log("get Category:  ",this.cateList);
 			})
 
 			//获取帖子列表
@@ -249,6 +273,23 @@
 	}
 </script>
 
-<style>
+<style scoped>
+.new-solids-bottom {
+    position: relative;
+    border-bottom: 1px solid #eee !important;
+}
+.new-size{
+    font-size: 30upx !important;
+}
+.new-border{
+   border-bottom:8upx solid #2ad0ea; 
+}
+/* .list-border{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0upx;
+    border-bottom:8upx solid #2ad0ea;
+} */
+</style>>
 
-</style>

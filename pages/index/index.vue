@@ -5,28 +5,28 @@
 		<message v-if="PageCur=='message'"></message>
 		<me v-if="PageCur=='me'"></me>
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" :class="PageCur=='mainpage'?'text-green':'text-gray'" @click="NavChange" data-cur="mainpage" >
+			<view class="action" :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
 				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view>
 				<view >那些人</view>
 			</view>
-			<view class="action " :class="PageCur=='discover'?'text-green':'text-gray'" @click="NavChange" data-cur="discover" >
+			<view class="action " :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
 				<view :class="PageCur=='discover'?'cuIcon-discoverfill':'cuIcon-discover'"></view> 
 				<view>那些话</view>
 			</view>
-			<view class="action" :class="PageCur=='message'?'text-green':'text-gray'" @click="NavChange" data-cur="errands" >
+			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="errands" >
 				<view :class="PageCur=='message'?'cuIcon-messagefill':'cuIcon-message'">
 					<view class="cu-tag badge">99</view>
 				</view>
 				跑腿
 			</view>
-			<view class="action" :class="PageCur=='message'?'text-green':'text-gray'" @click="NavChange" data-cur="message" >
+			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="message" >
 				<view :class="PageCur=='message'?'cuIcon-messagefill':'cuIcon-message'">
 					<view class="cu-tag badge">99</view>
 				</view>
 				商城
 			</view>
 			
-			<view class="action" :class="PageCur=='me'?'text-green':'text-gray'" @click="NavChange" data-cur="me" >
+			<view class="action" :class="PageCur=='me'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="me" >
 				<view :class="PageCur=='me'?'cuIcon-myfill':'cuIcon-my'">
 					<view class="cu-tag badge"></view>
 				</view>

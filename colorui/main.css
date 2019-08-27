@@ -535,6 +535,7 @@ radio.white.checked .uni-radio-input {
 	border-bottom: 8upx solid #eee;
 }
 
+
 .solids-left::after {
 	border-left: 8upx solid #eee;
 }
@@ -1176,7 +1177,7 @@ button.cuIcon.lg {
 }
 
 .cu-list+.cu-list {
-	margin-top: 30upx
+	margin-top: 22upx
 }
 
 .cu-list>.cu-item {
@@ -1374,6 +1375,9 @@ button.cuIcon.lg {
 	font-size: 30upx;
 	line-height: 1.6em;
 	flex: 1
+}
+.cu-list.menu>.new-solid-top{
+	border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .cu-list.menu>.cu-item .content .cu-tag.sm {
@@ -3031,7 +3035,9 @@ scroll-view.cu-steps .cu-item {
 .margin-top {
 	margin-top: 30upx;
 }
-
+.new-margin-top {
+	margin-top: 20upx;
+}
 .margin-top-lg {
 	margin-top: 40upx;
 }
@@ -3578,6 +3584,13 @@ scroll-view.cu-steps .cu-item {
 	color: #ffffff;
 }
 
+.bg-gradual-white {
+	background: #ffffff;
+	color: #333333;
+	font-size: 30upx;
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
 .shadow[class*="-red"] {
 	box-shadow: 6upx 6upx 8upx rgba(204, 69, 59, 0.2);
 }
@@ -3863,6 +3876,10 @@ scroll-view.cu-steps .cu-item {
 	color: #0081ff;
 }
 
+.new-text-blue {
+	color: #2ad0ea;
+}
+
 .text-purple,
 .line-purple,
 .lines-purple {
@@ -3903,6 +3920,10 @@ scroll-view.cu-steps .cu-item {
 .line-black,
 .lines-black {
 	color: #333333;
+}
+
+.new-text-black {
+	color: #000000;
 }
 
 .text-white,

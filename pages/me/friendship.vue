@@ -1,30 +1,26 @@
 <template>
 	<view>
 		<mainpage v-if="PageCur=='mainpage'"></mainpage>
-		<discover v-if="PageCur=='discover'"></discover>
+		<good-friend-list v-if="PageCur=='discover'"></good-friend-list>
 		<message v-if="PageCur=='message'"></message>
 		<me v-if="PageCur=='me'"></me>
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" :class="PageCur=='mainpage'?'text-green':'text-gray'" @click="NavChange" data-cur="mainpage" >
+			<view class="action" :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
 				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view>
 				<view >交友大厅</view>
 			</view>
-			<view class="action " :class="PageCur=='discover'?'text-green':'text-gray'" @click="NavChange" data-cur="discover" >
+			<view class="action " :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
 				<view :class="PageCur=='discover'?'cuIcon-discoverfill':'cuIcon-discover'"></view> 
 				<view>列表</view>
 			</view>
-			<!-- <view class="action text-gray add-action" @tap="showModal" data-target="RadioModal">
-				<button class="cu-btn cuIcon-all bg-green shadow"></button>
-				商城
-			</view> -->
-			<view class="action" :class="PageCur=='message'?'text-green':'text-gray'" @click="NavChange" data-cur="message" >
+			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="message" >
 				<view :class="PageCur=='message'?'cuIcon-messagefill':'cuIcon-message'">
 					<view class="cu-tag badge">99</view>
 				</view>
 				商城 
 			</view>
 			
-			<view class="action" :class="PageCur=='me'?'text-green':'text-gray'" @click="NavChange" data-cur="me" >
+			<view class="action" :class="PageCur=='me'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="me" >
 				<view :class="PageCur=='me'?'cuIcon-myfill':'cuIcon-my'">
 					<view class="cu-tag badge"></view>
 				</view>
@@ -53,10 +49,11 @@
 </template>
 
 <script>
-	
+	import goodFriendList from '../../component/friendship/good-friend-list.vue'
 	export default {
+		components: {goodFriendList},
 		data() {
-		return {
+			return {
 				PageCur: 'mainpage',
 				modalName: null,
 				radio: 'radio1',
