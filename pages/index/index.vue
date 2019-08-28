@@ -64,6 +64,9 @@
 				radio: 'radio1',
 			}
 		},
+		onShow(){
+			console.log('dfff')
+		},
 		methods: {
 			NavChange: function(e) {
 				this.PageCur = e.currentTarget.dataset.cur

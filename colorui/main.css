@@ -1212,7 +1212,7 @@ button.cuIcon.lg {
 .cu-list.menu-avatar>.cu-item {
 	position: relative;
 	display: flex;
-	padding-right: 10upx;
+	padding-right: 0upx;
 	height: 140upx;
 	background-color: #ffffff;
 	justify-content: flex-end;
@@ -1221,7 +1221,7 @@ button.cuIcon.lg {
 
 .cu-list.menu-avatar>.cu-item>.cu-avatar {
 	position: absolute;
-	left: 30upx
+	left: 0upx
 }
 
 .cu-list.menu-avatar>.cu-item .flex .text-cut {
@@ -1957,7 +1957,7 @@ button.cuIcon.lg {
 	display: inline-block;
 	line-height: 90upx;
 	margin: 0 10upx;
-	padding: 0 20upx;
+	padding: 0 40upx;
 }
 
 .nav .cu-item.cur {
