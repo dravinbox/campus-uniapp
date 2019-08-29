@@ -6,13 +6,7 @@
 			<block slot="content">APP</block>
 		</cu-custom>
 		<!-- 轮播图 -->
-		<swiper class="screen-swiper square-dot"  :indicator-dots="true" :circular="true"
-		 :autoplay="true" interval="5000" duration="500">
-			<swiper-item v-for="(item,index) in swiperList" :key="index">
-				<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
-				<video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type=='video'"></video>
-			</swiper-item>
-		</swiper>
+		<swiper-list :swiperList='swiperDataList'></swiper-list>
 		
 		<!-- 功能板 -->
 		<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']" v-if="cuIconList.length<gridCol*gridRow">
@@ -127,48 +121,15 @@
 
 <script>
 	import {indexApi} from '../../component/api/index.js'
+	import swiperList from './../../colorui/components/swiper-list.vue'
 	export default {
+		components: {swiperList},
 		name: "mainpage",
 		data() {
 			return {
 				isCard: false,
 				cardCur: 0,
-				swiperList: [],
-				// swiperListBak: [{
-				// 	id: 0,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-				// }, {
-				// 	id: 1,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg',
-				// }, {
-				// 	id: 2,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
-				// }, {
-				// 	id: 3,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
-				// }, {
-				// 	id: 4,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
-				// }, {
-				// 	id: 5,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
-				// }, {
-				// 	id: 6,
-				// 	type: 'image',
-				// 	url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-				// }, {
-				// 	id: 7,
-				// 	type: 'video',
-				// 	url: 'https://www.w3school.com.cn/i/movie.ogg'
-				// }
-				// 
-				// ],
+				swiperDataList: [],
 				
 				towerStart: 0,
 				direction: '',
@@ -309,8 +270,8 @@
 		mounted() {
 			//获取轮播图
 			indexApi.getSwiper((res)=>{
-				this.swiperList = res.data.data;
-				console.log("get swiper:  ",this.swiperList);
+				this.swiperDataList = res.data.data;
+				console.log("get swiper:  ",this.swiperDataList);
 			})
 			//获取导航栏
 			indexApi.getNavigation((res)=>{

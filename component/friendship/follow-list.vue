@@ -1,7 +1,7 @@
 <template >
     <view class="cu-list menu-avatar " >
         <view class="cu-item" @click="openMsg">
-            <view class="cu-avatar radius lg" :style="[{backgroundImage:'url('+ src +')'}]"></view>
+            <view class="cu-avatar new-cu-avatar radius lg" :style="[{backgroundImage:'url('+ src +')'}]"></view>
             <view class="content">
                 <view class="text-pink"><view class="text-cut">莫甘娜</view></view>
                 <view class="text-gray text-sm flex"> <view class="text-cut">凯尔，你被自己的光芒变的盲目！</view></view>
@@ -12,7 +12,7 @@
             </view>
         </view>
         <view class="cu-item grayscale" @click="openMsg">
-            <view class="cu-avatar radius lg" :style="[{backgroundImage:'url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81007.jpg)'}]"></view>
+            <view class="cu-avatar new-cu-avatar radius lg" :style="[{backgroundImage:'url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81007.jpg)'}]"></view>
             <view class="content">
                 <view><view class="text-cut">伊泽瑞尔</view>
                     <view class="cu-tag round bg-orange sm">断开连接...</view>
@@ -25,7 +25,7 @@
             </view>
         </view>
         <view class="cu-item cur" @click="openMsg">
-            <view class="cu-avatar radius lg" :style="[{backgroundImage:'url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg)'}]">
+            <view class="cu-avatar new-cu-avatar radius lg" :style="[{backgroundImage:'url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg)'}]">
                 <view class="cu-tag badge"></view>
             </view>
             <view class="content">

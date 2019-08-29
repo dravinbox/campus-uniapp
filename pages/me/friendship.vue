@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<mainpage v-if="PageCur=='mainpage'"></mainpage>
+		<dynamic-list v-if="PageCur=='dynamic'"></dynamic-list>
 		<good-friend-list v-if="PageCur=='discover'"></good-friend-list>
 		<message v-if="PageCur=='message'"></message>
 		<me v-if="PageCur=='me'"></me>
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
-				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view>
+			<view class="action" :class="PageCur=='dynamic'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="dynamic" >
+				<view :class="PageCur=='dynamic'?'cuIcon-homefill':'cuIcon-home'"></view>
 				<view >交友大厅</view>
 			</view>
 			<view class="action " :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
@@ -49,12 +49,13 @@
 </template>
 
 <script>
+	import dynamicList from '../../component/friendship/dynamic-list.vue'
 	import goodFriendList from '../../component/friendship/good-friend-list.vue'
 	export default {
-		components: {goodFriendList},
+		components: {dynamicList,goodFriendList},
 		data() {
 			return {
-				PageCur: 'mainpage',
+				PageCur: 'dynamic',
 				modalName: null,
 				radio: 'radio1',
 			}

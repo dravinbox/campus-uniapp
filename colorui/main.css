@@ -904,6 +904,11 @@ button.cuIcon.lg {
 	height: 96upx;
 	font-size: 2em;
 }
+.cu-avatar.lm {
+	width: 80upx;
+	height: 80upx;
+	font-size: 2em;
+}
 
 .cu-avatar.xl {
 	width: 128upx;
@@ -1218,10 +1223,17 @@ button.cuIcon.lg {
 	justify-content: flex-end;
 	align-items: center
 }
+.cu-list.menu-avatar>.new-cu-item{
+	height: 124upx;
+}
 
 .cu-list.menu-avatar>.cu-item>.cu-avatar {
 	position: absolute;
-	left: 0upx
+	left: 30upx
+}
+.cu-list.menu-avatar>.cu-item>.new-cu-avatar{
+	position: absolute;
+	left: 0upx !important;
 }
 
 .cu-list.menu-avatar>.cu-item .flex .text-cut {
@@ -1236,7 +1248,7 @@ button.cuIcon.lg {
 }
 
 .cu-list.menu-avatar>.cu-item .content.flex-sub {
-	width: calc(100% - 96upx - 60upx - 20upx);
+	width: calc(100% - 80upx - 60upx - 30upx - 110upx);
 }
 
 .cu-list.menu-avatar>.cu-item .content>view:first-child {
@@ -1301,6 +1313,20 @@ button.cuIcon.lg {
 	width: 200%;
 	height: 200%;
 	border-bottom: 1upx solid #ddd;
+	border-radius: inherit;
+	content: " ";
+	transform: scale(.5);
+	transform-origin: 0 0;
+	pointer-events: none
+}
+.cu-list.menu-avatar>.new-cu-item:after{
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	width: 200%;
+	height: 200%;
+	border-bottom: none;
 	border-radius: inherit;
 	content: " ";
 	transform: scale(.5);
@@ -2205,7 +2231,7 @@ button.cuIcon.lg {
 }
 
 .cu-card .grid.grid-square {
-	margin-bottom: -20upx;
+	margin-bottom: 0upx;
 }
 
 .cu-card.case .image {
@@ -2930,8 +2956,8 @@ scroll-view.cu-steps .cu-item {
 }
 
 .grid.grid-square>view {
-	margin-right: 20upx;
-	margin-bottom: 20upx;
+	margin-right: 6upx;
+	margin-bottom: 6upx;
 	border-radius: 6upx;
 	position: relative;
 	overflow: hidden;
@@ -2956,7 +2982,7 @@ scroll-view.cu-steps .cu-item {
 .grid.col-3.grid-square>view {
 	padding-bottom: calc((100% - 40upx)/3);
 	height: 0;
-	width: calc((100% - 40upx)/3);
+	width: calc((100% - 12upx)/3);
 }
 
 .grid.col-4.grid-square>view {
@@ -3268,6 +3294,10 @@ scroll-view.cu-steps .cu-item {
 .padding-lr-sm {
 	padding-left: 20upx;
 	padding-right: 20upx;
+}
+.padding-lr-lm {
+	padding-left: 24upx;
+	padding-right: 24upx;
 }
 
 .padding-lr {
@@ -3586,8 +3616,8 @@ scroll-view.cu-steps .cu-item {
 
 .bg-gradual-white {
 	background: #ffffff;
-	color: #333333;
-	font-size: 30upx;
+	color: #000000;
+	font-size: 36upx;
 	border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
