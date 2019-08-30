@@ -2274,7 +2274,7 @@ button.cuIcon.lg {
 
 .cu-card.dynamic>.cu-item>.text-content {
 	padding: 0 30upx 0;
-	max-height: 6.4em;
+	/* max-height: 6.4em; */
 	overflow: hidden;
 	font-size: 30upx;
 	margin-bottom: 20upx;

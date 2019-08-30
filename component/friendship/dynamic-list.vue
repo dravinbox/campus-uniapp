@@ -12,38 +12,49 @@
 			<view class="cu-item shadow">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item new-cu-item">
-						<view class="cu-avatar round lm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+						<view class="cu-avatar round lm" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
 						<view class="content flex-sub">
 							<view class="new-text-black">凯尔</view>
 							<view class="text-gray text-sm flex justify-between">
 								2019年12月3日
 							</view>                          
 						</view>
-                        <view class="new-text-black" style="width:100upx;">关注</view>
+                        <view >
+                        	<view class="new-follow text-center">关注</view>
+						</view>
+					</view>
+				</view>
+				<view class="text-content new-text-black" style="padding:0 24upx;" >
+					<text class="new-text-red" style="padding-right:24upx;">英雄联盟</text> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！
+				</view>
+				<view class="text-content"  style="padding:0 24upx;" @tap='yinpin'>
+					<view class="audio-content text-white flex">
+						<text class="flex-sub cuIcon-stop"></text>
+						<text class="flex-sub cuIcon-playfill text-right"></text>
 					</view>
 				</view>
 				<view class="text-content" style="padding:0 24upx;">
-					折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！
+					<video id="myVideo" :show-fullscreen-btn='true'@fullscreenchange='videoPlay(0)'  @play="videoPlay(0)" @pause='videoPlay(1)' style="width:702upx;" src="https://toss.paycore.cc/ts/video/1566288960116.mp4" controls></video>
 				</view>
 				<view class="grid flex-sub padding-lr-lm " :class="isCard?'col-3 grid-square':'col-1'">
 					<view class="bg-img" :class="isCard?'':'only-img'" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"
 					 v-for="(item,index) in isCard?9:1" :key="index">
-                     <image src='https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'></image>
+                     <image src='https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png'></image>
 					</view>
 				</view>
                 <scroll-view scroll-x class="bg-white nav" style="padding:0 24upx;">
                     <view class="flex text-center">
-                        <view class=" flex-sub cuIcon-appreciate" :class="0==TabCur?'new-text-red':''"  @tap="tabSelect" :data-id="0">
-                            <text class=" ">Tab{{222232200000}}</text>
+                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="0==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="0">
+                            <text class="new-text-grey new-text-padding">  3220</text>
                         </view>
-                        <view class=" flex-sub cuIcon-favor" :class="0==TabCur?'new-text-red':''"  @tap="tabSelect" :data-id="1">
-                            <text class=" ">Tab54646465441</text>
+                        <view class="flex-sub new-class-sub cuIcon-favor" :class="1==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="1">
+                            <text class="new-text-grey new-text-padding">  5441</text>
                         </view>
-                        <view class=" flex-sub cuIcon-forward" :class="0==TabCur?'new-text-red':''"  @tap="tabSelect" :data-id="2">
-                            <text class=" ">Tab66761456746</text>
+                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="2">
+                            <text class="new-text-grey new-text-padding">  6646</text>
                         </view>
-                         <view class=" flex-sub cuIcon-message" :class="0==TabCur?'new-text-red':''"  @tap="tabSelect" :data-id="3">
-                            <text class=" ">Tab000000</text>
+                         <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="3">
+                            <text class="new-text-grey new-text-padding">9563</text>
                         </view>
 
                     </view>
@@ -51,35 +62,6 @@
 			</view>
 		</view>
 		
-        <view class="cu-card dynamic new-margin-top" :class="isCard?'no-card':''">
-			<view class="cu-item shadow">
-				<view class="cu-list menu-avatar">
-					<view class="cu-item new-cu-item">
-						<view class="cu-avatar round lm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-						<view class="content flex-sub">
-							<view class="new-text-black">凯尔</view>
-							<view class="text-gray text-sm flex justify-between">
-								2019年12月3日
-							</view>                          
-						</view>
-                        <view class="new-text-black" style="width:100upx;">关注</view>
-					</view>
-				</view>
-				<view class="text-content" style="padding:0 24upx;">
-					折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！
-				</view>
-				<view class="grid flex-sub padding-lr-lm " :class="isCard?'col-3 grid-square':'col-1'">
-					<view class="bg-img" :class="isCard?'':'only-img'" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"
-					 v-for="(item,index) in isCard?9:1" :key="index">
-					</view>
-				</view>
-				<view class="text-gray text-sm text-right padding">
-					<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-					<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-					<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-				</view>
-			</view>
-		</view>
 		
 		<view class="cu-tabbar-height"></view>
 	</view>
@@ -230,6 +212,35 @@
 				uni.navigateTo({
 				    url: '../message/home'
 				});
+			},
+			videoPlay(index){
+				if(index==0){
+					console.log('开始')
+				}else{
+					console.log('暂停')
+				}
+				
+			},
+			yinpin(){
+				const innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src = 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3';
+				
+				innerAudioContext.onPlay(() => {
+					console.log('开始播放');
+					console.log(innerAudioContext.paused)
+				});
+				innerAudioContext.pause;
+				innerAudioContext.onPause((res) => {
+					console.log('音频暂停',res);
+				});
+				innerAudioContext.onStop((res) => {
+					console.log('音频停止',res);
+				});
+				innerAudioContext.onError((res) => {
+					console.log(res.errMsg);
+					console.log(res.errCode);
+				});
 			}
 		},
 		mounted() {
@@ -251,8 +262,41 @@
 	border-radius: 50%;
 	-webkit-border-radius: 50%;
 }
+.audio-content{
+	width: 465upx;
+	height: 72upx;
+	line-height: 72upx;
+	background: #2ad0ea;
+	border-radius: 72upx;
+	-webkit-border-radius: 72upx;
+	font-size: 36upx;
+}
+.new-follow{
+	margin-right: 24upx;
+	width: 110upx;
+	height: 50upx;
+	line-height: 50upx;
+	background: #2ad0ea;
+	border-radius: 50upx;
+	-webkit-border-radius: 50upx;
+	font-size: 24upx;
+	color: #ffffff;
+}
 .new-text-red{
     color: #ec0d1b;
+}
+.new-text-grey{
+	color: #acacac;
+}
+.new-text-padding{
+	padding: 0upx 10upx;
+}
+.new-class-sub{
+	width: 25%;
+	overflow: hidden;
+	height: 80upx;
+	line-height: 80upx;
+	box-sizing: border-box;
 }
 </style>>
    

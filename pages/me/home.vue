@@ -33,7 +33,7 @@
 					<text class="text-black">校园圈子</text>
 				</view>
 			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''" @click="openMsg">
+			<view class="cu-item" :class="menuArrow?'arrow':''" @tap="openMsg">
 				<view class="content">
 					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
 					<text class="text-black">交友系列</text>
