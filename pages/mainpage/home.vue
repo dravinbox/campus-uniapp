@@ -275,8 +275,8 @@
 			})
 			//获取导航栏
 			indexApi.getNavigation((res)=>{
-				this.cuIconList = res.data.data;
-				console.log("get navigation:  ",this.cuIconList);
+				//this.cuIconList = res.data.data;
+				//console.log("get navigation:  ",this.cuIconList);
 			})
 			//获取热门帖子
 			indexApi.getHotPost(this.hotdData,(res)=>{
