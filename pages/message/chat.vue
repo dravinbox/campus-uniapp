@@ -1,6 +1,9 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-pink" :isBack="true"><block slot="backText">返回</block><block slot="content">聊天</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-pink" :isBack="true">
+			<block slot="backText">返回</block> <block slot="content" >聊天</block>
+			<view slot="right" class="new-backText">关注</view>
+		</cu-custom>
 		<view class="cu-chat">
 			<view class="cu-item self">
 				<view class="main">
@@ -109,5 +112,17 @@
 <style>
 page{
   padding-bottom: 100upx;
+}
+.new-backText{
+	width: 110rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 24rpx;
+    text-align: center;
+    background: #2ad0ea;
+    color: #ffffff;
+    border: 1px solid #1ccce8;
+    border-radius: 50rpx;
+	-webkit-border-radius: 50rpx; 
 }
 </style>

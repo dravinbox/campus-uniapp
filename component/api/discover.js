@@ -1,7 +1,7 @@
 import api from "./base.js";
 
 function getCategory(data,success){
-    api.post("/api/v1/user/discover/getCategory",data,
+    api.postToken("/api/v1/user/discover/getCategory",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{

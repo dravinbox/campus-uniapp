@@ -3620,6 +3620,11 @@ scroll-view.cu-steps .cu-item {
 	font-size: 36upx;
 	border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
+.new-bg-gradual-white {
+	background: #ffffff;
+	color: #000000;
+	font-size: 36upx;
+}
 
 .shadow[class*="-red"] {
 	box-shadow: 6upx 6upx 8upx rgba(204, 69, 59, 0.2);

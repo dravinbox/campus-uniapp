@@ -132,7 +132,7 @@
 			},
 			openMsg(){
 				uni.navigateTo({
-				    url: '../me/friendship'
+				    url: '../friend/friendship'
 				});
 			}
 		}

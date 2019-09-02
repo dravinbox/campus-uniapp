@@ -18,11 +18,18 @@
 			"style":{}
 		},	
 		{
-			"path": "pages/me/friendship",
+			"path": "pages/friend/friendship",
 			"style": {
 				"navigationBarTitleText": "聊天系列"
 			}
+		},
+		{
+			"path": "pages/friend/release",
+			"style": {
+				"navigationBarTitleText": "故事发布"
+			}
 		}
+		
      
       
     ],

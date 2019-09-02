@@ -93,7 +93,7 @@ export default {
 		uni.request({
 			url: this.getPath() + url,
 			header:{
-				"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoci0sKwjAQQO8y6wQmnXTSdCfoQvADXqCkyQgpqMW0IIh3N7p9nzeUdYQeQrrlOyhYizyHnKA3Ckp8zFLd5XzYDZvtcX-qgbzmKlt2aJ2xXkEOyx-wZ3Q_MC25ToKOkK-kQ0Odth2iDiyNTiG2I3kjFAU-XwAAAP__.2DAACnZL124n-pQLqJZkybXbuu5jjxBUo0xeXv-pIhQ"
+				"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wQyaRKd7gS7EPyAFyixM4EU1NK0IIh3N-L2fd5Q1hu0EPmeH6BgLTL3maFFBWV4TlLd9XLs-t3-dDjXQF5TlT5svGkabxTkuPyBw0A_MC65TknIWoxBExNrx7LV0VmjkSkNnJJFDPD5AgAA__8.xZ7Xz4kjuieUeJdy8M64UoVUclWeHtXfT1Tkd4wgIew"
 			},
 			method: "POST",
 			data:data,
