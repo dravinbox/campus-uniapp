@@ -89,13 +89,33 @@ export default {
 		})
 	},
 
+	
 	postToken: function(url,data,success,fail,complete){
+		let token =  "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNosi80KgzAMgN8lZwuxJLZ4G2wHYZvgC0hcK3SwTazCYOzdjeD1-_lBXgeoQcIrvaGANce5TwHqsoD8-ExRXddeL_3pfGvuGsTvpJIrx977UqskywHQ0g6eS9JpJBpdxWyYRAw5S0ZEyDi0yEw2YkD4bwAAAP__.56D-rmwB1Pby2U5yPP6w8hDIOJt3qjWtZWXBZ3eOVSc"
+		console.log(data)
 		uni.request({
 			url: this.getPath() + url,
 			header:{
-				"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wQyaRKd7gS7EPyAFyixM4EU1NK0IIh3N-L2fd5Q1hu0EPmeH6BgLTL3maFFBWV4TlLd9XLs-t3-dDjXQF5TlT5svGkabxTkuPyBw0A_MC65TknIWoxBExNrx7LV0VmjkSkNnJJFDPD5AgAA__8.xZ7Xz4kjuieUeJdy8M64UoVUclWeHtXfT1Tkd4wgIew"
+				"Authorization":token
 			},
 			method: "POST",
+			data:data,
+			dataType: "json",
+			responseType: "text",
+			success: success,
+			fail: fail,
+			complete: complete
+		})
+	},
+
+	getToken: function(url,data,success,fail,complete){
+		let token =  "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNosi80KgzAMgN8lZwuxJLZ4G2wHYZvgC0hcK3SwTazCYOzdjeD1-_lBXgeoQcIrvaGANce5TwHqsoD8-ExRXddeL_3pfGvuGsTvpJIrx977UqskywHQ0g6eS9JpJBpdxWyYRAw5S0ZEyDi0yEw2YkD4bwAAAP__.56D-rmwB1Pby2U5yPP6w8hDIOJt3qjWtZWXBZ3eOVSc"
+		uni.request({
+			url: this.getPath() + url,
+			header:{
+				"Authorization":token
+			},
+			method: "GET",
 			data:data,
 			dataType: "json",
 			responseType: "text",

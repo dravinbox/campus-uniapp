@@ -8,8 +8,8 @@
 		</cu-custom>
 		
 		<!-- 动态 -->
-		<view v-for="(item,index) in list" :key='index'>
-			<post-list :itemContent='item' :class="index===0?'':'new-margin-top'"></post-list>
+		<view >
+			<post-list  :itemList='list' ></post-list>
 		</view>
 
 		<view class="cu-tabbar-height"></view>
@@ -41,15 +41,23 @@
 			discoverApi.getPostList(this.params,(res)=>{
 				console.log("get tPostList:  ",res.data.data);
 				this.list = [];
-				if(res.data.data.list){
-					res.data.data.list.forEach((item,index) => {
-						console.log(typeof(item.imagesJsonList));
-						console.log(JSON.parse(item.imagesJsonList));
-						item.imagesJsonList = JSON.parse(item.imagesJsonList);
-						this.list.push(item);
-						
-					});
+				if(res.data.code == 200){
+					if(res.data.data.list){
+						res.data.data.list.forEach((item,index) => {
+							console.log(typeof(item.imagesJsonList));
+							console.log(JSON.parse(item.imagesJsonList));
+							if(JSON.parse(item.imagesJsonList)!=null){
+								item.imagesJsonList = JSON.parse(item.imagesJsonList);
+								
+							}else{
+								item.imagesJsonList = []
+							}
+							this.list.push(item);
+							
+						});
+					}
 				}
+				
 				console.log(this.list)
 			})
 		}

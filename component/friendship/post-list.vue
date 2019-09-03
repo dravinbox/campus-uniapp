@@ -1,23 +1,27 @@
 <template name="dynamic">
 		<!-- 动态 -->
-		<view class="cu-card dynamic " :class="isCard?'no-card':''">
+	<view>
+		<view class="cu-card dynamic no-card" :class="newIndex===0?'':'new-margin-top'"  v-for="(newItem,newIndex) in itemList" :key="newIndex">
 			<view class="cu-item shadow">
 				<view class="cu-list menu-avatar new-overflow" >
 					<view class="cu-item new-cu-item">
-						<view class="cu-avatar round lm" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+						<view class="cu-avatar round lm" 
+						:style="[{backgroundImage:'url('+newItem.user.userInfo.headImage||''+')'}]">
+						</view>
 						<view class="content flex-sub">
-							<view class="new-text-black">凯尔 
-								<text class="new-text-background text-center">HOT</text>
+							<view class="new-text-black">{{newItem.user.userInfo.nickName||''}} 
+								<text class="new-text-background text-center" v-if="hotNotes">HOT</text>
 							</view>
 							<view class="text-gray text-sm flex justify-between">
-								{{itemContent.createTime}}
+								{{newItem.createTime|formatTime}}
 							</view>                          
 						</view>
                         <view style="padding-right:24upx;" >
                         	<view class="new-follow text-center" v-if="false">关注</view>
-							<view class="cuIcon-more text-center new-text-gray" >
-								<view class="new-cate-class radius  bg-white" v-if="followCheck==0">
-									<view class="text-center">关注</view>
+							<view class="cuIcon-more text-center new-text-gray" @tap="controlFollowCheck(newIndex)">
+								<view class="new-cate-class radius  bg-white" v-if="followCheck==newIndex" >
+									<view class="text-center" @tap.stop='followEvent(newItem.userId,false)'>关注</view>
+									<!-- <view class="text-center" @tap.stop='followEvent(newItem.userId,true)'>取消关注</view> -->
 									<view class="text-center">私聊</view>
 									<view class="text-center">举报</view>
 								</view>
@@ -26,128 +30,132 @@
 					</view>
 				</view>
 				<view class="text-content new-text-black" style="padding:0 24rpx;" >
-					<text class="new-text-red" style="padding-right:24rpx;">{{itemContent.oneCategory.oneCateName?itemContent.oneCategory.oneCateName:''}}</text> 
-                    {{itemContent.title}}
+					<text class="new-text-red" style="padding-right:24rpx;">{{newItem.oneCategory.oneCateName||''}}</text> 
+                    {{newItem.content||''}}
 				</view>
-                <view class="text-content new-text-black" style="padding:0 24rpx;" >
-                    {{itemContent.content}}
-				</view>
-				<view class="text-content"  style="padding:0 24upx;" @tap='audioStart'>
+				<view class="text-content"  style="padding:0 24upx;" v-if="newItem.voice||true">
 					<view class="audio-content text-white flex">
-						<view class="flex-sub" v-if="audioPaused" >
+						<view class="flex-sub" v-if="audioPaused" @tap='audioStart(newItem.voice)'>
 							<text class="cuIcon-playfill padding-left"></text>
 						</view>
 						<view class="flex-sub" v-else @tap='audioStop'>
-							<text class="cuIcon-stop padding-left"></text>
+							<text class="cuIcon-stop padding-left" style="font-size:50rpx;"></text>
 						</view>
-						<view class="flex-sub text-right" v-if="false">
-							<text class="padding-right" >12</text>
+						<view class="flex-sub text-right" >
+							<text class="padding-right" >{{newItem.voice|timerDuration}}</text>
 						</view>
 					</view>
 				</view>
-				<view class="text-content" style="padding:0 24rpx;">
-					<video id="myVideo" :show-fullscreen-btn='false'  @fullscreenchange='videoPlay(0)'  @play="videoPlay(0)" @pause='videoPlay(1)' style="width:702upx;" src="https://toss.paycore.cc/ts/video/1566288960116.mp4" controls></video>
+				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video||true">
+					<video id="myVideo"  
+					 @fullscreenchange='videoPlay(0)'  @play="videoPlay(0)" @pause='videoPlay(1)' 
+					 style="width:702upx;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
+					  :src="newItem.video||'https://toss.paycore.cc/ts/video/1566288960116.mp4'"  controls>
+					 </video>
 				</view>
-				<view class="grid flex-sub padding-lr-lm " :class="isCard?'col-3 grid-square':'col-1'">
-					<view class="bg-img" :class="isCard?'':'only-img'" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"
-					 v-for="(item,index) in isCard?9:1" :key="index">
-                     <image src='https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png'></image>
+				<view class="grid flex-sub padding-lr-lm " :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
+					<view class="bg-img" :class="isCard?'':'only-img'" 
+					 v-for="(item,index) in newItem.imagesJsonList" :key="index">
+                     <image :src='item.url'></image>
 					</view>
 				</view>
                 <scroll-view scroll-x class="bg-white nav" style="padding:0 24rpx;">
                     <view class="flex text-center">
-                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="0==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="0">
-                            <text class="new-text-grey new-text-padding">  3220</text>
+                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="newItem.userLikePost?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="0">
+                            <text class="new-text-grey new-text-padding">  {{newItem.liked||0}} </text>
                         </view>
-                        <view class="flex-sub new-class-sub cuIcon-favor" :class="1==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="1">
-                            <text class="new-text-grey new-text-padding">  5441</text>
+                        <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="1">
+                            <text class="new-text-grey new-text-padding"> {{newItem.collected||0}}</text>
                         </view>
                         <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="2">
-                            <text class="new-text-grey new-text-padding">  6646</text>
+                            <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
                         </view>
                          <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="3">
-                            <text class="new-text-grey new-text-padding"> 9563</text>
+                            <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
                         </view>
 
                     </view>
                 </scroll-view>
 			</view>
 		</view>
+	</view>
 </template>
 
 <script>
+	import { contollerApi } from '../api/contoller.js';
 	export default {
         name: "postlist",
         props: {
-			itemContent: {
-				type: Object,
-				default:  {}
-            },
+			itemList:{//数据
+				type:Array,
+				default:[]
+			},
+			hotNotes:{//是否是热帖
+				type:Boolean,
+				default:false
+			}
+
 		},
 		data() {
 			return {
 				isCard: true,
-				cardCur: 0,
-				swiperDataList: [],
-				
-				towerStart: 0,
-				direction: '',
-				PageCur:'',
 				TabCur:0,
-				gridCol: 4,
-				gridRow: 3,
-				gridBorder: false,
-				hotdData:{
-					"pageNum": 1,
-					"pageSize": 5
-				},
-				hotList:[],
-				current: {
-					poster: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg',
-					name: '致爱丽丝',
-					author: '暂无',
-					src: 'https://toss.paycore.cc/ts/voice/1566290016520.mp3',
-				},
-				audioAction: {
-					method: 'pause'
-				},
 				innerAudioContext:null,
 				audioPaused:true,
-				followCheck:1,//控制右边的三个点内容的现实
+				duration:'',//音频长度
+				followCheck:null,//控制右边的三个点内容的现实
 			};
 		},
 		filters: {
 			formatTime(date) {
-				console.log(date,'参数')
-				// if (typeof date !== 'object') {
-				// 	date = date.replace(/-/g, '/');
-				// }
+				//console.log(date,'参数')
 				// console.log(date)
 				let oldDate = new Date(date);
-				let newDate = new Date();
-				let oldTime = oldDate.getTime();
-				let newTime = newDate.getTime();
-				let times = newTime - oldTime;
-				let day=0,hour=0,minute=0,second=0;//时间默认值
-				if(times > 0){
-					day = Math.floor(times/1000 / (60 * 60 * 24));
-					hour = Math.floor(times/1000 /(60 * 60)%24);
-					minute = Math.floor(times/1000 /60%60);
-					second = Math.floor(times/1000%60);
-				}
-				if(day){
-					console.log(day)
-					return day + "天前";
-				}else if(hour){
-					return hour + "小时前";
-				}else if(minute){
-					return minute + "分钟前";
+				if(false){
+					let oldTime = oldDate.getTime();
+					let newDate = new Date();
+					let newTime = newDate.getTime();
+					let times = newTime - oldTime;
+					let day=0,hour=0,minute=0,second=0;//时间默认值
+					if(times > 0){
+						day = Math.floor(times/1000 / (60 * 60 * 24));
+						hour = Math.floor(times/1000 /(60 * 60)%24);
+						minute = Math.floor(times/1000 /60%60);
+						second = Math.floor(times/1000%60);
+					}
+					if(day){
+						console.log(day)
+						return day + "天前";
+					}else if(hour){
+						return hour + "小时前";
+					}else if(minute){
+						return minute + "分钟前";
+					}else{
+						return second + '秒前';
+					}
 				}else{
-					return second + '秒前';
+					let y = oldDate.getFullYear();
+					let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
+					let d = oldDate.getDate() < 10 ? '0' + oldDate.getDate() : oldDate.getDate(); // 获取当前几号，不足10补0
+					let h =  oldDate.getHours() < 10 ? '0' + oldDate.getHours() : oldDate.getHours(); // 获取当前几点，不足10补0
+					let minute =  oldDate.getMinutes() < 10 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(); // 获取当前几分，不足10补0
+					return y + '-' + m + '-' + d +'  '+h+':'+minute;
 				}
+				
+			},
+			timerDuration(voiceSrc){
+				let innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = false;
+				innerAudioContext.src = voiceSrc||'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3';
+				//console.log(innerAudioContext.duration,innerAudioContext)
+				return Math.round(innerAudioContext.duration)||'';
 			}
 		},
 		methods: {
+			tabSelect(e) {//点赞 收藏 转发 评论
+				this.TabCur = e.currentTarget.dataset.id;
+				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+			},
 			jumpTo(url){
 				console.log(url);
 				if(url != undefined && url != null){
@@ -155,6 +163,24 @@
 						url: url
 					})
 				}
+			},
+			controlFollowCheck(index){//控制右边的三个点 
+				this.followCheck = index;
+				console.log(this.followCheck)
+			},
+			followEvent(userId,check = false){//关注和取消关注
+				if(check){
+					contollerApi.unSubcribeUser('/'+userId,{},(res)=>{
+						//console.log(res.data)
+						console.log('取消关注',userId)
+					})
+				}else{
+					contollerApi.subcribeUser('/'+userId,{},(res)=>{
+						//console.log(res.data)
+						console.log('关注',userId)
+					})
+				}
+									
 			},
 			openIndex(){
 				console.log('open index')
@@ -172,16 +198,21 @@
 				}
 				
 			},
-			audioStart(){//音频的开始播放
+			audioStart(voiceSrc){//音频的开始播放
 				this.innerAudioContext = uni.createInnerAudioContext();
 				this.innerAudioContext.autoplay = true;
-				this.innerAudioContext.src = 'https://toss.paycore.cc/ts/voice/1566290016520.mp3';
-				
+				this.innerAudioContext.src = voiceSrc||'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3';
+				console.log(this.innerAudioContext)
 				this.innerAudioContext.onPlay(() => {
 					console.log('开始播放');
-					console.log(this.innerAudioContext.paused)
+					console.log(this.innerAudioContext.duration,this.innerAudioContext)
+					this.duration = Math.round(this.innerAudioContext.duration)
 				});
+				console.log(JSON.stringify(this.innerAudioContext))
 				this.audioPaused = false;
+				// this.innerAudioContext.onTimeUpdate(() =>{//音频播放进度更新事件
+				// 	console.log(this.innerAudioContext.currentTime)
+				// })
 				
 				this.innerAudioContext.onError((res) => {
 					console.log(res.errMsg);
@@ -190,18 +221,14 @@
 				this.innerAudioContext.onEnded(() => {
 					console.log('音频结束');
 					this.audioPaused = true;
-					this.innerAudioContext.destroy()
+					
 				});
 				
 			},
 
 			audioStop(){//音频的开始播放
-				this.innerAudioContext.pause();
-				this.innerAudioContext.onPause((res) => {
-					console.log('音频暂停',res);
-					this.audioPaused = true;
-					console.log(this.innerAudioContext.paused)
-				});
+				this.innerAudioContext.stop();
+				console.log('停止');
 				this.innerAudioContext.onStop((res) => {
 					this.audioPaused = true;
 					console.log('音频停止',res);
@@ -215,6 +242,14 @@
 		},
 		mounted() {
 		
+		},
+		beforeDestroy(){
+			try {
+				this.audioStop();
+				this.innerAudioContext.destroy();
+			} catch (error) {
+				this.innerAudioContext = null;
+			}
 		}
 	}
 </script>

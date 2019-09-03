@@ -85,7 +85,11 @@
 			<view class="action">
 				<text class="cuIcon-emojifill text-grey"></text>
 			</view>
-			<button class="cu-btn bg-green shadow">发送</button>
+			<view class="action">
+				<text class="cuIcon-roundadd text-grey"></text>
+			</view>
+			
+			<!-- <button class="cu-btn bg-green shadow">发送</button> -->
 		</view>
 
 	</view>

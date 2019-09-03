@@ -89,10 +89,10 @@
 							:action="audioAction" controls></audio>
 					</view>
 					<view v-if="item.video">
-						<video id="myVideo" style="width:690upx;" :src="item.video" controls></video>
+						<video id="myVideo" :show-fullscreen-btn='false' objectFit='cover' style="width:690upx;font-size:14px;" :src="item.video" controls></video>
 					</view>
 					<view class="cu-tag bg-blue">{{item.oneCategory?item.oneCategory.oneCateName:'史诗'}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{item.title}}</text></view>
+					<!-- <view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{item.title}}</text></view> -->
 				</view>
 				<view class="cu-list menu-avatar">
 					<view class="cu-item">
