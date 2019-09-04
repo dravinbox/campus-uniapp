@@ -21,99 +21,12 @@
 		</view>
 		
 		<!-- 热门 -->
-		<view class="cu-card case" :class="isCard?'no-card':''">
-			<view class="cu-item shadow">
-				<view class="image">
-					<image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg"
-					 mode="widthFix"></image>
-					<view class="cu-tag bg-blue">史诗</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。</text></view>
-				</view>
-				<view class="cu-list menu-avatar">
-					<view class="cu-item">
-						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-						<view class="content flex-sub">
-							<view class="text-grey">正义天使 凯尔</view>
-							<view class="text-gray text-sm flex justify-between">
-								十天前
-								<view class="text-gray text-sm">
-									<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-									<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-									<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
+		<view class="text-content new-text-black" style="padding:0 24rpx;" >
+					热门
 		</view>
-		
-		<view class="cu-card case" :class="isCard?'no-card':''">
-			<view class="cu-item shadow">
-				<view class="image">
-					<image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg"
-					 mode="widthFix"></image>
-					<view class="cu-tag bg-blue">史诗</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。</text></view>
-				</view>
-				<view class="cu-list menu-avatar">
-					<view class="cu-item">
-						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg);"></view>
-						<view class="content flex-sub">
-							<view class="text-grey">正义天使 凯尔</view>
-							<view class="text-gray text-sm flex justify-between">
-								十天前
-								<view class="text-gray text-sm">
-									<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-									<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-									<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
+		<view >
+			<post-list  :itemList='hotList' :hotNotes='true' ></post-list>
 		</view>
-
-
-		<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item,index) in hotList" :key="index">
-			<view class="cu-item shadow">
-
-				<view class="image" >
-					<view v-if="item.imagesJsonList">
-						<image  :src="index%2==0?'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg':'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'"
-						mode="widthFix"></image>
-					</view>
-					<view class="uni-center" style="height:175px;width:600upx; margin:0 auto;" v-if="item.voice">
-							<audio style="text-align: left" :src="item.voice" :poster="current.poster" :name="item.title" :author="current.author"
-							:action="audioAction" controls></audio>
-					</view>
-					<view v-if="item.video">
-						<video id="myVideo" :show-fullscreen-btn='false' objectFit='cover' style="width:690upx;font-size:14px;" :src="item.video" controls></video>
-					</view>
-					<view class="cu-tag bg-blue">{{item.oneCategory?item.oneCategory.oneCateName:'史诗'}}</view>
-					<!-- <view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{item.title}}</text></view> -->
-				</view>
-				<view class="cu-list menu-avatar">
-					<view class="cu-item">
-						<view class="cu-avatar round lg" >
-							<image :src="item.user.headImage?item.user.headImage:'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'" ></image>
-						</view>
-						<view class="content flex-sub">
-							<view class="text-grey">{{item.user?item.user.nickName:'正义天使 凯尔'}}</view>
-							<view class="text-gray text-sm flex justify-between">
-								{{ item.createTime | formatTime }}
-								<view class="text-gray text-sm">
-									<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-									<text class="cuIcon-appreciatefill margin-lr-xs"></text> {{item.liked}}
-									<text class="cuIcon-messagefill margin-lr-xs"></text> {{item.comment}}
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>		
 		
 		<view class="cu-tabbar-height"></view>
 	</view>
@@ -122,12 +35,13 @@
 <script>
 	import {indexApi} from '../../component/api/index.js'
 	import swiperList from './../../colorui/components/swiper-list.vue'
+	import postList from './../../component/friendship/post-list.vue'
 	export default {
-		components: {swiperList},
+		components: {swiperList,postList},
 		name: "mainpage",
 		data() {
 			return {
-				isCard: false,
+				isCard: true,
 				cardCur: 0,
 				swiperDataList: [],
 				
@@ -204,7 +118,7 @@
 				gridBorder: false,
 				hotdData:{
 					"pageNum": 1,
-					"pageSize": 5
+					"pageSize": 10
 				},
 				hotList:[],
 				current: {
@@ -274,21 +188,33 @@
 				console.log("get swiper:  ",this.swiperDataList);
 			})
 			//获取导航栏
-			indexApi.getNavigation((res)=>{
-				//this.cuIconList = res.data.data;
-				//console.log("get navigation:  ",this.cuIconList);
-			})
+			// indexApi.getNavigation((res)=>{
+			// 	//this.cuIconList = res.data.data;
+			// 	//console.log("get navigation:  ",this.cuIconList);
+			// })
 			//获取热门帖子
 			indexApi.getHotPost(this.hotdData,(res)=>{
-				this.hotList = res.data.data.list;
-				res.data.data.list.forEach((item,index) => {
-					console.log(typeof(item.imagesJsonList))
+				if(this.hotdData.pageNum==1){
+					this.hotList = []
+				}
+				if(res.data.code == 200){
+					if(res.data.data.list){
+						res.data.data.list.forEach((item,index) => {
+							console.log(typeof(item.imagesJsonList))
 
-						console.log(JSON.parse(item.imagesJsonList))
-						item.imagesJsonList = JSON.parse(item.imagesJsonList)
-					
-					
-				});
+							console.log(JSON.parse(item.imagesJsonList))
+							if(JSON.parse(item.imagesJsonList)!=null){
+								item.imagesJsonList = JSON.parse(item.imagesJsonList);
+								
+							}else{
+								item.imagesJsonList = []
+							}
+							this.hotList.push(item);
+							
+						});
+					}
+				}
+				
 				console.log("get hotPost:  ",this.hotList);
 			})
 		}

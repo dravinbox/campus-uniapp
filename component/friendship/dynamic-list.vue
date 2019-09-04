@@ -29,7 +29,7 @@
 				params:{
 					"oneCateId": 1,
 					"pageNum": 1,
-					"pageSize": 5,
+					"pageSize": 10,
 					"pullLast": false,
 				},
 			};
@@ -46,6 +46,7 @@
 						res.data.data.list.forEach((item,index) => {
 							console.log(typeof(item.imagesJsonList));
 							console.log(JSON.parse(item.imagesJsonList));
+							item.videoPaused = false;
 							if(JSON.parse(item.imagesJsonList)!=null){
 								item.imagesJsonList = JSON.parse(item.imagesJsonList);
 								

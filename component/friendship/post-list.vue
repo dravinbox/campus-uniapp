@@ -2,7 +2,7 @@
 		<!-- 动态 -->
 	<view>
 		<view class="cu-card dynamic no-card" :class="newIndex===0?'':'new-margin-top'"  v-for="(newItem,newIndex) in itemList" :key="newIndex">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap='openIndex'>
 				<view class="cu-list menu-avatar new-overflow" >
 					<view class="cu-item new-cu-item">
 						<view class="cu-avatar round lm" 
@@ -18,10 +18,10 @@
 						</view>
                         <view style="padding-right:24upx;" >
                         	<view class="new-follow text-center" v-if="false">关注</view>
-							<view class="cuIcon-more text-center new-text-gray" @tap="controlFollowCheck(newIndex)">
+							<view class="cuIcon-more text-center new-text-gray" @tap.stop="controlFollowCheck(newIndex)">
 								<view class="new-cate-class radius  bg-white" v-if="followCheck==newIndex" >
-									<view class="text-center" @tap.stop='followEvent(newItem.userId,false)'>关注</view>
-									<!-- <view class="text-center" @tap.stop='followEvent(newItem.userId,true)'>取消关注</view> -->
+									<view class="text-center" v-if="!newItem.fan" @tap.stop='followEvent(newItem.userId,false,newIndex)'>关注</view>
+									<view class="text-center" v-else @tap.stop='followEvent(newItem.userId,true,newIndex)'>取消关注</view>
 									<view class="text-center">私聊</view>
 									<view class="text-center">举报</view>
 								</view>
@@ -33,35 +33,44 @@
 					<text class="new-text-red" style="padding-right:24rpx;">{{newItem.oneCategory.oneCateName||''}}</text> 
                     {{newItem.content||''}}
 				</view>
-				<view class="text-content"  style="padding:0 24upx;" v-if="newItem.voice||true">
+				<view class="text-content"  style="padding:0 24upx;" v-if="newItem.voice">
 					<view class="audio-content text-white flex">
-						<view class="flex-sub" v-if="audioPaused" @tap='audioStart(newItem.voice)'>
-							<text class="cuIcon-playfill padding-left"></text>
-						</view>
-						<view class="flex-sub" v-else @tap='audioStop'>
+					
+						<view class="flex-sub" v-if="audioPaused==newIndex"  @tap='audioStop(newIndex)'>
 							<text class="cuIcon-stop padding-left" style="font-size:50rpx;"></text>
+						</view>
+						<view class="flex-sub" v-else  @tap='audioStart(newItem.voice,newIndex)'>
+							<text class="cuIcon-playfill padding-left"></text>
 						</view>
 						<view class="flex-sub text-right" >
 							<text class="padding-right" >{{newItem.voice|timerDuration}}</text>
 						</view>
 					</view>
-				</view>
-				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video||true">
-					<video id="myVideo"  
-					 @fullscreenchange='videoPlay(0)'  @play="videoPlay(0)" @pause='videoPlay(1)' 
+				</view>		
+				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video||true&&newItem.videoPaused">
+					<video :id="'myVideo'+newIndex"  
+						@play="videoPlay(0,$event,newIndex)" @pause='videoPlay(1,$event,newIndex)' 
 					 style="width:702upx;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
 					  :src="newItem.video||'https://toss.paycore.cc/ts/video/1566288960116.mp4'"  controls>
 					 </video>
 				</view>
-				<view class="grid flex-sub padding-lr-lm " :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
+				<view class="text-content" style="padding:0 24rpx;" v-else-if="newItem.video||true&&!newItem.videoPaused">
+					<video :id="'myVidoo'+newIndex"  
+						@play="videoPlay(0,$event,newIndex)" @pause='videoPlay(1,$event,newIndex)' 	
+					 style="width:702upx;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
+					  :src="newItem.video||'https://toss.paycore.cc/ts/video/1566288960116.mp4'"  controls>
+					 </video>
+				</view>
+				<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
 					<view class="bg-img" :class="isCard?'':'only-img'" 
 					 v-for="(item,index) in newItem.imagesJsonList" :key="index">
                      <image :src='item.url'></image>
 					</view>
 				</view>
+				
                 <scroll-view scroll-x class="bg-white nav" style="padding:0 24rpx;">
                     <view class="flex text-center">
-                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="newItem.userLikePost?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="0">
+                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="newItem.userLikePost!= null?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="0">
                             <text class="new-text-grey new-text-padding">  {{newItem.liked||0}} </text>
                         </view>
                         <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="1">
@@ -101,9 +110,11 @@
 				isCard: true,
 				TabCur:0,
 				innerAudioContext:null,
-				audioPaused:true,
+				audioPaused:null,
 				duration:'',//音频长度
 				followCheck:null,//控制右边的三个点内容的现实
+				videoContext:null,
+				recordId:'',
 			};
 		},
 		filters: {
@@ -165,79 +176,144 @@
 				}
 			},
 			controlFollowCheck(index){//控制右边的三个点 
-				this.followCheck = index;
+				if(index == this.followCheck){
+					this.followCheck = null;
+				}else{
+					this.followCheck = index;
+				}
+				
 				console.log(this.followCheck)
 			},
-			followEvent(userId,check = false){//关注和取消关注
+			followEvent(userId,check = false,index){//关注和取消关注
 				if(check){
 					contollerApi.unSubcribeUser('/'+userId,{},(res)=>{
 						//console.log(res.data)
-						console.log('取消关注',userId)
+						if(res.data.code == 200){
+							this.itemList[index].fan = null;
+							uni.showToast({
+								title: '取消关注',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});
+						}
+						//console.log('取消关注',userId)
+						
 					})
 				}else{
 					contollerApi.subcribeUser('/'+userId,{},(res)=>{
 						//console.log(res.data)
-						console.log('关注',userId)
+						//console.log('关注',userId)
+						if(res.data.code == 200){
+							this.itemList[index].fan ={};
+							uni.showToast({
+								title: '关注成功',
+								mask:true,
+								duration: 2000
+							});
+						}else if(res.data.code ==405){
+							uni.showToast({
+								title: res.data.data,
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});
+						}
+						
 					})
 				}
+				//this.followCheck = null;
 									
 			},
 			openIndex(){
-				console.log('open index')
+				if(this.followCheck != null){
+					this.followCheck = null;
+					console.log('open index')
+				}
+				
 			},
 			navToMsgPage(){
 				uni.navigateTo({
 				    url: '../message/home'
 				});
 			},
-			videoPlay(index){
+
+			videoPlay(index,e){
 				if(index==0){
-					console.log('开始')
+					console.log('新的开始')
+					try {
+						if(this.videoContext){
+							// console.log(this.recordId)
+							// this.videoContext = uni.createVideoContext(this.recordId)
+							// this.videoContext.play();
+							// this.videoContext.pause()
+							// this.videoContext.stop()
+							console.log(this.videoContext)
+						}
+						console.log(this.videoContext)
+					} catch (error) {
+						this.videoContext = null;
+						console.log(error)
+					}
+					this.videoContext = uni.createVideoContext(e.currentTarget.id)
+					this.recordId = e.currentTarget.id
 				}else{
+					this.videoContext = null;
 					console.log('暂停')
 				}
-				
 			},
-			audioStart(voiceSrc){//音频的开始播放
+
+			audioStart(voiceSrc,index){//音频的开始播放
+				
+				try {
+					this.audioStop()
+					this.innerAudioContext.destroy()
+				} catch (error) {
+					this.innerAudioContext = null;
+				}
 				this.innerAudioContext = uni.createInnerAudioContext();
 				this.innerAudioContext.autoplay = true;
 				this.innerAudioContext.src = voiceSrc||'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3';
-				console.log(this.innerAudioContext)
+				console.log(voiceSrc);
+				this.audioPaused = index;
 				this.innerAudioContext.onPlay(() => {
 					console.log('开始播放');
 					console.log(this.innerAudioContext.duration,this.innerAudioContext)
 					this.duration = Math.round(this.innerAudioContext.duration)
 				});
-				console.log(JSON.stringify(this.innerAudioContext))
-				this.audioPaused = false;
+				//console.log(JSON.stringify(this.innerAudioContext))
 				// this.innerAudioContext.onTimeUpdate(() =>{//音频播放进度更新事件
 				// 	console.log(this.innerAudioContext.currentTime)
 				// })
-				
 				this.innerAudioContext.onError((res) => {
 					console.log(res.errMsg);
 					console.log(res.errCode);
+					this.audioPaused = null;
 				});
 				this.innerAudioContext.onEnded(() => {
 					console.log('音频结束');
-					this.audioPaused = true;
-					
+					this.audioPaused = null;
+					this.innerAudioContext.destroy()
 				});
 				
 			},
 
 			audioStop(){//音频的开始播放
-				this.innerAudioContext.stop();
-				console.log('停止');
-				this.innerAudioContext.onStop((res) => {
-					this.audioPaused = true;
-					console.log('音频停止',res);
-				});
-				this.audioPaused = true;
-				this.innerAudioContext.onError((res) => {
-					console.log(res.errMsg);
-					console.log(res.errCode);
-				});
+				try {
+					this.innerAudioContext.stop();
+					this.innerAudioContext.destroy()
+					console.log('停止');
+					this.innerAudioContext.onStop(() => {
+						console.log('音频停止');
+					});
+					this.audioPaused = null;
+					this.innerAudioContext.onError((res) => {
+						console.log(res.errMsg);
+						console.log(res.errCode);
+					});
+				} catch (error) {
+					this.audioPaused = null;
+				}
 			}
 		},
 		mounted() {
@@ -269,6 +345,8 @@
 }
 .new-overflow{
 	overflow: visible !important;
+	position: relative;
+	z-index: 9996;
 }
 .audio-content{
 	width: 465upx;
@@ -305,6 +383,8 @@
 	padding-top: 10rpx;
 	border: 1px solid #f3f3f3;
 	z-index: 10000;
+	border-radius: 12rpx;
+	-webkit-border-radius: 12rpx;
 	box-shadow: #e8e8e8 0px 0px 5px 1px ;
 }
 .new-cate-class:before{
@@ -338,7 +418,7 @@
 	display: block;
 	content:'';
 	z-index:10
-    }
+}
 .new-cate-class .text-center{
 	font-size: 30rpx;
 	color: #000000;

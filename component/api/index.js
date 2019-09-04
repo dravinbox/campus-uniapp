@@ -18,7 +18,7 @@
 	 })
  }
  function getHotPost(data,success){
-	api.post("/api/v1/user/index/getHotPostResources",
+	api.postToken("/api/v1/user/index/getHotPostResources",
 	data,
 	success,(res)=>{
 		console.log("fail: ",res)

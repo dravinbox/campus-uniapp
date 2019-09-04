@@ -20,7 +20,7 @@ function getUserChatInfo(data,success){
 
 
 function subcribeUser(url,data,success){//关注
-    api.postToken("/api/v1/user/im/subcribeUser"+url,data,
+    api.postToken("/api/v1/user/im/subscribeUser"+url,data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -29,7 +29,7 @@ function subcribeUser(url,data,success){//关注
 }
 
 function unSubcribeUser(url,data,success){//取消关注
-    api.postToken("/api/v1/user/im/unSubcribeUser"+url,data,
+    api.postToken("/api/v1/user/im/unSubscribeUser"+url,data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{

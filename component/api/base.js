@@ -57,9 +57,6 @@ export default {
 	post: function(url,data,success,fail,complete){
 		uni.request({
 			url: this.getPath() + url,
-			header:{
-				"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wSamJl0uhPsQvADXqCk7QRSUEvTgiDe3Yjb93lD3npoIIz39AAFW5alSyM0RkEenrMUd7ue2m5_OB8vJZDXXCQS7WrLnhSksP6BZcIfmNZUptpFW3nptR3YaceCmiNGbUIlSN57IwyfLwAAAP__.T4ZtFfNZPxNzABRqV3i35ApHFx3HLorRse6ie5iWa88"
-			},
 			method: "POST",
 			data:data,
 			dataType: "json",
@@ -91,7 +88,7 @@ export default {
 
 	
 	postToken: function(url,data,success,fail,complete){
-		let token =  "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNosi80KgzAMgN8lZwuxJLZ4G2wHYZvgC0hcK3SwTazCYOzdjeD1-_lBXgeoQcIrvaGANce5TwHqsoD8-ExRXddeL_3pfGvuGsTvpJIrx977UqskywHQ0g6eS9JpJBpdxWyYRAw5S0ZEyDi0yEw2YkD4bwAAAP__.56D-rmwB1Pby2U5yPP6w8hDIOJt3qjWtZWXBZ3eOVSc"
+		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wSMzmRsd4JdFLSCFyiTNIEI2tK0IIh3b8Tt-3wgrw5qkOGZXqBgzWHu0wC1UZD9OIXi7rdL05_O17YrQXhPRZJla_fErCDJ8gfE1vzAY0llYqZd9OQ0egoaKz5qiRS1HLByGMkgC3w3AAAA__8.oR-kuCjy0DPjCspe81d8Z9pLItov-7Rj8q9Ql1WknqM"
 		console.log(data)
 		uni.request({
 			url: this.getPath() + url,
@@ -109,7 +106,7 @@ export default {
 	},
 
 	getToken: function(url,data,success,fail,complete){
-		let token =  "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNosi80KgzAMgN8lZwuxJLZ4G2wHYZvgC0hcK3SwTazCYOzdjeD1-_lBXgeoQcIrvaGANce5TwHqsoD8-ExRXddeL_3pfGvuGsTvpJIrx977UqskywHQ0g6eS9JpJBpdxWyYRAw5S0ZEyDi0yEw2YkD4bwAAAP__.56D-rmwB1Pby2U5yPP6w8hDIOJt3qjWtZWXBZ3eOVSc"
+		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wSMzmRsd4JdFLSCFyiTNIEI2tK0IIh3b8Tt-3wgrw5qkOGZXqBgzWHu0wC1UZD9OIXi7rdL05_O17YrQXhPRZJla_fErCDJ8gfE1vzAY0llYqZd9OQ0egoaKz5qiRS1HLByGMkgC3w3AAAA__8.oR-kuCjy0DPjCspe81d8Z9pLItov-7Rj8q9Ql1WknqM"
 		uni.request({
 			url: this.getPath() + url,
 			header:{
