@@ -76,7 +76,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {
-                    "target" : "http://120.24.236.181",
+                    "target" : "http://120.24.236.181:8080",
                     "changeOrigin" : true,
                     "secure" : false
                 }

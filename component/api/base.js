@@ -35,11 +35,11 @@ export default {
 			env = "dev"
 		}
 		try {
-			console.log(window.location.href)
+			window.location.href
 			return ''
 		} catch (error) {
 			//console.log(error)
-			return this.map[env].protocol+"://"+this.map[env].domain
+			return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 		}
 
 		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
@@ -88,7 +88,7 @@ export default {
 
 	
 	postToken: function(url,data,success,fail,complete){
-		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wSMzmRsd4JdFLSCFyiTNIEI2tK0IIh3b8Tt-3wgrw5qkOGZXqBgzWHu0wC1UZD9OIXi7rdL05_O17YrQXhPRZJla_fErCDJ8gfE1vzAY0llYqZd9OQ0egoaKz5qiRS1HLByGMkgC3w3AAAA__8.oR-kuCjy0DPjCspe81d8Z9pLItov-7Rj8q9Ql1WknqM"
+		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRSM50k3Qm6EPxAL1CSZgIR1GJaEMS7m9Lt-3yhLAE68PGRnyBgKfwecoSuEVDG18TV9bfzcdgfLqdrDfgzVdmSMehUiwKynzdAtKMV3Odcp8jKW59Y6tQoiZpRumCcdKStJZNsxAC_PwAAAP__.e7UsXA8Xhu6kT8FfRJzRqa5j1cR4jpCo5DrKVk9Vi8A"
 		console.log(data)
 		uni.request({
 			url: this.getPath() + url,
@@ -106,7 +106,7 @@ export default {
 	},
 
 	getToken: function(url,data,success,fail,complete){
-		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wSMzmRsd4JdFLSCFyiTNIEI2tK0IIh3b8Tt-3wgrw5qkOGZXqBgzWHu0wC1UZD9OIXi7rdL05_O17YrQXhPRZJla_fErCDJ8gfE1vzAY0llYqZd9OQ0egoaKz5qiRS1HLByGMkgC3w3AAAA__8.oR-kuCjy0DPjCspe81d8Z9pLItov-7Rj8q9Ql1WknqM"
+		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRSM50k3Qm6EPxAL1CSZgIR1GJaEMS7m9Lt-3yhLAE68PGRnyBgKfwecoSuEVDG18TV9bfzcdgfLqdrDfgzVdmSMehUiwKynzdAtKMV3Odcp8jKW59Y6tQoiZpRumCcdKStJZNsxAC_PwAAAP__.e7UsXA8Xhu6kT8FfRJzRqa5j1cR4jpCo5DrKVk9Vi8A"
 		uni.request({
 			url: this.getPath() + url,
 			header:{

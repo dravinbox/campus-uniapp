@@ -184,8 +184,11 @@
 		mounted() {
 			//获取轮播图
 			indexApi.getSwiper((res)=>{
-				this.swiperDataList = res.data.data;
-				console.log("get swiper:  ",this.swiperDataList);
+				if(res.data.code==200){
+					this.swiperDataList = res.data.data;
+					console.log("get swiper:  ",this.swiperDataList);
+				}
+				
 			})
 			//获取导航栏
 			// indexApi.getNavigation((res)=>{
@@ -201,7 +204,8 @@
 					if(res.data.data.list){
 						res.data.data.list.forEach((item,index) => {
 							console.log(typeof(item.imagesJsonList))
-
+							item.videoPaused = true;
+							// item.video = 'https://toss.paycore.cc/ts/video/1566288960116.mp4';
 							console.log(JSON.parse(item.imagesJsonList))
 							if(JSON.parse(item.imagesJsonList)!=null){
 								item.imagesJsonList = JSON.parse(item.imagesJsonList);

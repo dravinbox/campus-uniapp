@@ -2,7 +2,7 @@
 		<!-- 动态 -->
 	<view>
 		<view class="cu-card dynamic no-card" :class="newIndex===0?'':'new-margin-top'"  v-for="(newItem,newIndex) in itemList" :key="newIndex">
-			<view class="cu-item shadow" @tap='openIndex'>
+			<view class="cu-item shadow" @tap='openIndex' >
 				<view class="cu-list menu-avatar new-overflow" >
 					<view class="cu-item new-cu-item">
 						<view class="cu-avatar round lm" 
@@ -47,19 +47,16 @@
 						</view>
 					</view>
 				</view>		
-				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video||true&&newItem.videoPaused">
+				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video&&newItem.videoPaused" >
 					<video :id="'myVideo'+newIndex"  
-						@play="videoPlay(0,$event,newIndex)" @pause='videoPlay(1,$event,newIndex)' 
-					 style="width:702upx;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
-					  :src="newItem.video||'https://toss.paycore.cc/ts/video/1566288960116.mp4'"  controls>
+						@play="videoPlay(0,newIndex)" @pause='videoPlay(1,newIndex)' 
+					 style="width:702upx;height:225px;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
+					  :src="newItem.video"  controls>
 					 </video>
 				</view>
-				<view class="text-content" style="padding:0 24rpx;" v-else-if="newItem.video||true&&!newItem.videoPaused">
-					<video :id="'myVidoo'+newIndex"  
-						@play="videoPlay(0,$event,newIndex)" @pause='videoPlay(1,$event,newIndex)' 	
-					 style="width:702upx;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
-					  :src="newItem.video||'https://toss.paycore.cc/ts/video/1566288960116.mp4'"  controls>
-					 </video>
+				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video&&!newItem.videoPaused">
+					<view :id="'myVideo'+newIndex"   style="width:702upx;height:232px;" class="radius" >
+					</view>
 				</view>
 				<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
 					<view class="bg-img" :class="isCard?'':'only-img'" 
@@ -114,7 +111,7 @@
 				duration:'',//音频长度
 				followCheck:null,//控制右边的三个点内容的现实
 				videoContext:null,
-				recordId:'',
+				recordVideoIndex:null,
 			};
 		},
 		filters: {
@@ -238,29 +235,30 @@
 				});
 			},
 
-			videoPlay(index,e){
+			videoPlay(index,newIndex){
+				//console.log('之前', document.body.scrollHeight)
 				if(index==0){
 					console.log('新的开始')
-					try {
-						if(this.videoContext){
-							// console.log(this.recordId)
-							// this.videoContext = uni.createVideoContext(this.recordId)
-							// this.videoContext.play();
-							// this.videoContext.pause()
-							// this.videoContext.stop()
-							console.log(this.videoContext)
-						}
-						console.log(this.videoContext)
-					} catch (error) {
-						this.videoContext = null;
-						console.log(error)
+					if(this.recordVideoIndex!=null &&newIndex != this.recordVideoIndex){
+						let num  = this.recordVideoIndex;
+						console.log(this.recordVideoIndex)
+						this.itemList[this.recordVideoIndex].videoPaused=false;
+						console.log('关闭之前的',this.itemList[this.recordVideoIndex].videoPaused)
+						//console.log('之前', document.body.scrollHeight)
+						setTimeout(()=>{
+							  this.itemList[num].videoPaused=true;
+							// console.log('之后', document.body.scrollHeight)//
+						},200)
+						
+					}else{
+						console.log('false',this.recordVideoIndex)
 					}
-					this.videoContext = uni.createVideoContext(e.currentTarget.id)
-					this.recordId = e.currentTarget.id
+					this.recordVideoIndex = newIndex;
 				}else{
 					this.videoContext = null;
 					console.log('暂停')
 				}
+				
 			},
 
 			audioStart(voiceSrc,index){//音频的开始播放
@@ -273,7 +271,7 @@
 				}
 				this.innerAudioContext = uni.createInnerAudioContext();
 				this.innerAudioContext.autoplay = true;
-				this.innerAudioContext.src = voiceSrc||'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3';
+				this.innerAudioContext.src = voiceSrc;
 				console.log(voiceSrc);
 				this.audioPaused = index;
 				this.innerAudioContext.onPlay(() => {
@@ -418,6 +416,10 @@
 	display: block;
 	content:'';
 	z-index:10
+}
+.bg-img image{
+	width: 100%;
+	will-change: transform;
 }
 .new-cate-class .text-center{
 	font-size: 30rpx;

@@ -45,11 +45,11 @@
 					if(res.data.data.list){
 						res.data.data.list.forEach((item,index) => {
 							console.log(typeof(item.imagesJsonList));
-							console.log(JSON.parse(item.imagesJsonList));
-							item.videoPaused = false;
+							//console.log(JSON.parse(item.imagesJsonList));
+							item.videoPaused = true;
+							item.video = 'https://toss.paycore.cc/ts/video/1566288960116.mp4';
 							if(JSON.parse(item.imagesJsonList)!=null){
 								item.imagesJsonList = JSON.parse(item.imagesJsonList);
-								
 							}else{
 								item.imagesJsonList = []
 							}
