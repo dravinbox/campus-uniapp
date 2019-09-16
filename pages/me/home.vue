@@ -1,105 +1,37 @@
 <template name="me">
 	<view>
 		<!-- 标题 -->
-		<cu-custom bgColor="bg-gradual-white" >
+		<cu-custom bgColor="bg-gradual-white" :isBack="true">
 			<block slot="content">分类</block>
 		</cu-custom>
 		<!-- 个人主页 -->
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
 				<view class="content">
-					<text class="cuIcon-circlefill text-black"></text>
-					<text class="text-black">个人主页</text>
+					<text class="cuIcon-homefill text-white new-boxing"></text>
+					<text class="text-black new-cate">个人主页</text>
 				</view>
 			</view>
 		</view>
 
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu new-margin-top':'']">
-			<view class="cu-item" :class="menuArrow?'arrow':''">
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu new-margin-top':'']" v-for="(item,index) in cateList" :key="index">
+
+			<view class="cu-item" :class="menuArrow?'arrow':''"  v-for="(first,firstIndex) in item" :key="firstIndex">
 				<view class="content">
-					<text class="cuIcon-circlefill text-black"></text>
-					<text class="text-black">校园通知</text>
-				</view>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<view class="content">
-					<text class="cuIcon-circlefill text-black"></text>
-					<text class="text-black">校园通知</text>
-				</view>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<view class="content">
-					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
-					<text class="text-black">校园圈子</text>
-				</view>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''" @tap="openMsg">
-				<view class="content">
-					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
-					<text class="text-black">交友系列</text>
+					<image :src="first.iconUrl" class="png new-image" mode="aspectFit"></image>
+					<text class="text-black new-cate">{{first.oneCateName}}</text>
 				</view>
 			</view>
 			
 		</view>
 
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu new-margin-top':'']">
-			<view class="cu-item" :class="menuArrow?'arrow':''" >
-				<view class="content">
-					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
-					<text class="text-black">创业园</text>
-				</view>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<navigator class="content" hover-class="none" url="../list/list" open-type="redirect">
-					<text class="cuIcon-discoverfill text-orange"></text>
-					<text class="text-black">跳骚市场</text>
-				</navigator>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<navigator class="content" hover-class="none" url="../list/list" open-type="redirect">
-					<text class="cuIcon-discoverfill text-orange"></text>
-					<text class="text-black">潮流街</text>
-				</navigator>
-			</view>
-		</view>
-
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu new-margin-top':'']">
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<view class="content">
-					<text class="cuIcon-game text-white new-boxing"></text>
-					<text class="text-black">游戏组队</text>
-				</view>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<view class="content">
-					<text class="cuIcon-circlefill text-grey "></text>
-					<text class="text-black">学习组队</text>
-				</view>
-			</view>
-						
-		</view>
-
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu new-margin-top':'']">
-			
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<button class="cu-btn content" open-type="contact">
-					<text class="cuIcon-btn text-olive"></text>
-					<text class="text-black">我爱公益</text>
-				</button>
-			</view>
-			<view class="cu-item ">
-				<view class="content">
-					
-				</view>
-			</view>
-			
-		</view>
-		<view class="cu-tabbar-height"></view>
+		<view class="cu-tabbar-height bg-white"></view>
 		
 	</view>
 </template>
 
 <script>
+	import { discoverApi } from '../../component/api/discover.js';
 	export default {
 		name: "me",
 		data() {
@@ -109,6 +41,11 @@
 				menuArrow: true,
 				menuCard: false,
 				skin: false,
+				cateList:[],
+				firstList:[],
+				secondList:[],
+				thirdList:[],
+				fourList:[],
 			}
 		},
 		methods: {
@@ -135,6 +72,32 @@
 				    url: '../friend/friendship'
 				});
 			}
+		},
+		mounted(){
+			discoverApi.getCategory({},(res)=>{
+				if(res.data.code == 200){
+					this.cateList = [];
+					this.firstList = [];
+					this.secondList = [];
+					this.thirdList = [ ];
+					this.fourList = [];
+					if(res.data.data){
+						res.data.data.forEach((item,index) => {
+							item.rankGroup == 0 ? this.firstList.push(item):'';
+							item.rankGroup == 1 ? this.secondList.push(item):'';
+							item.rankGroup == 2 ? this.thirdList.push(item):'';
+							item.rankGroup == 3 ? this.fourList.push(item):'';
+						});
+						//console.log(this.firstList,this.secondList)
+						//console.log(this.thirdList,this.fourList)
+						this.cateList.push(this.firstList);
+						this.cateList.push(this.secondList);
+						this.cateList.push(this.thirdList);
+						this.cateList.push(this.fourList);
+						//console.log(this.cateList)
+					}	
+				}
+			})
 		}
 	}
 </script>
@@ -144,11 +107,27 @@
 	width: 60upx !important;
 	height: 60upx !important;
 	line-height: 60upx !important;
-	background: #fda935;
+	/* padding: 10rpx 10rpx; */
+	background: #34e3e8;
 	font-size: 35upx;
 	border-radius: 50%;
 	-webkit-border-radius: 50%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
-
+.new-image{
+	width: 60upx !important;
+	height: 60upx !important;
+	line-height: 60upx !important;
+	font-size: 35upx;
+	/* border-radius: 50%;
+	-webkit-border-radius: 50%; */
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.new-cate{
+	padding-left: 10rpx;
+	font-weight: bold;
+}
 </style>>
 

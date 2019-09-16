@@ -2,27 +2,19 @@
 	<view>
 		
 		<!-- 标题 -->
-		<cu-custom bgColor="bg-gradual-pink" >
+		<!-- <cu-custom bgColor="bg-gradual-pink" >
 			<block slot="content">APP</block>
-		</cu-custom>
+		</cu-custom> -->
+
 		<!-- 轮播图 -->
-		<swiper-list :swiperList='swiperDataList'></swiper-list>
+		<swiper-list :swiperList='swiperDataList' :heightClass="'new-swiper'" ></swiper-list>
 		
-		<!-- 功能板 -->
-		<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']" v-if="cuIconList.length<gridCol*gridRow">
-			<view class="cu-item" v-for="(item,index) in cuIconList" :key="index"  @click="jumpTo(item.url)">
-				<view :class="[ item.cuIcon,'text-' + item.color]">
-					<view class="cu-tag badge" v-if="item.badge!=0">
-						<block v-if="item.badge!=1">{{item.badge>99?'99+':item.badge}}</block>
-					</view>
-				</view>
-				<text>{{item.name}}</text>
-			</view>
-		</view>
+		<!-- 功能板  cuIconList绑定的数据 gridCol行个数 gridRow多少行 gridBorder是否要带边框  -->
+		<!-- <navigation-list></navigation-list> -->
 		
-		<!-- 热门 -->
-		<view class="text-content new-text-black" style="padding:0 24rpx;" >
-					热门
+		<!-- 热门  -->
+		<view class="text-content new-text-black more-list" style="padding:0 24rpx;" >
+			实时动态
 		</view>
 		<view >
 			<post-list  :itemList='hotList' :hotNotes='true' ></post-list>
@@ -35,9 +27,10 @@
 <script>
 	import {indexApi} from '../../component/api/index.js'
 	import swiperList from './../../colorui/components/swiper-list.vue'
+	import navigationList from './../../colorui/components/navigation-list.vue'
 	import postList from './../../component/friendship/post-list.vue'
 	export default {
-		components: {swiperList,postList},
+		components: {swiperList,postList,navigationList},
 		name: "mainpage",
 		data() {
 			return {
@@ -76,24 +69,24 @@
 						badge: 22,
 						name: '通知'
 					},
-					{
-						cuIcon: 'upstagefill',
-						color: 'cyan',
-						badge: 0,
-						name: '排行榜'
-					}, 
-					{
-						cuIcon: 'clothesfill',
-						color: 'blue',
-						badge: 0,
-						name: '皮肤'
-					},
-					{
-						cuIcon: 'discoverfill',
-						color: 'purple',
-						badge: 0,
-						name: '发现'
-					}, 
+					// {
+					// 	cuIcon: 'upstagefill',
+					// 	color: 'cyan',
+					// 	badge: 0,
+					// 	name: '排行榜'
+					// }, 
+					// {
+					// 	cuIcon: 'clothesfill',
+					// 	color: 'blue',
+					// 	badge: 0,
+					// 	name: '皮肤'
+					// },
+					// {
+					// 	cuIcon: 'discoverfill',
+					// 	color: 'purple',
+					// 	badge: 0,
+					// 	name: '发现'
+					// }, 
 					{
 						cuIcon: 'questionfill',
 						color: 'mauve',
@@ -114,7 +107,7 @@
 					}
 				],
 				gridCol: 4,
-				gridRow: 3,
+				gridRow: 2,
 				gridBorder: false,
 				hotdData:{
 					"pageNum": 1,
@@ -233,5 +226,28 @@
 	border-radius: 50%;
 	-webkit-border-radius: 50%;
 }
+
+.more-list {
+    font-size: 36rpx;
+	line-height: 100rpx;
+	height: 100rpx;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-indent: 20rpx;
+    position: relative;
+	background: #ffffff;
+  }
+  .more-list:after {
+      content: "";
+      display: block;
+      width: 9rpx;
+      height: 40rpx;
+      background: #37cfe6;
+      position: absolute;
+      left: 24rpx;
+      top: 50%;
+
+      transform: translateY(-50%);
+    }
 </style>>
    

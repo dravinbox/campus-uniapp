@@ -5,12 +5,12 @@
 			<block slot="content">发现</block>
 		</cu-custom>
 		
-		
-		<scroll-view scroll-x class="bg-white nav"  scroll-with-animation :scroll-left="scrollLeft">
+		<!-- 分类 -->
+		<!-- <scroll-view scroll-x class="bg-white nav"  scroll-with-animation :scroll-left="scrollLeft">
 			<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item,index) in cateList" :key="index" @tap="tabSelect" :data-id="index">
 				{{item.oneCateName}}
 			</view>
-		</scroll-view>
+		</scroll-view> -->
 		
 		<!-- 帖子 -->
 		<view class="cu-card dynamic margin-top" :class="isCard?'no-card':''">
@@ -170,6 +170,7 @@
 				</view>
 			</view>
 		</view>
+
 		<view class="cu-tabbar-height"></view>
 		
 	</view>
@@ -191,7 +192,7 @@
 					"pullLast": false,
 					"twoCateId": 1
 				},
-				cateList:[0,1,2,3,4,5,6,7,8,9],
+				cateList:[],
 				list:[],
 			}
 		},
@@ -222,23 +223,31 @@
 		mounted() {
 			console.log('jin来')
 			//获得帖子的分类
-			discoverApi.getCategory({},(res)=>{
-				this.cateList = res.data.data;
-				console.log("get Category:  ",this.cateList);
-			})
+			// discoverApi.getCategory({},(res)=>{
+			// 	this.cateList = res.data.data;
+			// 	console.log("get Category:  ",this.cateList);
+			// })
 
 			//获取帖子列表
 			discoverApi.getPostList(this.params,(res)=>{
 				console.log("get tPostList:  ",res.data.data);
 				this.list = [];
-				if(res.data.data.list){
-					res.data.data.list.forEach((item,index) => {
-						console.log(typeof(item.imagesJsonList));
-						console.log(JSON.parse(item.imagesJsonList));
-						item.imagesJsonList = JSON.parse(item.imagesJsonList);
-						this.list.push(item);
-						
-					});
+				if(res.data.code == 200){
+					if(res.data.data.list){
+						res.data.data.list.forEach((item,index) => {
+							console.log(typeof(item.imagesJsonList));
+							//console.log(JSON.parse(item.imagesJsonList));
+							item.videoPaused = true;
+							//item.video = 'https://toss.paycore.cc/ts/video/1566288960116.mp4';
+							if(JSON.parse(item.imagesJsonList)!=null){
+								item.imagesJsonList = JSON.parse(item.imagesJsonList);
+							}else{
+								item.imagesJsonList = []
+							}
+							this.list.push(item);
+							
+						});
+					}
 				}
 				
 				console.log(this.list)

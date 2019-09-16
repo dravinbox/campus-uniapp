@@ -67,7 +67,7 @@
 				
                 <scroll-view scroll-x class="bg-white nav" style="padding:0 24rpx;">
                     <view class="flex text-center">
-                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="newItem.userLikePost!= null?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="0">
+                        <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="newItem.userLikePost!= null?'new-text-red':'new-text-grey'"  @tap="likePostEvent(newItem.id,newIndex)" :data-id="0">
                             <text class="new-text-grey new-text-padding">  {{newItem.liked||0}} </text>
                         </view>
                         <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="1">
@@ -89,6 +89,7 @@
 
 <script>
 	import { contollerApi } from '../api/contoller.js';
+	import { discoverApi } from '../api/discover.js';
 	export default {
         name: "postlist",
         props: {
@@ -162,8 +163,46 @@
 		methods: {
 			tabSelect(e) {//点赞 收藏 转发 评论
 				this.TabCur = e.currentTarget.dataset.id;
+				console.log( e.currentTarget)
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+
 			},
+
+			likePostEvent(userId,index){//点赞或取消点赞某个帖子
+				discoverApi.likePost('/'+userId,{},(res)=>{
+					console.log(res.data.data)
+					if(res.data.code == 200){
+						if(res.data.data){
+							uni.showToast({
+								title: '点赞成功',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});	
+							this.itemList[index].userLikePost = {}
+							this.itemList[index].liked++;
+						}else{
+							this.itemList[index].liked--;
+							this.itemList[index].userLikePost = null;
+							
+							uni.showToast({
+								title: '已取消',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});
+						}		
+					}else if(res.data.code ==405){
+						uni.showToast({
+							title: res.data.data,
+							mask:true,
+							icon:'none',
+							duration: 2000
+						});
+					}
+				})
+			},
+
 			jumpTo(url){
 				console.log(url);
 				if(url != undefined && url != null){
@@ -172,6 +211,7 @@
 					})
 				}
 			},
+
 			controlFollowCheck(index){//控制右边的三个点 
 				if(index == this.followCheck){
 					this.followCheck = null;
@@ -181,14 +221,19 @@
 				
 				console.log(this.followCheck)
 			},
+
 			followEvent(userId,check = false,index){//关注和取消关注
 				if(check){
 					contollerApi.unSubcribeUser('/'+userId,{},(res)=>{
 						//console.log(res.data)
 						if(res.data.code == 200){
-							this.itemList[index].fan = null;
+							this.itemList.forEach((item,indx) => {
+								if(item.userId==userId){
+									item.fan = null;
+								}
+							});
 							uni.showToast({
-								title: '取消关注',
+								title: '已取消',
 								mask:true,
 								icon:'none',
 								duration: 2000
@@ -202,10 +247,15 @@
 						//console.log(res.data)
 						//console.log('关注',userId)
 						if(res.data.code == 200){
-							this.itemList[index].fan ={};
+							this.itemList.forEach((item,indx) => {
+								if(item.userId==userId){
+									item.fan ={}
+								}
+							});
 							uni.showToast({
 								title: '关注成功',
 								mask:true,
+								icon:'none',
 								duration: 2000
 							});
 						}else if(res.data.code ==405){
@@ -219,9 +269,10 @@
 						
 					})
 				}
-				//this.followCheck = null;
+				this.followCheck = null;
 									
 			},
+
 			openIndex(){
 				if(this.followCheck != null){
 					this.followCheck = null;

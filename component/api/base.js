@@ -88,7 +88,7 @@ export default {
 
 	
 	postToken: function(url,data,success,fail,complete){
-		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRSM50k3Qm6EPxAL1CSZgIR1GJaEMS7m9Lt-3yhLAE68PGRnyBgKfwecoSuEVDG18TV9bfzcdgfLqdrDfgzVdmSMehUiwKynzdAtKMV3Odcp8jKW59Y6tQoiZpRumCcdKStJZNsxAC_PwAAAP__.e7UsXA8Xhu6kT8FfRJzRqa5j1cR4jpCo5DrKVk9Vi8A"
+		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky70KwyAUQOF3ubNCvPV_zxYopHQOGm_ALpVooBDy7rV0PR_nhHpE8FCo0Q4Mjkr7khN4ZFDXd6Fu830al-djnLvTp4AXSlsjJErFIIf2DxqN_YVXy_1BIyK6ZHly241LJSyPYU18Qx0DKSdoGOD6AgAA__8.rN_RDJ5EdFitgCbAgWKqjWVgHmtZhaIWfUefJOP7L84"
 		console.log(data)
 		uni.request({
 			url: this.getPath() + url,
@@ -106,7 +106,7 @@ export default {
 	},
 
 	getToken: function(url,data,success,fail,complete){
-		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRSM50k3Qm6EPxAL1CSZgIR1GJaEMS7m9Lt-3yhLAE68PGRnyBgKfwecoSuEVDG18TV9bfzcdgfLqdrDfgzVdmSMehUiwKynzdAtKMV3Odcp8jKW59Y6tQoiZpRumCcdKStJZNsxAC_PwAAAP__.e7UsXA8Xhu6kT8FfRJzRqa5j1cR4jpCo5DrKVk9Vi8A"
+		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky70KwyAUQOF3ubNCvPV_zxYopHQOGm_ALpVooBDy7rV0PR_nhHpE8FCo0Q4Mjkr7khN4ZFDXd6Fu830al-djnLvTp4AXSlsjJErFIIf2DxqN_YVXy_1BIyK6ZHly241LJSyPYU18Qx0DKSdoGOD6AgAA__8.rN_RDJ5EdFitgCbAgWKqjWVgHmtZhaIWfUefJOP7L84"
 		uni.request({
 			url: this.getPath() + url,
 			header:{
