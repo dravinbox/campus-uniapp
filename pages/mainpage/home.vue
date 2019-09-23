@@ -2,9 +2,9 @@
 	<view>
 		
 		<!-- 标题 -->
-		<!-- <cu-custom bgColor="bg-gradual-pink" >
-			<block slot="content">APP</block>
-		</cu-custom> -->
+		<cu-custom bgColor="bg-gradual-newblue" >
+			<block slot="content">坦白校缘</block>
+		</cu-custom>
 
 		<!-- 轮播图 -->
 		<swiper-list :swiperList='swiperDataList' :heightClass="'new-swiper'" ></swiper-list>

@@ -44,10 +44,21 @@ function likeComment(url,data,success){//点赞或取消点赞 某个评论
     })
 }
 
+function collectPost(url,data,success){//点赞或取消点赞 某个评论
+    api.postToken("/api/v1/user/discover/collectPost"+url,data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+
 
 export let discoverApi = {
     getCategory: getCategory,
     getPostList: getPostList,
     sendAPost:sendAPost,
-    likePost:likePost
+    likePost:likePost,
+    likeComment:likeComment,
+    collectPost:collectPost
 }

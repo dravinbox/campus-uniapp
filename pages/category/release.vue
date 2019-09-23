@@ -1,6 +1,8 @@
 <template>
 	<view style="background:#ffffff;">
-	    <cu-custom bgColor="new-bg-gradual-white" > </cu-custom>
+	    <cu-custom bgColor="bg-gradual-white" :isBack="true">
+			<block slot="content">发布</block>
+		</cu-custom>
         <view class="new-title">
 	        <view>
                 <button class="round" >取消</button> 
@@ -18,7 +20,7 @@
 				<text class="cuIcon-sound text-grey"></text>
 			</view>
 			<input class="solid-bottom" :adjust-position="false" :focus="false" maxlength="300" cursor-spacing="10"
-			 @focus="InputFocus" @blur="InputBlur"> </input>
+			 @focus="InputFocus" @blur="InputBlur" />
 			<view class="action">
 				<text class="cuIcon-emoji text-grey"></text>
 			</view>

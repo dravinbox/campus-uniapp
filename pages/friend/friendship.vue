@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<dynamic-list v-if="PageCur=='dynamic'"></dynamic-list>
+		<dynamic-list v-if="PageCur=='dynamic'" :parameter='{}'></dynamic-list>
 		<good-friend-list v-if="PageCur=='discover'"></good-friend-list>
 		<message v-if="PageCur=='message'"></message>
 		<me v-if="PageCur=='me'"></me>

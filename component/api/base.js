@@ -3,14 +3,16 @@ export default {
 	map:{
 		//本地开发环境
 		"dev":{
-			protocol: "http",
-			domain: "120.24.236.181",
+			// protocol: "http",
+			// domain: "120.24.236.181",
+			protocol: "https",
+			domain: "api.campus.gzmytech.com",
 			port: "8080",
 		},
 		//演示环境
 		"pre":{
-			protocol: "http",
-			domain: "pre",
+			protocol: "https",
+			domain: "api.campus.gzmytech.com",
 			port: "8080",
 		},
 		//正式环境
@@ -39,7 +41,7 @@ export default {
 			return ''
 		} catch (error) {
 			//console.log(error)
-			return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
+			return this.map[env].protocol+"://"+this.map[env].domain
 		}
 
 		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
@@ -88,8 +90,17 @@ export default {
 
 	
 	postToken: function(url,data,success,fail,complete){
-		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky70KwyAUQOF3ubNCvPV_zxYopHQOGm_ALpVooBDy7rV0PR_nhHpE8FCo0Q4Mjkr7khN4ZFDXd6Fu830al-djnLvTp4AXSlsjJErFIIf2DxqN_YVXy_1BIyK6ZHly241LJSyPYU18Qx0DKSdoGOD6AgAA__8.rN_RDJ5EdFitgCbAgWKqjWVgHmtZhaIWfUefJOP7L84"
-		console.log(data)
+		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky8sKwjAQQNF_mXUCk8mz2XcnCBXXpdEJxI2hSUEQ_92I23u4b2hHggiVO-8g4Gi8r-UOkQS027PysOV8mtfrZV6G86tCVNZNWqH1KKBs_R-IjPqFRy_jIe-9pTxJdCZLEzLLEJKTSVuNlBkTbvD5AgAA__8.wpQ1Ba3MPfbrao9mbUHKLsgrUJkXxgdhyFTltKVaxA4'
+		try {
+			value = uni.getStorageSync('token');
+			if (value) {
+				//console.log(value);
+			}
+		} catch (e) {
+			// error
+		}
+		let token = "Bearer "+value
+		//console.log(data)
 		uni.request({
 			url: this.getPath() + url,
 			header:{
@@ -106,7 +117,16 @@ export default {
 	},
 
 	getToken: function(url,data,success,fail,complete){
-		let token = "Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky70KwyAUQOF3ubNCvPV_zxYopHQOGm_ALpVooBDy7rV0PR_nhHpE8FCo0Q4Mjkr7khN4ZFDXd6Fu830al-djnLvTp4AXSlsjJErFIIf2DxqN_YVXy_1BIyK6ZHly241LJSyPYU18Qx0DKSdoGOD6AgAA__8.rN_RDJ5EdFitgCbAgWKqjWVgHmtZhaIWfUefJOP7L84"
+		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky8sKwjAQQNF_mXUCk8mz2XcnCBXXpdEJxI2hSUEQ_92I23u4b2hHggiVO-8g4Gi8r-UOkQS027PysOV8mtfrZV6G86tCVNZNWqH1KKBs_R-IjPqFRy_jIe-9pTxJdCZLEzLLEJKTSVuNlBkTbvD5AgAA__8.wpQ1Ba3MPfbrao9mbUHKLsgrUJkXxgdhyFTltKVaxA4'
+		try {
+			value = uni.getStorageSync('token');
+			if (value) {
+				//console.log(value);
+			}
+		} catch (e) {
+			// error
+		}
+		let token = "Bearer "+value
 		uni.request({
 			url: this.getPath() + url,
 			header:{
