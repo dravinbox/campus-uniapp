@@ -3613,6 +3613,11 @@ scroll-view.cu-steps .cu-item {
 	background-image: linear-gradient(45deg, #0081ff, #1cbbb4);
 	color: #ffffff;
 }
+.bg-gradual-newblue {
+	background-image: linear-gradient(45deg, #3cd5e7, #2cade6);
+	color: #ffffff;
+	
+}
 
 .bg-gradual-white {
 	background: #ffffff;

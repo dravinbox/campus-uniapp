@@ -76,7 +76,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {
-                    "target" : "http://120.24.236.181:8080",
+                    "target" : "https://api.campus.gzmytech.com",
                     "changeOrigin" : true,
                     "secure" : false
                 }

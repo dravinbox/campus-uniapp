@@ -24,14 +24,29 @@
 			}
 		},
 		{
-			"path": "pages/friend/release",
+			"path": "pages/category/release",
 			"style": {
 				"navigationBarTitleText": "故事发布"
 			}
-		}
-		
-     
-      
+		},
+		{
+            "path" : "pages/category/category",
+            "style" : {
+				"navigationBarTitleText": "分类列表"
+			}
+		},
+		{
+            "path" : "pages/category/commentDetails",
+            "style" : {
+				"navigationBarTitleText": "评论详情"
+			}
+        },
+		{
+            "path" : "pages/category/personal",
+            "style" : {
+				"navigationBarTitleText": "个人主页"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom",

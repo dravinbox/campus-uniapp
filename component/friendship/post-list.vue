@@ -70,13 +70,13 @@
                         <view class="flex-sub new-class-sub cuIcon-appreciate text-left"  :class="newItem.userLikePost!= null?'new-text-red':'new-text-grey'"  @tap="likePostEvent(newItem.id,newIndex)" :data-id="0">
                             <text class="new-text-grey new-text-padding">  {{newItem.liked||0}} </text>
                         </view>
-                        <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="1">
+                        <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="collectionEvent(newItem.id,newIndex)" :data-id="1">
                             <text class="new-text-grey new-text-padding"> {{newItem.collected||0}}</text>
                         </view>
                         <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="2">
                             <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
                         </view>
-                         <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="3">
+                         <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="commentEvent(newItem.id)" :data-id="3">
                             <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
                         </view>
 
@@ -119,7 +119,9 @@
 			formatTime(date) {
 				//console.log(date,'参数')
 				// console.log(date)
-				let oldDate = new Date(date);
+				// let oldDate  = new Date(date.replace(/-/g, '/'));
+				var data = date.substr(0, 19); //'2019-08-09T18:23:27'
+				var oldDate = new Date(data.replace(/T/g, ' ').replace(/-/g, '/'));
 				if(false){
 					let oldTime = oldDate.getTime();
 					let newDate = new Date();
@@ -143,6 +145,7 @@
 						return second + '秒前';
 					}
 				}else{
+					
 					let y = oldDate.getFullYear();
 					let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
 					let d = oldDate.getDate() < 10 ? '0' + oldDate.getDate() : oldDate.getDate(); // 获取当前几号，不足10补0
@@ -155,9 +158,9 @@
 			timerDuration(voiceSrc){
 				let innerAudioContext = uni.createInnerAudioContext();
 				innerAudioContext.autoplay = false;
-				innerAudioContext.src = voiceSrc||'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3';
+				innerAudioContext.src = voiceSrc;
 				//console.log(innerAudioContext.duration,innerAudioContext)
-				return Math.round(innerAudioContext.duration)||'';
+				// return Math.floor(innerAudioContext.duration);
 			}
 		},
 		methods: {
@@ -167,9 +170,14 @@
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
 
 			},
+			commentEvent(){
+				uni.navigateTo({
+					url: '../category/commentDetails?classItem=release'
+				});
+			},
 
-			likePostEvent(userId,index){//点赞或取消点赞某个帖子
-				discoverApi.likePost('/'+userId,{},(res)=>{
+			likePostEvent(postId,index){//点赞或取消点赞某个帖子
+				discoverApi.likePost('/'+postId,{},(res)=>{
 					console.log(res.data.data)
 					if(res.data.code == 200){
 						if(res.data.data){
@@ -201,15 +209,6 @@
 						});
 					}
 				})
-			},
-
-			jumpTo(url){
-				console.log(url);
-				if(url != undefined && url != null){
-					uni.navigateTo({
-						url: url
-					})
-				}
 			},
 
 			controlFollowCheck(index){//控制右边的三个点 
@@ -244,7 +243,7 @@
 					})
 				}else{
 					contollerApi.subcribeUser('/'+userId,{},(res)=>{
-						//console.log(res.data)
+						console.log(res.data)
 						//console.log('关注',userId)
 						if(res.data.code == 200){
 							this.itemList.forEach((item,indx) => {
@@ -271,6 +270,42 @@
 				}
 				this.followCheck = null;
 									
+			},
+
+			collectionEvent(postId,index){
+				console.log(postId,index)
+				discoverApi.collectPost('/'+postId,{},(res)=>{
+					console.log(res.data.data)
+					if(res.data.code == 200){
+						if(res.data.data){
+							//
+							uni.showToast({
+								title: '收藏成功',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});
+							this.itemList[index].userCollectPost = {}
+							this.itemList[index].collected++;
+						}else{
+							this.itemList[index].userCollectPost = null
+							this.itemList[index].collected--;
+							uni.showToast({
+								title: '已取消收藏',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});
+						}
+					}else if(res.data.code ==405){
+						uni.showToast({
+							title: res.data.data,
+							mask:true,
+							icon:'none',
+							duration: 2000
+						});
+					}
+				})
 			},
 
 			openIndex(){

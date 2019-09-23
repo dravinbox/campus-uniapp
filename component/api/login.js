@@ -29,6 +29,21 @@ function vcodeRequest(mobile){
 		console.log("complete")
 	})
 }
+function loginUser(success){//发帖
+	api.postToken("/api/v1/login",
+	{
+		"email": "12@21.com",
+		"name": "peter",
+		"nickName": "dravin",
+		"password": "123456",
+		"phone": "13012341234"
+	},
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
 
 
 function getName(){
@@ -38,5 +53,6 @@ function getName(){
 export let loginApi = {
 	login: loginRequest,
 	getVCode: vcodeRequest,
-	getName: getName
+	getName: getName,
+	loginUser:loginUser
 }
