@@ -3,7 +3,7 @@
 		
 		<!-- 标题 -->
 		<cu-custom bgColor="bg-gradual-newblue" >
-			<block slot="content">坦白校缘</block>
+			<block slot="content">校园APP</block>
 		</cu-custom>
 
 		<!-- 轮播图 -->
