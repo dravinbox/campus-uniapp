@@ -7,13 +7,13 @@ export default {
 			// domain: "120.24.236.181",
 			protocol: "https",
 			domain: "api.campus.gzmytech.com",
-			port: "8080",
+			port: "443",
 		},
 		//演示环境
 		"pre":{
 			protocol: "https",
 			domain: "api.campus.gzmytech.com",
-			port: "8080",
+			port: "443",
 		},
 		//正式环境
 		"pro":{
