@@ -1,8 +1,12 @@
 <template>
 	<view style="background:#ffffff;">
-	    <cu-custom bgColor="bg-gradual-white" :isBack="true">
+
+        <!-- #ifdef MP-WEIXIN -->
+	    <cu-custom bgColor="bg-gradual-newblue" :isBack="true">
 			<block slot="content">发布</block>
 		</cu-custom>
+        <!-- #endif -->
+
         <view class="new-title">
 	        <view>
                 <button class="round" >取消</button> 

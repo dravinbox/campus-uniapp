@@ -90,11 +90,10 @@ export default {
 
 	
 	postToken: function(url,data,success,fail,complete){
-		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky8sKwjAQQNF_mXUCk8mz2XcnCBXXpdEJxI2hSUEQ_92I23u4b2hHggiVO-8g4Gi8r-UOkQS027PysOV8mtfrZV6G86tCVNZNWqH1KKBs_R-IjPqFRy_jIe-9pTxJdCZLEzLLEJKTSVuNlBkTbvD5AgAA__8.wpQ1Ba3MPfbrao9mbUHKLsgrUJkXxgdhyFTltKVaxA4'
-		try {
-			value = uni.getStorageSync('token');
-			if (value) {
-				//console.log(value);
+		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRMZjLJdCfoQvADXqCkJkIKajEtCOLdjbh9nzfUZYAOYrqVOyhYan72JUFnFNTLY8rNnU_7bb_eHHbHFuTX1KRjQS-OSUGJ8x9YQfMD41zaFIwbPGbRbClpigG1EJIOQt5K4tWVDXy-AAAA__8.z1vSZ4OfqZlv9_CE_ikO0bUwj0o9pPSce0olGGSAPAo'
+		try {	
+			if (uni.getStorageSync('token')) {
+				value = uni.getStorageSync('token');
 			}
 		} catch (e) {
 			// error
@@ -117,11 +116,10 @@ export default {
 	},
 
 	getToken: function(url,data,success,fail,complete){
-		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoky8sKwjAQQNF_mXUCk8mz2XcnCBXXpdEJxI2hSUEQ_92I23u4b2hHggiVO-8g4Gi8r-UOkQS027PysOV8mtfrZV6G86tCVNZNWqH1KKBs_R-IjPqFRy_jIe-9pTxJdCZLEzLLEJKTSVuNlBkTbvD5AgAA__8.wpQ1Ba3MPfbrao9mbUHKLsgrUJkXxgdhyFTltKVaxA4'
+		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRMZjLJdCfoQvADXqCkJkIKajEtCOLdjbh9nzfUZYAOYrqVOyhYan72JUFnFNTLY8rNnU_7bb_eHHbHFuTX1KRjQS-OSUGJ8x9YQfMD41zaFIwbPGbRbClpigG1EJIOQt5K4tWVDXy-AAAA__8.z1vSZ4OfqZlv9_CE_ikO0bUwj0o9pPSce0olGGSAPAo'
 		try {
-			value = uni.getStorageSync('token');
-			if (value) {
-				//console.log(value);
+			if (uni.getStorageSync('token')) {
+				value = uni.getStorageSync('token');
 			}
 		} catch (e) {
 			// error

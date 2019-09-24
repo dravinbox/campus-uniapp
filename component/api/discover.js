@@ -44,8 +44,26 @@ function likeComment(url,data,success){//点赞或取消点赞 某个评论
     })
 }
 
-function collectPost(url,data,success){//点赞或取消点赞 某个评论
+function collectPost(url,data,success){//收藏或取消收藏 某个评论
     api.postToken("/api/v1/user/discover/collectPost"+url,data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+
+function getPostDetail(url,data,success){//获取某个帖子的详情
+    api.postToken("/api/v1/user/discover/getPostDetail"+url,data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+
+function getPostComment(url,data,success){//获取某个帖子的评论
+    api.postToken("/api/v1/user/discover/getPostComment"+url,data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -60,5 +78,7 @@ export let discoverApi = {
     sendAPost:sendAPost,
     likePost:likePost,
     likeComment:likeComment,
-    collectPost:collectPost
+    collectPost:collectPost,
+    getPostDetail:getPostDetail,
+    getPostComment:getPostComment
 }

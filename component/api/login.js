@@ -33,7 +33,7 @@ function loginUser(success){//发帖
 	api.postToken("/api/v1/login",
 	{
 		"email": "12@21.com",
-		"name": "peter",
+		"name": "admin",
 		"nickName": "dravin",
 		"password": "123456",
 		"phone": "13012341234"

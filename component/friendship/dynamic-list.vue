@@ -2,7 +2,7 @@
 	<view >
 		
 		<!-- 标题 -->
-		<cu-custom bgColor="bg-gradual-white" :isBack="true">
+		<cu-custom bgColor="bg-gradual-newblue" :isBack="true">
             <!-- <block slot="backText">返回</block> -->
 			<block slot="content">动态</block>
 		</cu-custom>

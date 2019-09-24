@@ -2,9 +2,11 @@
 	<view>
 		
 		<!-- 标题 -->
+		<!-- #ifdef MP-WEIXIN -->
 		<cu-custom bgColor="bg-gradual-newblue" >
 			<block slot="content">校园APP</block>
 		</cu-custom>
+		<!-- #endif -->
 
 		<!-- 轮播图 -->
 		<swiper-list :swiperList='swiperDataList' :heightClass="'new-swiper'" ></swiper-list>
@@ -174,6 +176,52 @@
 				});
 			}
 		},
+		created(){
+			try {
+				const res = uni.getSystemInfoSync();
+				console.log('model',res.model);
+				console.log('pixelRatio',res.pixelRatio);
+				console.log(res.windowWidth);
+				console.log(res.windowHeight);
+				console.log('language',res.language);
+				console.log('version',res.version);
+				console.log(res.platform);
+			} catch (e) {
+				// error
+			}
+			
+			switch(uni.getSystemInfoSync().platform){
+
+				case 'android':
+
+				console.log('运行Android上')
+
+				break;
+
+				case 'ios':
+
+				console.log('运行iOS上')
+
+				break;
+
+				default:
+
+				console.log('运行在开发者工具上')
+
+				break;
+
+			}
+			uni.setTabBarItem({
+				index: 0,
+				text: '',
+				iconPath: '',
+				selectedIconPath: ''
+			})
+			uni.setTabBarBadge({
+				index: 0,
+				text: '1'
+			})
+		},
 		mounted() {
 			//获取轮播图
 			indexApi.getSwiper((res)=>{
@@ -183,6 +231,7 @@
 				}
 				
 			})
+			console.log('this.$http',this.$http)
 			//获取导航栏
 			// indexApi.getNavigation((res)=>{
 			// 	//this.cuIconList = res.data.data;
@@ -214,6 +263,8 @@
 				
 				console.log("get hotPost:  ",this.hotList);
 			})
+
+			
 		}
 	}
 </script>

@@ -16,7 +16,7 @@
 								{{newItem.createTime|formatTime}}
 							</view>                          
 						</view>
-                        <view style="padding-right:24upx;" >
+                        <view style="padding-right:34upx;" >
                         	<view class="new-follow text-center" v-if="false">关注</view>
 							<view class="cuIcon-more text-center new-text-gray" @tap.stop="controlFollowCheck(newIndex)">
 								<view class="new-cate-class radius  bg-white" v-if="followCheck==newIndex" >
@@ -47,15 +47,17 @@
 						</view>
 					</view>
 				</view>		
-				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video&&newItem.videoPaused" >
+				<view class="text-content new-video" style="padding:0 24rpx;" v-if="newItem.video&&newItem.videoPaused" >
 					<video :id="'myVideo'+newIndex"  
 						@play="videoPlay(0,newIndex)" @pause='videoPlay(1,newIndex)' 
 					 style="width:702upx;height:225px;" class="radius" :show-fullscreen-btn='false' objectFit='fill'
 					  :src="newItem.video"  controls>
+					  <!-- <cover-view style="width:702upx;height:232px;" class="controls-title bg-white">简单的自定义 controls</cover-view> -->
 					 </video>
 				</view>
 				<view class="text-content" style="padding:0 24rpx;" v-if="newItem.video&&!newItem.videoPaused">
-					<view :id="'myVideo'+newIndex"   style="width:702upx;height:232px;" class="radius" >
+					<view :id="'myVideo'+newIndex"   :show-fullscreen-btn='false' style="width:702upx;height:232px;" class="radius" >
+						<!-- <cover-view style="width:702upx;height:232px;" class="controls-title bg-white">简单的自定义 controls</cover-view> -->
 					</view>
 				</view>
 				<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
@@ -170,9 +172,9 @@
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
 
 			},
-			commentEvent(){
+			commentEvent(id){
 				uni.navigateTo({
-					url: '../category/commentDetails?classItem=release'
+					url: '../category/commentDetails?postId='+id
 				});
 			},
 
@@ -430,7 +432,11 @@
 .new-overflow{
 	overflow: visible !important;
 	position: relative;
-	z-index: 9996;
+	z-index: 99;
+}
+.new-video{
+	position: relative;
+	z-index: 90
 }
 .audio-content{
 	width: 465upx;

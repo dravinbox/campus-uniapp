@@ -17,7 +17,7 @@ Vue.component('me',me)
 
 
 
-
+Vue.prototype.$http = '201909241131';
 
 Vue.component('cu-custom',cuCustom)
 

@@ -1,7 +1,7 @@
 <template name="me">
 	<view>
 		<!-- 标题 -->
-		<cu-custom bgColor="bg-gradual-white" :isBack="true">
+		<cu-custom bgColor="bg-gradual-newblue" >
 			<block slot="content">分类</block>
 		</cu-custom>
 		<!-- 个人主页 -->
@@ -88,6 +88,7 @@
 						}
 					}
 				})
+				
 			},
 			SwitchSex(e) {
 				this.skin = e.detail.value
@@ -102,7 +103,7 @@
 				    url: '../category/category?classItem='+item+'&cateId='+id
 				});
 			},
-			getCategory(){//获取分类
+			getCategory(){//获取分类		
 				discoverApi.getCategory({},(res)=>{
 					if(res.data.code == 200){
 						this.cateList = [];
@@ -131,6 +132,7 @@
 		},
 		mounted(){
 			this.getCategory()
+			
 		}
 	}
 </script>

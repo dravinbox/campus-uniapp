@@ -1,8 +1,9 @@
 <template>
-	<view>
-        <cu-custom bgColor="bg-white" :isBack="true">
+	<view class="bg-gradual-newblue">
+        <cu-custom  :isBack="true">
 			<block slot="content">个人主页</block>
-		</cu-custom>		
+		</cu-custom>
+		<view  >bbb	</view>	
 	</view>
 </template>
 
@@ -48,6 +49,9 @@
 	}
 </script>
 
-<style>
+<style scoped>
+.bg-gradual-newblue{
+	line-height: 260rpx;
+}
+</style>>
 
-</style>
