@@ -85,6 +85,8 @@
 	}
 </script>
 
-<style>
-
+<style scoped>
+.cu-bar.tabbar{
+	bottom: calc(var(--window-bottom))
+}
 </style>

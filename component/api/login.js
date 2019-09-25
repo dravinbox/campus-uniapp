@@ -30,7 +30,7 @@ function vcodeRequest(mobile){
 	})
 }
 function loginUser(success){//发帖
-	api.postToken("/api/v1/login",
+	api.post("/api/v1/login",
 	{
 		"email": "12@21.com",
 		"name": "admin",

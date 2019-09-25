@@ -173,6 +173,7 @@
 
 			},
 			commentEvent(id){
+				console.log(id)
 				uni.navigateTo({
 					url: '../category/commentDetails?postId='+id
 				});
@@ -546,5 +547,6 @@
 	line-height: 80rpx;
 	box-sizing: border-box;
 }
+
 </style>>
    

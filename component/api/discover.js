@@ -70,6 +70,23 @@ function getPostComment(url,data,success){//获取某个帖子的评论
         console.log("complete")
     })
 }
+function commentPost(data,success){//评论某个帖子
+    api.postToken("/api/v1/user/discover/commentPost",data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+function commentComment(data,success){//评论某个评论
+    api.postToken("/api/v1/user/discover/commentComment",data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+
 
 
 export let discoverApi = {
@@ -80,5 +97,7 @@ export let discoverApi = {
     likeComment:likeComment,
     collectPost:collectPost,
     getPostDetail:getPostDetail,
-    getPostComment:getPostComment
+    getPostComment:getPostComment,
+    commentPost:commentPost,
+    commentComment:commentComment
 }

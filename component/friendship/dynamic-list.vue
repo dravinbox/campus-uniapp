@@ -30,7 +30,9 @@
 		props: {
 			parameter:{//数据
 				type:Object,
-				default:{}
+				default:{
+					cateId:1
+				}
 			},
 		},
 		data() {

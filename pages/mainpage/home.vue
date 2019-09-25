@@ -3,9 +3,24 @@
 		
 		<!-- 标题 -->
 		<!-- #ifdef MP-WEIXIN -->
+		<!-- <view class="mpheader-content">  
+			<view class="">坦白校缘</view>  
+		</view> -->
 		<cu-custom bgColor="bg-gradual-newblue" >
-			<block slot="content">校园APP</block>
+			<block slot="content">坦白校缘</block>
 		</cu-custom>
+		<!-- #endif -->
+
+		<!-- #ifdef APP-PLUS -->  
+		<view class="status_bar">  
+			<view class="top_view"></view>  
+		</view>  
+		<!-- #endif -->
+
+		<!-- #ifdef APP-PLUS|| H5 -->  
+		<view class="header-content bg-gradual-newblue">  
+			<view class="bg-gradual-newblue">xin</view>  
+		</view> 
 		<!-- #endif -->
 
 		<!-- 轮播图 -->
@@ -41,10 +56,7 @@
 				swiperDataList: [],
 				
 				towerStart: 0,
-				direction: '',
-				
-				
-				
+				direction: '',			
 				cuIconList: [
 					{
 						cuIcon: 'cardboardfill',
@@ -71,24 +83,7 @@
 						badge: 22,
 						name: '通知'
 					},
-					// {
-					// 	cuIcon: 'upstagefill',
-					// 	color: 'cyan',
-					// 	badge: 0,
-					// 	name: '排行榜'
-					// }, 
-					// {
-					// 	cuIcon: 'clothesfill',
-					// 	color: 'blue',
-					// 	badge: 0,
-					// 	name: '皮肤'
-					// },
-					// {
-					// 	cuIcon: 'discoverfill',
-					// 	color: 'purple',
-					// 	badge: 0,
-					// 	name: '发现'
-					// }, 
+				
 					{
 						cuIcon: 'questionfill',
 						color: 'mauve',
@@ -299,6 +294,38 @@
       top: 50%;
 
       transform: translateY(-50%);
-    }
+	}
+.status_bar {  
+    height: var(--status-bar-height);  
+    width: 100%;  
+    background-color: #F8F8F8;  
+}  
+.top_view {  
+    height: var(--status-bar-height);  
+    width: 100%;  
+    position: fixed;  
+    background-color: #F8F8F8;  
+    top: 0;  
+    z-index: 999;  
+}
+.header-content{
+	width: 100%;  
+	height: 90rpx;  
+	position: fixed;  
+    background-color: #F8F8F8;  
+    top: var(--status-bar-height);    
+    z-index: 99900; 
+}
+.mpheader-content{
+	width: 100%;  
+	height: 110px; 
+	padding-top:64px;
+	position: fixed;  
+    /* background-image: linear-gradient(45deg, #3cd5e7, #2cade6);
+	color: #ffffff; */
+    top:0rpx;    
+    z-index: 99900; 
+}
+
 </style>>
    
