@@ -8,7 +8,7 @@
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'':''">
 				<view class="content" @tap="getToken">
-					<text class="cuIcon-homefill text-white new-boxing"></text>
+					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
 					<text class="text-black new-cate">先放这里获取token</text>
 				</view>
 			</view>
@@ -17,7 +17,7 @@
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
 				<view class="content" @tap='openMsg'>
-					<text class="cuIcon-homefill text-white new-boxing"></text>
+					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
 					<text class="text-black new-cate">个人主页</text>
 				</view>
 			</view>
@@ -27,7 +27,7 @@
 
 			<view class="cu-item" :class="menuArrow?'arrow':''"  v-for="(first,firstIndex) in item" :key="firstIndex">
 				<view class="content" @tap='openClass(first.oneCateName,first.id)'>
-					<image :src="first.iconUrl" class="png new-image" mode="aspectFit"></image>
+					<image lazy-load :src="first.iconUrl" class="png new-image" mode="aspectFit"></image>
 					<text class="text-black new-cate">{{first.oneCateName}}</text>
 				</view>
 			</view>
@@ -75,8 +75,21 @@
 				this.menuCard = e.detail.value
 			},
 			getToken(){
+				let data ={
+					"email": "12@21.com",
+					"name": "reply",
+					"nickName": "dravin",
+					"password": "123456",
+					"phone": "13012341234"
+				}
+				try {
+					window.location.href;
+					data.name = 'timer'
+				} catch (error) {
+					
+				}
 				//console.log('token')
-				loginApi.loginUser((res)=>{
+				loginApi.loginUser(data,(res)=>{
 					if(res.data.code == 200){
 						//console.log(res.data.data)
 						try {

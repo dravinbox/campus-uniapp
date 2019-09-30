@@ -63,7 +63,7 @@
 				<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
 					<view class="bg-img" :class="isCard?'':'only-img'" 
 					 v-for="(item,index) in newItem.imagesJsonList" :key="index">
-                     <image :src='item.url'></image>
+                     <image  lazy-load :src='item.url'></image>
 					</view>
 				</view>
 				
@@ -115,46 +115,33 @@
 				followCheck:null,//控制右边的三个点内容的现实
 				videoContext:null,
 				recordVideoIndex:null,
+				timeDifference:0,//时间差
 			};
 		},
 		filters: {
 			formatTime(date) {
 				//console.log(date,'参数')
-				// console.log(date)
-				// let oldDate  = new Date(date.replace(/-/g, '/'));
+				//#ifdef H5 || MP-WEIXIN
+				let oldDate  = new Date(date);
+				//#endif
+
+				//#ifdef APP-PLUS
+				let dd = new Date()
+				var nd = dd.getTimezoneOffset();
+				let timeDifference =Math.abs(Math.floor(nd*60*1000));
 				var data = date.substr(0, 19); //'2019-08-09T18:23:27'
 				var oldDate = new Date(data.replace(/T/g, ' ').replace(/-/g, '/'));
-				if(false){
-					let oldTime = oldDate.getTime();
-					let newDate = new Date();
-					let newTime = newDate.getTime();
-					let times = newTime - oldTime;
-					let day=0,hour=0,minute=0,second=0;//时间默认值
-					if(times > 0){
-						day = Math.floor(times/1000 / (60 * 60 * 24));
-						hour = Math.floor(times/1000 /(60 * 60)%24);
-						minute = Math.floor(times/1000 /60%60);
-						second = Math.floor(times/1000%60);
-					}
-					if(day){
-						console.log(day)
-						return day + "天前";
-					}else if(hour){
-						return hour + "小时前";
-					}else if(minute){
-						return minute + "分钟前";
-					}else{
-						return second + '秒前';
-					}
-				}else{
+				let oldTime = timeDifference + oldDate.getTime();
+				 oldDate = new Date(oldTime)
+				//#endif
 					
-					let y = oldDate.getFullYear();
-					let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
-					let d = oldDate.getDate() < 10 ? '0' + oldDate.getDate() : oldDate.getDate(); // 获取当前几号，不足10补0
-					let h =  oldDate.getHours() < 10 ? '0' + oldDate.getHours() : oldDate.getHours(); // 获取当前几点，不足10补0
-					let minute =  oldDate.getMinutes() < 10 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(); // 获取当前几分，不足10补0
-					return y + '-' + m + '-' + d +'  '+h+':'+minute;
-				}
+				let y = oldDate.getFullYear();
+				let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
+				let d = oldDate.getDate() < 10 ? '0' + oldDate.getDate() : oldDate.getDate(); // 获取当前几号，不足10补0
+				let h =  oldDate.getHours() < 10 ? '0' + oldDate.getHours() : oldDate.getHours(); // 获取当前几点，不足10补0
+				let minute =  oldDate.getMinutes() < 10 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(); // 获取当前几分，不足10补0
+				return y + '-' + m + '-' + d +'  '+h+':'+minute;
+				
 				
 			},
 			timerDuration(voiceSrc){
@@ -404,7 +391,7 @@
 			}
 		},
 		mounted() {
-		
+			
 		},
 		beforeDestroy(){
 			try {

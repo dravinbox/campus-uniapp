@@ -38,13 +38,17 @@
 		{
             "path" : "pages/category/commentDetails",
             "style" : {
-				"navigationBarTitleText": "评论详情"
+				"navigationBarTitleText": "评论详情",
+				"onReachBottomDistance":50,
+				"enablePullDownRefresh":true
 			}
 		},
 		{
             "path" : "pages/category/reply",
             "style" : {
-				"navigationBarTitleText": "回复"
+				"navigationBarTitleText": "回复",
+				"onReachBottomDistance":50,
+				"enablePullDownRefresh":true
 			}
 		},
 		

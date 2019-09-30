@@ -2009,7 +2009,7 @@ button.cuIcon.lg {
 }
 
 .cu-timeline>.cu-item {
-	padding: 30upx 30upx 30upx 120upx;
+	padding: 30rpx 30rpx 30rpx 80rpx;
 	position: relative;
 	display: block;
 	z-index: 0;
@@ -2024,8 +2024,8 @@ button.cuIcon.lg {
 	display: block;
 	position: absolute;
 	width: 1upx;
-	background-color: #ddd;
-	left: 60upx;
+	background-color: #2fe6ea;
+	left: 40rpx;
 	height: 100%;
 	top: 0;
 	z-index: 8;
@@ -2035,29 +2035,29 @@ button.cuIcon.lg {
 	font-family: "cuIcon";
 	display: block;
 	position: absolute;
-	top: 36upx;
+	top: 36rpx;
 	z-index: 9;
 	background-color: #ffffff;
-	width: 50upx;
-	height: 50upx;
+	width: 50rpx;
+	height: 50rpx;
 	text-align: center;
 	border: none;
-	line-height: 50upx;
-	left: 36upx;
+	line-height: 50rpx;
+	left: 18rpx;
 }
 
-.cu-timeline>.cu-item:not([class*="cuIcon-"])::before {
+/* .cu-timeline>.cu-item:not([class*="cuIcon-"])::before {
 	content: "\e763";
-}
+} */
 
 .cu-timeline>.cu-item[class*="cuIcon-"]::before {
 	background-color: #ffffff;
-	width: 50upx;
-	height: 50upx;
+	width: 50rpx;
+	height: 50rpx;
 	text-align: center;
 	border: none;
-	line-height: 50upx;
-	left: 36upx;
+	line-height: 50rpx;
+	left: 18rpx;
 }
 
 .cu-timeline>.cu-item>.content {
@@ -3618,7 +3618,10 @@ scroll-view.cu-steps .cu-item {
 	color: #ffffff;
 	
 }
-
+.bg-person-newblue {
+	background-image: linear-gradient(to right, #3cd5e7, #2cade6);
+	color: #ffffff;
+}
 .bg-gradual-white {
 	background: #ffffff;
 	color: #000000;

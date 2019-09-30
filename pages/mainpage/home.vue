@@ -18,9 +18,9 @@
 		<!-- #endif -->
 
 		<!-- #ifdef APP-PLUS|| H5 -->  
-		<view class="header-content bg-gradual-newblue">  
+		<!-- <view class="header-content bg-gradual-newblue">  
 			<view class="bg-gradual-newblue">xin</view>  
-		</view> 
+		</view>  -->
 		<!-- #endif -->
 
 		<!-- 轮播图 -->
@@ -240,10 +240,10 @@
 				if(res.data.code == 200){
 					if(res.data.data.list){
 						res.data.data.list.forEach((item,index) => {
-							console.log(typeof(item.imagesJsonList))
+							//console.log(typeof(item.imagesJsonList))
 							item.videoPaused = true;
 							// item.video = 'https://toss.paycore.cc/ts/video/1566288960116.mp4';
-							console.log(JSON.parse(item.imagesJsonList))
+							//console.log(JSON.parse(item.imagesJsonList))
 							if(JSON.parse(item.imagesJsonList)!=null){
 								item.imagesJsonList = JSON.parse(item.imagesJsonList);
 								

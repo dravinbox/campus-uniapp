@@ -29,15 +29,9 @@ function vcodeRequest(mobile){
 		console.log("complete")
 	})
 }
-function loginUser(success){//发帖
+function loginUser(data,success){//发帖
 	api.post("/api/v1/login",
-	{
-		"email": "12@21.com",
-		"name": "admin",
-		"nickName": "dravin",
-		"password": "123456",
-		"phone": "13012341234"
-	},
+	data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{

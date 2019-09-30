@@ -3,7 +3,7 @@
 		<swiper class="screen-swiper square-dot" :class='heightClass' :indicator-color='indcolor' :indicator-active-color='indActiveColor' :indicator-dots="true" :circular="true"
 		 :autoplay="autoplay" :interval="interval" :duration="duration">
 			<swiper-item v-for="(item,index) in swiperList" :key="index">
-				<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
+				<image lazy-load :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
 				<video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type=='video'"></video>
 			</swiper-item>
 		</swiper>
