@@ -36,13 +36,13 @@ export default {
 		if(env==undefined|| env == null){
 			env = "dev"
 		}
-		try {
-			window.location.href
+		// #ifdef  H5  
 			return ''
-		} catch (error) {
-			//console.log(error)
+		// #endif
+
+		//#ifdef APP-PLUS || MP-WEIXIN
 			return this.map[env].protocol+"://"+this.map[env].domain
-		}
+		// #endif
 
 		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 	},

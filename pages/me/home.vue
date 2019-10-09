@@ -82,12 +82,14 @@
 					"password": "123456",
 					"phone": "13012341234"
 				}
-				try {
-					window.location.href;
-					data.name = 'timer'
-				} catch (error) {
-					
-				}
+				// #ifdef  H5  
+					data.name = 'admin'
+				// #endif
+
+				//#ifdef APP-PLUS 
+					data.name = 'peter'
+				// #endif
+
 				//console.log('token')
 				loginApi.loginUser(data,(res)=>{
 					if(res.data.code == 200){
