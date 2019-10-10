@@ -1,7 +1,7 @@
 import api from "./base.js";
 
 function uploadImage(data,success){//上传图片
-    api.postToken("/api/v1/upload/uploadImage",data,
+    api.uploadFileToken("/api/v1/upload/uploadImage",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -10,7 +10,7 @@ function uploadImage(data,success){//上传图片
 }
 
 function uploadVideo(data,success){//上传视频
-    api.postToken("/api/v1/upload/uploadVideo",data,
+    api.uploadFileToken("/api/v1/upload/uploadVideo",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{
@@ -19,7 +19,7 @@ function uploadVideo(data,success){//上传视频
 }
 
 function uploadVoice(data,success){//上传音频
-    api.postToken("/api/v1/upload/uploadVoice",data,
+    api.uploadFileToken("/api/v1/upload/uploadVoice",data,
     success,(res)=>{
         console.log("fail: ",res)
     },(res)=>{

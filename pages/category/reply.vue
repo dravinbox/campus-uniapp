@@ -13,8 +13,13 @@
 					<view class="uni-comment-body new-border-bottom">
 						<view class="uni-comment-top">
 							<text>{{item.user.userInfo.nickName||''}} </text>
-							<view class=" uni-comment-replay-btn " >
-								<text class="cuIcon-message" v-if="index==0"></text>
+							<view class=" uni-comment-replay-btn " v-if="index==0">
+								<text class="cuIcon-message" ></text>
+								<text class="cuIcon-appreciate" @tap='likeComment(item.id,index)' :class="item.userLikeComment?'new-text-red':''" >
+									<text class="liked">{{item.liked}}</text>
+								</text>
+							</view>
+							<view class=" uni-comment-replay-btn " v-if="index>0">
 								<text class="cuIcon-appreciate" @tap='likeCommentComment(item.id,index)' :class="item.userLikeCommentComment?'new-text-red':''" >
 									<text class="liked">{{item.liked}}</text>
 								</text>
@@ -40,7 +45,7 @@
 		<view class="mpcommot-content bg-white shadow" >
 			<input class="uni-input" v-model="commentParams.content"   adjust-position='false' placeholder="评论"  type="text"  />
 			<button  type="primary" disabled="none" v-if="!commentParams.content"  size="mini">发送</button>
-			<button  type="primary"  v-if="commentParams.content" @tap="commentEvent" size="mini">发送</button>
+			<button  type="primary"  v-if="commentParams.content" @tap="commentComment" size="mini">发送</button>
 		</view>
 	</view>
 </template>
@@ -67,22 +72,24 @@
 				},
 				isNextPage:true,
 				commentList:[],
+				first:{},
 			}
 		},
 		onLoad(option) {
 			this.newParam.commentId = Number(option.commentId);
-			
+			this.commentList = [];
+			try {	
+				console.log(JSON.parse(uni.getStorageSync('comment')))
+				this.first = JSON.parse(uni.getStorageSync('comment'))
+			} catch (e) {
+				// error
+			}
 			//console.log(this.newParam)
 			//var pages = getCurrentPages();
 			//console.log(pages)
 		},
 		mounted(){
-			this.commentList = [];
-			try {	
-				console.log(JSON.parse(uni.getStorageSync('comment')))
-			} catch (e) {
-				// error
-			}
+			
 			
 			if(this.newParam.commentId){
 				this.getCommentComment(this.newParam.commentId)
@@ -135,6 +142,7 @@
 					
 						if(this.params.pageNum==1){
 							this.commentList = []
+							this.commentList.push(this.first);
 							uni.stopPullDownRefresh()
 						}
 						res.data.data.list.forEach((item,index) => {
@@ -151,7 +159,7 @@
 				})
 			},
 
-			likeCommentComment(commentId,index){
+			likeCommentComment(commentId,index){//点赞或取消点赞 某个二级评论
 				discoverApi.likeCommentComment('/'+commentId,{},(res)=>{
 					console.log(res)
 					if(res.data.code == 200){
@@ -189,10 +197,48 @@
 				})
 			},
 
+			likeComment(commentId,index){//点赞或取消点赞 某个评论
+				discoverApi.likeComment('/'+commentId,{},(res)=>{
+					console.log(res)
+					if(res.data.code == 200){
+						if(res.data.code == 200){
+						if(res.data.data){
+							uni.showToast({
+								title: '点赞成功',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});	
+							this.commentList[index].userLikeComment = {}
+							this.commentList[index].liked++;
+						}else{
+							this.commentList[index].liked--;
+							this.commentList[index].userLikeComment = null;
+							
+							uni.showToast({
+								title: '已取消',
+								mask:true,
+								icon:'none',
+								duration: 2000
+							});
+						}		
+					}else if(res.data.code ==405){
+						uni.showToast({
+							title: res.data.data,
+							mask:true,
+							icon:'none',
+							duration: 2000
+						});
+					}
+					}
+					
+				})
+			},
+
 			commentComment(){//评论某个评论
 				let data = {
 					"content": this.commentParams.content,
-  					"pid": this.commentParams.pid
+  					"pid": this.newParam.commentId
 				}
 				discoverApi.commentComment(data,(res)=>{
 					//console.log(res)
@@ -201,7 +247,7 @@
 						this.commentCheck = false;
 						this.params.pageNum = 1 ;
 						this.params.pageSize = 20 +this.commentList.length;
-						this.getCommentComment(this.newParam.postId);
+						this.getCommentComment(this.newParam.commentId);
 					}
 					
 				})
@@ -221,8 +267,8 @@
 .uni-comment-body{width:100%;}
 .uni-comment-top{line-height:1.5em; justify-content:space-between; flex-direction:row; justify-content:space-between; display:flex !important; flex-grow:1; padding-top: 10rpx;}
 .uni-comment-top>text{color:#000000; font-size:30rpx; font-weight: bold;}
-.uni-comment-date{line-height:50rpx; flex-direction:row; justify-content:space-between; display:flex !important; flex-grow:1; padding-top: 10rpx;}
-.uni-comment-date text{color:#aaaaaa; font-size:26rpx; line-height:50rpx;}
+.uni-comment-date{ flex-direction:row; justify-content:space-between; display:flex !important; flex-grow:1; padding-top: 10rpx;}
+.uni-comment-date text{color:#aaaaaa; font-size:26rpx; }
 .uni-comment-content{line-height:1.6em; font-size:30rpx; padding:8rpx 0rpx; color:#000000;border-radius:10rpx;}
 .uni-comment-content .first-left{padding-left: 50rpx}
 .uni-comment-replay-btn{background:#FFF; font-size:34rpx !important; line-height:28rpx;  border-radius:30rpx; color:#b8b8b8;}
