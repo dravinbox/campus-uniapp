@@ -12,6 +12,20 @@
 					<text class="text-black new-cate">先放这里获取token</text>
 				</view>
 			</view>
+			
+			<view class="cu-item"  :class="menuArrow?'':''">
+				<view class="content" @tap="wxLogin">
+					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
+					<text class="text-black new-cate">微信登录</text>
+				</view>
+			</view>
+			
+			<view class="cu-item"  :class="menuArrow?'':''">
+				<view class="content" @tap="wxInfo">
+					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
+					<text class="text-black new-cate">获取微信头像</text>
+				</view>
+			</view>
 		</view>
 
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
@@ -56,6 +70,15 @@
 				secondList:[],
 				thirdList:[],
 				fourList:[],
+				
+				wxLoginRes: {
+					access_token: "26_ApGeD6wzsFrQTCs4TBxSBuY9Q76ddtxImeyZrR8mmVUoym86IN-TNd-bgUwrszHRvbAhFwqTWP8OX2eCi-SmOZV5NziXxIMbaoKYw-8nINg",
+					expires_in: 7200,
+					refresh_token: "26_2cVIwca212G3aioWbyB4WdGpK-kVtBqp6N4YwU2_xFCkAAVKhYzUnrILcL_7wE6xBn17AoxYWnWBV8ExMUgzrdmGjDcVOuUa81ySIVw6Qpo",
+					openid: "oRrdQt8SVe2KLNutP002xfEf0tIc",
+					scope: "snsapi_userinfo",
+					unionid: "oU5Yyt2mu5NDFK73nn_5VlVyRiBQ",
+				},
 			}
 		},
 		methods: {
@@ -143,6 +166,27 @@
 						}	
 					}
 				})
+			},
+			wxLogin(){
+				let _this = this
+				uni.login({
+				  provider: 'weixin',
+				  success: function (loginRes) {
+				    console.log(loginRes.authResult);
+					_this.wxLoginRes = loginRes.authResult
+				  }
+				});
+			},
+			wxInfo(){
+				
+				uni.getUserInfo({
+				      provider: 'weixin',
+				      success: function (infoRes) {
+						  console.log(infoRes)
+				        console.log('用户昵称为：' + infoRes.userInfo.nickName);
+						
+				      }
+				    })
 			}
 		},
 		mounted(){

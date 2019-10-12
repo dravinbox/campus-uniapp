@@ -17,7 +17,8 @@
         /* 模块配置 */
         "modules" : {
             "VideoPlayer" : {},
-            "Share" : {}
+            "Share" : {},
+            "OAuth" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -62,6 +63,12 @@
                     },
                     "qq" : {
                         "appid" : "1109859811"
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wxfa9f5fc30b7a56c3",
+                        "appsecret" : "e4602a216c99eb2d58ebc65bc56c5cb1"
                     }
                 }
             }
