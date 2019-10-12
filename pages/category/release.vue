@@ -15,18 +15,23 @@
 
         <view class="new-title">
 	        <view>
-                <button class="round" >取消</button> 
+                <button class="round" @tap='backPage'>取消</button> 
             </view>
             <view>
-                <button class="round new-border" >发布</button>
+                <button class="round new-border" @tap='releaseEvent'>发布</button>
             </view>  
         </view>
 	    <view class="release-content">
-            <textarea show-confirm-bar='false'  placeholder="分享故事......"  maxlength='-1' cursor='10'/>
+            <textarea show-confirm-bar='false'  placeholder="分享故事......" v-model="params.content"  maxlength='-1' cursor='10'/>
 
             <view class="grid flex-sub padding-lr-lm margin-top col-3 grid-square"  >
                 <view class="bg-img "  v-for="(item,index) in params.imagesJsonList" :key="index">
-                    <!-- <image  lazy-load :src='item.url'></image> -->
+                    <view></view>
+                    <image  lazy-load :src='item.url'></image>
+                </view>
+                <view class="bg-img "  v-if="params.videoGif">
+                    <view></view>
+                    <image  lazy-load :src='params.videoGif'></image>
                 </view>
             </view>
         </view>
@@ -37,10 +42,10 @@
 			<view class="action">
 				<text class="cuIcon-voicefill new-text-black"></text>
 			</view>
-            <view class="action">
+            <view class="action" @tap='cameraEvent'>
 				<text class="cuIcon-camerafill new-text-black"></text>
 			</view>
-            <view class="action">
+            <view class="action" @tap='videoEvent'>
 				<text class="cuIcon-videofill new-text-black"></text>
 			</view>
             <view class="action">
@@ -56,12 +61,12 @@
 
 <script>
     import { uploadApi } from '../../component/api/upload.js';
+    import { discoverApi } from '../../component/api/discover.js';
 	export default {
         name: 'release',
 		data() {
 			return {
                 InputBottom: 0,
-                imagesJsonList:[],
                 params:{
                     "content": "",
                     "imagesJsonList": [],
@@ -75,48 +80,113 @@
                     }
 			};
         },
+        onLoad(option) {
+            if(option.cateId){
+                this.params.oneCate =  Number(option.cateId);
+            }
+			//var pages = getCurrentPages();
+			console.log(this.params.oneCate)
+		},
         mounted(){
             console.log('dgfugdfu')
         },
 		methods: {
+            backPage() {
+				var pages = getCurrentPages();
+				console.log(pages)
+				//return
+				uni.navigateBack({
+					delta: 1
+				});
+            },
+
+            releaseEvent(){//发布
+                let data = JSON.parse(JSON.stringify(this.params));
+                data.imagesJsonList = JSON.stringify(data.imagesJsonList)
+                if(!data.voice){
+                    delete data.voice
+                }
+                 if(!data.voice){
+                    delete data.voice
+                }
+                discoverApi.sendAPost(data,(res) => {
+                    if(res.data.code == 200){
+                        console.log(res.data)
+                    }
+                });
+            },
+
             picEvent(){
                 uni.chooseImage({
                     count: 1, //默认9
                     sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
                     sourceType: ['album'], //从相册选择
-                    success: function (res) {
+                    success:  (res)=> {
                         console.log(res);
                         let tempFilePaths = res.tempFilePaths
                         //console.log(JSON.stringify(res.tempFilePaths));
                         uploadApi.uploadImage(tempFilePaths[0],(res) => {
-                            console.log(res.data.code)
-                            if(res.data.code == 200){
-                                console.log(res.data)
+                            console.log(res.data)
+                            let data = JSON.parse(res.data)
+                            if(data.code == 200){
+                                this.params.imagesJsonList.push({url:data.data});
+                                console.log(data.data)
                             }
                         })
-                        //  uni.uploadFile({
-                        //     url: '/api/v1/upload/uploadImage', //仅为示例，非真实的接口地址
-                        //     header:{
-                        //         "Authorization":"Bearer "+uni.getStorageSync('token')
-                        //     },
-                        //     filePath: tempFilePaths[0],
-                        //     name: 'file',
-                        //     formData: {
-                        //         'file': tempFilePaths[0]
-                        //     },
-                        //     success: (res) => {
-                        //         console.log(res.data);
-                        //     }
-                        // });
                     }
                 });
             },
-			InputFocus(e) {
-				this.InputBottom = e.detail.height
-			},
-			InputBlur(e) {
-				this.InputBottom = 0
-			}
+            
+            voiceEvent(){
+                uploadApi.uploadVoice(tempFilePaths[0],(res) => {
+                    console.log(res.data)
+                    let data = JSON.parse(res.data)
+                    if(data.code == 200){
+                        console.log(data.data)
+                    }
+                })
+            },
+
+            cameraEvent(){
+                uni.chooseImage({
+                    count: 1, //默认9
+                    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['camera'], //从相册选择
+                    success:  (res)=> {
+                        console.log(res);
+                        let tempFilePaths = res.tempFilePaths
+                        //console.log(JSON.stringify(res.tempFilePaths));
+                        uploadApi.uploadImage(tempFilePaths[0],(res) => {
+                            console.log(res.data)
+                            let data = JSON.parse(res.data)
+                            if(data.code == 200){
+                                this.params.imagesJsonList.push({url:data.data});
+                                console.log(data.data)
+                            }
+                        })
+                    }
+                });
+            },
+
+            videoEvent(){
+                uni.chooseVideo({
+                    count: 1,
+                    sourceType: ['camera', 'album'],
+                    success:(res)=>{
+                        console.log(res.tempFilePath)
+                        console.log(res)
+                        uploadApi.uploadVideo(res.tempFilePath,(res) => {
+                            console.log(res.data)
+                            let data = JSON.parse(res.data)
+                            if(data.code == 200){
+                                this.params.videoGif = data.data.gifUrl
+                                this.params.video = data.data.videoUrl
+                                console.log(data.data.videoUrl)
+                            }
+                        })
+                    }
+                });
+            }
 		}
 	}
 </script>
