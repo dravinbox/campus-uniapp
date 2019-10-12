@@ -77,13 +77,13 @@
 			getToken(){
 				let data ={
 					"email": "12@21.com",
-					"name": "admin",
+					"name": "reply",
 					"nickName": "dravin",
 					"password": "123456",
 					"phone": "13012341234"
 				}
 				// #ifdef  H5  
-					data.name = 'timer'
+					data.name = 'admin'//admin timer
 				// #endif
 
 				//#ifdef APP-PLUS 
