@@ -173,7 +173,7 @@
 				  provider: 'weixin',
 				  success: function (loginRes) {
 				    console.log(loginRes.authResult);
-					_this.wxLoginRes = loginRes.authResult
+					 _this.wxLoginRes = loginRes.authResult
 				  }
 				});
 			},
