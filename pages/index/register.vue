@@ -1,31 +1,33 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-pink" isBack="true">
+		<cu-custom bgColor="bg-gradual-newblue" isBack="true">
 			<block slot="backText">返回</block>
 			<block slot="content">注册</block>
 		</cu-custom>
 		
 		<form>
+			<view class="cu-form-group margin-top">
+				<view class="title">邮件</view>
+				<input  placeholder="请输入邮箱" v-model="params.email" />
+			</view>
+			<view class="cu-form-group">
+				<view class="title">账号名</view>
+				<input placeholder="请输入账号名" v-model="params.name" name="input"/>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">用户昵称</view>
+				<input placeholder="请输入用户昵称" v-model="params.nickName" name="input"/>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">密码</view>
+				<input placeholder="请输入密码" v-model="params.password" password='true' name="input"/>
+			</view>
 			<view class="cu-form-group">
 				<view class="title">手机号码</view>
-				<input placeholder="输入11位手机号码" name="input"></input>
-				<view class="cu-capsule radius">
-					<view class='cu-tag bg-blue '>
-						+86
-					</view>
-					<view class="cu-tag line-blue">
-						中国大陆
-					</view>
-				</view>
-			</view>
-			
-			<view class="cu-form-group">
-				<view class="title">验证码</view>
-				<input placeholder="输入6位验证码" name="input"></input>
-				<button class='cu-btn bg-green shadow' v-bind:disabled="dis" @click="getVerifyCode" v-text="verifyText"></button>
+				<input placeholder="请输入手机号" v-model="params.phone" name="input" />
 			</view>
 			<view class="padding-xl">
-				<button class="cu-btn block bg-blue margin-tb-sm lg">注册</button>
+				<button class="cu-btn block bg-blue margin-tb-sm lg" @tap='sign'> 注册</button>
 			</view>
 			
 			<view class="padding-sm" >
@@ -41,6 +43,7 @@
 </template>
 
 <script>
+	import {loginApi} from '../../component/api/login.js'
 	export default {
 		data() {
 			return {
@@ -48,12 +51,32 @@
 				intervalId: null,
 				timeOutId: null,
 				verifyText: '验证码',
-				waitingSeconds: 60
+				waitingSeconds: 60,
+				params:{
+					"email": "123456",
+					"name": "1234567",
+					"nickName": "123456",
+					"password": "123456",
+					"phone": "12345678978"
+				}
 			}
 			
 		},methods:{
 			jumpToLogin(){
 				uni.navigateBack({})
+			},
+
+			sign(){
+			
+				console.log("login...",loginApi)
+				// console.log(loginApi.getName())
+				loginApi.signUser(this.params,(res)=>{
+					if(res.data.code == 200){
+						console.log(res.data.data)
+						uni.navigateBack({})
+					}
+				})
+				
 			},
 			getVerifyCode(){
 				this.dis=true

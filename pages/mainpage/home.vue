@@ -244,8 +244,14 @@
 							item.videoPaused = true;
 							// item.video = 'https://toss.paycore.cc/ts/video/1566288960116.mp4';
 							//console.log(JSON.parse(item.imagesJsonList))
-							if(JSON.parse(item.imagesJsonList)!=null){
-								item.imagesJsonList = JSON.parse(item.imagesJsonList);
+							if(item.imagesJsonList){
+								console.log(item.imagesJsonList)
+								try {
+									item.imagesJsonList = JSON.parse(item.imagesJsonList);
+								} catch (error) {
+									item.imagesJsonList = []
+								}
+								
 								
 							}else{
 								item.imagesJsonList = []

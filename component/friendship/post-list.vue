@@ -60,7 +60,7 @@
 						<!-- <cover-view style="width:702upx;height:232px;" class="controls-title bg-white">简单的自定义 controls</cover-view> -->
 					</view>
 				</view>
-				<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-1'">
+				<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="newItem.imagesJsonList.length>1?'col-3 grid-square':'col-3 grid-square'">
 					<view class="bg-img" :class="isCard?'':'only-img'" 
 					 v-for="(item,index) in newItem.imagesJsonList" :key="index">
                      <image  lazy-load :src='item.url'></image>

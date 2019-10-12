@@ -51,9 +51,16 @@
             <view class="action">
 				<text class="new-size new-text-black">@</text>
 			</view>
-			 <view class="action  open-state">
-				<text class="new-text-black">公开</text>
-                <text class="cuIcon-unfold text-grey"></text>
+			<view class="action  open-state">
+				<!-- <text class="new-text-black">公开</text>
+                <text class="cuIcon-unfold text-grey"></text> -->
+                <view class="uni-list-cell-db">
+					<picker @change="bindPickerChange" :value="index" :range="array">
+						<view class="uni-input" v-if="array[index]=='公开  (所有人可见)'">公开 <text class="cuIcon-unfold text-grey"></text></view>
+                        <view class="uni-input" v-if="array[index]=='主页可见'"> 主页 <text class="cuIcon-unfold text-grey"></text></view>
+                        <view class="uni-input" v-if="array[index]=='私密 (仅自己可见)'">私密 <text class="cuIcon-unfold text-grey"></text></view>
+					</picker>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -77,7 +84,9 @@
                     "videoGif": "",
                     "voice": "",
                     "weather": 0
-                    }
+                },
+                array: ["公开  (所有人可见)",'主页可见','私密 (仅自己可见)'],
+				index: 0,
 			};
         },
         onLoad(option) {
@@ -99,6 +108,10 @@
 					delta: 1
 				});
             },
+            bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为：' + e.target.value)
+				this.index = e.target.value
+			},
 
             releaseEvent(){//发布
                 let data = JSON.parse(JSON.stringify(this.params));
@@ -245,6 +258,7 @@
     width: 130rpx;
     height: 50rpx;
     border-radius: 50rpx;
+    font-size: 26rpx;
 }
 .cuIcon-unfold.text-grey{
     font-size: 28rpx !important;

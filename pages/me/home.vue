@@ -6,13 +6,22 @@
 		</cu-custom>
 		<!-- 个人主页 -->
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
-			<view class="cu-item"  :class="menuArrow?'':''">
-				<view class="content" @tap="getToken">
+			<view class="cu-item"  :class="menuArrow?'arrow':''">
+				<view class="content" @tap="openLogin">
 					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
-					<text class="text-black new-cate">先放这里获取token</text>
+					<text class="text-black new-cate">登录</text>
 				</view>
 			</view>
 		</view>
+
+		<!-- <view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
+			<view class="cu-item"  :class="menuArrow?'arrow':''">
+				<view class="content" @tap="getToken">
+					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
+					<text class="text-black new-cate">获取token</text>
+				</view>
+			</view>
+		</view> -->
 
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
@@ -34,7 +43,7 @@
 			
 		</view>
 
-		<view class="cu-tabbar-height bg-white"></view>
+		<view class="cu-tabbar-height "></view>
 		
 	</view>
 </template>
@@ -83,7 +92,7 @@
 					"phone": "13012341234"
 				}
 				// #ifdef  H5  
-					data.name = 'admin'//admin timer
+					data.name = 'timer'//admin timer
 				// #endif
 
 				//#ifdef APP-PLUS 
@@ -105,8 +114,10 @@
 				})
 				
 			},
-			SwitchSex(e) {
-				this.skin = e.detail.value
+			openLogin(e) {
+				uni.navigateTo({
+				    url: '../index/login'
+				});
 			},
 			openMsg(){
 				uni.navigateTo({

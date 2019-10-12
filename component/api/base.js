@@ -110,7 +110,9 @@ export default {
 			responseType: "text",
 			success: success,
 			fail: fail,
-			complete: complete
+			complete: (res)=>{
+				console.log("complete",'dsagdajsgdjsafg')
+			}
 		})
 	},
 
