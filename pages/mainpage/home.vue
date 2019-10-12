@@ -295,7 +295,7 @@
 
       transform: translateY(-50%);
 	}
-.status_bar {  
+/* .status_bar {  
     height: var(--status-bar-height);  
     width: 100%;  
     background-color: #F8F8F8;  
@@ -307,7 +307,7 @@
     background-color: #F8F8F8;  
     top: 0;  
     z-index: 999;  
-}
+} */
 .header-content{
 	width: 100%;  
 	height: 90rpx;  

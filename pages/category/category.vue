@@ -56,7 +56,7 @@
 					});
 				}else if(PageCur=='release'){
 					uni.navigateTo({
-						url: '../category/release?classItem=release'
+						url: '../category/release?cateId='+this.newParam.cateId
 					});
 				}
 			},

@@ -37,7 +37,7 @@
 								<text>{{item.user.userInfo.nickName||''}} </text>
 							</view>
 						
-							<view class="uni-comment-content" @tap='toReply(item.id)'>{{item.content}}
+							<view class="uni-comment-content" @tap='toReply(item)'>{{item.content}}
 								<text class="first-left" v-if="item.commented"> 共{{item.commented}}条回复 </text>
 								<text class="cuIcon-right" v-if="item.commented"></text>
 							</view>
@@ -108,7 +108,7 @@
   					"pageSize": 20
 				},
 				commentParams:{
-					"content": "555",
+					"content": "",
   					"pid": ''
 				},
 				type:'帖子',
@@ -311,9 +311,10 @@
 			},
 
 			
-			toReply(commentId){//去回复页面
-					uni.navigateTo({
-					url: '../category/reply?commentId='+commentId
+			toReply(item){//去回复页面
+				uni.setStorageSync('comment', JSON.stringify(item));
+				uni.navigateTo({
+					url: '../category/reply?commentId='+item.id
 				});
 			}
 		},
@@ -398,10 +399,9 @@
 	padding:0 30rpx;
 }
 .uni-comment{padding:5rpx 0; display: flex; flex-grow:1; flex-direction: column;}
-.uni-comment{padding:5rpx 0; display: flex; flex-grow:1; flex-direction: column;}
 .uni-comment-list{flex-wrap:nowrap; padding:10rpx 0; margin:10rpx 0; width:100%; display: flex;}
 .uni-comment-face{width:80upx; height:80upx; border-radius:100%; margin-right:20upx; flex-shrink:0; overflow:hidden;}
-.uni-comment-face image{width:100%;height: 100% !important; }
+.uni-comment-face image{width:100%;height: 100% !important; background: #f3f3f3;}
 .uni-comment-body{width:100%;}
 .uni-comment-top{line-height:1.5em; justify-content:space-between;}
 .uni-comment-top text{color:#000000; font-size:30rpx;line-height: 80rpx; font-weight: bold;}
@@ -432,6 +432,7 @@
 	text-indent: 20rpx;
 	margin: 20rpx 0px ;
 	padding:0rpx 10rpx;
+	-webkit-appearance: none;
 }
 .mpcommot-content button{
 	border: none;

@@ -81,7 +81,7 @@
 			this.getPostList()
 			setTimeout(()=>{
 				this.isCard =  true;
-			},1000)
+			},5000)
 		},
 		
 	}

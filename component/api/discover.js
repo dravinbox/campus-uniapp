@@ -44,6 +44,15 @@ function likeComment(url,data,success){//点赞或取消点赞 某个评论
     })
 }
 
+function likeCommentComment(url,data,success){//点赞或取消点赞 某个二级评论
+    api.postToken("/api/v1/user/discover/likeCommentComment"+url,data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+
 function collectPost(url,data,success){//收藏或取消收藏 某个评论
     api.postToken("/api/v1/user/discover/collectPost"+url,data,
     success,(res)=>{
@@ -110,5 +119,6 @@ export let discoverApi = {
     getPostComment:getPostComment,
     commentPost:commentPost,
     commentComment:commentComment,
-    getCommentComment:getCommentComment
+    getCommentComment:getCommentComment,
+    likeCommentComment:likeCommentComment
 }

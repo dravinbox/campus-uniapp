@@ -77,17 +77,19 @@
 			getToken(){
 				let data ={
 					"email": "12@21.com",
-					"name": "reply",
+					"name": "admin",
 					"nickName": "dravin",
 					"password": "123456",
 					"phone": "13012341234"
 				}
-				try {
-					window.location.href;
+				// #ifdef  H5  
 					data.name = 'timer'
-				} catch (error) {
-					
-				}
+				// #endif
+
+				//#ifdef APP-PLUS 
+					data.name = 'peter'
+				// #endif
+
 				//console.log('token')
 				loginApi.loginUser(data,(res)=>{
 					if(res.data.code == 200){

@@ -30,7 +30,7 @@
 					</view>
 				</view>
 				<view class="text-content new-text-black" style="padding:0 24rpx;" >
-					<text class="new-text-red" style="padding-right:24rpx;">{{newItem.oneCategory.oneCateName||''}}</text> 
+					<text class="new-text-red" style="padding-right:24rpx;">{{newItem.oneCategory?newItem.oneCategory.oneCateName:''}}</text> 
                     {{newItem.content||''}}
 				</view>
 				<view class="text-content"  style="padding:0 24upx;" v-if="newItem.voice">

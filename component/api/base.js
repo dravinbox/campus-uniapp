@@ -37,17 +37,15 @@ export default {
 		if(env==undefined|| env == null){
 			env = "dev"
 		}
-		/*
-		try {
-			window.location.href
+		// #ifdef  H5  
 			return ''
-		} catch (error) {
-			//console.log(error)
-			return this.map[env].protocol+"://"+this.map[env].domain
-		}
-		*/
+		// #endif
 
-		return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
+		//#ifdef APP-PLUS || MP-WEIXIN
+			return this.map[env].protocol+"://"+this.map[env].domain
+		// #endif
+
+		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 	},
 	
 	
@@ -95,9 +93,7 @@ export default {
 	postToken: function(url,data,success,fail,complete){
 		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wQ6TpPU7gRdCGrBC5TETCAFtZgWhNK7O8Xt-yxQ5gAt-PjML1AwF_70OUKLCsrjPbK4e3c59Yfj9XyTgL-jSOMq6ypsSEH20x-YhtwGhinLZCjuLVHQUu10LU77hF7XCZEdBms4wfoDAAD__w.mNaPwqnU0KP64_0qM_7gPlm49AkE3h5fr95-CR3TyDQ'
 		try {	
-			if (uni.getStorageSync('token')) {
-				value = uni.getStorageSync('token');
-			}
+			value = uni.getStorageSync('token');
 		} catch (e) {
 			// error
 		}
@@ -121,9 +117,7 @@ export default {
 	getToken: function(url,data,success,fail,complete){
 		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wRMZjLJdCfoQvADXqCkJkIKajEtCOLdjbh9nzfUZYAOYrqVOyhYan72JUFnFNTLY8rNnU_7bb_eHHbHFuTX1KRjQS-OSUGJ8x9YQfMD41zaFIwbPGbRbClpigG1EJIOQt5K4tWVDXy-AAAA__8.z1vSZ4OfqZlv9_CE_ikO0bUwj0o9pPSce0olGGSAPAo'
 		try {
-			if (uni.getStorageSync('token')) {
-				value = uni.getStorageSync('token');
-			}
+			value = uni.getStorageSync('token');			
 		} catch (e) {
 			// error
 		}
@@ -137,6 +131,33 @@ export default {
 			data:data,
 			dataType: "json",
 			responseType: "text",
+			success: success,
+			fail: fail,
+			complete: complete
+		})
+	},
+
+
+
+	uploadFileToken: function(url,data,success,fail,complete){
+		let value = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0sKwjAQQO8y6wQ6TpPU7gRdCGrBC5TETCAFtZgWhNK7O8Xt-yxQ5gAt-PjML1AwF_70OUKLCsrjPbK4e3c59Yfj9XyTgL-jSOMq6ypsSEH20x-YhtwGhinLZCjuLVHQUu10LU77hF7XCZEdBms4wfoDAAD__w.mNaPwqnU0KP64_0qM_7gPlm49AkE3h5fr95-CR3TyDQ'
+		try {	
+			value = uni.getStorageSync('token');
+		} catch (e) {
+			// error
+		}
+		let token = "Bearer "+value
+		//console.log(data)
+		uni.uploadFile({
+			url: this.getPath() + url,
+			header:{
+				"Authorization":token
+			},
+			filePath: data,
+			name: 'file',
+			formData: {
+				file:data
+			},
 			success: success,
 			fail: fail,
 			complete: complete

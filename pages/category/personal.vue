@@ -6,10 +6,10 @@
 			</cu-custom>
 			<view  class="new-yu-blue bg-person-newblue">	
 				<view class="text-center head-portrait">
-					<image lazy-load src='https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png'></image>
+					<image v-if="user.userInfo" lazy-load :src='user.userInfo.headImage'></image>
 				</view>
 				<view class="text-center head-name">
-					<text>名字斯蒂芬</text>
+					<text v-if="user.userInfo">{{user.userInfo.nickName}}</text>
 				</view>
 				<view class="flex text-center new-height">
 					<view class="cu-item flex-sub new-class-right"   :data-id="0">
@@ -29,7 +29,7 @@
 			<view class="homepage-content">
 				<view class="cu-timeline">
 					<view class="cu-time "></view>
-					<view class="cu-item cur cuIcon-noticefill text-blue">
+					<view class="cu-item cur cuIcon-newll text-blue">
 						<view class="content bg-green shadow-blur">
 							<text>22:22</text> 【广州市】快件已到达地球
 						</view>
@@ -57,7 +57,7 @@
 				<view class="cu-timeline">
 					<!-- <view class="cu-time">06-17</view> -->
 					<view class="cu-item cuIcon-evaluate_fill text-red">
-						<view class="content">
+						<view class="content solids-bottom">
 							<text>01:30</text> 【喵星】 MX-12138 已揽收，准备发往银河系
 						</view>
 					</view>
@@ -116,7 +116,7 @@
 </template>
 
 <script>
-
+	import { userApi } from '../../component/api/user.js';
 	export default {
 		data() {
 			return {
@@ -126,22 +126,58 @@
 				radio: 'radio1',
 				newParam:{
 					classItem:'',
-					cateId:null,
+					otherUserId:null,
 				},
 				scrollHeight:0,
+				user:{},
+				params:{
+					"pageNum": 1,
+  					"pageSize": 20
+				},
 			}
 		},
 		onLoad(option) {
-			console.log(option.classItem); //打印出上个页面传递的参数。
-			console.log(option.cateId); //打印出上个页面传递的参数
+			//console.log(option.classItem); //打印出上个页面传递的参数。
+			//console.log(option.cateId); //打印出上个页面传递的参数
 			this.newParam.classItem = option.classItem;
-			this.newParam.cateId = Number(option.cateId);
-			console.log(this.newParam)
+			this.newParam.otherUserId = Number(option.otherUserId);
+			if(this.newParam.otherUserId){
+				console.log('查看别人的主页')
+			}
+			//console.log(this.newParam)
 			var pages = getCurrentPages();
-			console.log(pages)
+			//console.log(pages)
 			//console.log(this.$mp.query)
 		},
+		mounted(){
+			this.getInfoEvent();
+			this.getMyPostHistory()
+			uni.getLocation({
+				type: 'wgs84',
+				geocode:true,
+				success: function (res) {
+					console.log(res)
+					console.log('当前位置的经度：' + res.longitude);
+					console.log('当前位置的纬度：' + res.latitude);
+				}
+			});
+		},
 		methods: {
+			getInfoEvent(){//获取用户基本信息
+				userApi.getInfo({},(res)=>{
+					if(res.data.code ==200){
+						this.user =  res.data.data;
+						console.log(res.data,this.user)
+					}
+				})
+			},
+			getMyPostHistory(){//获取本人的个人主页动态列表
+				userApi.getMyPostHistory(this.params,(res)=>{
+					if(res.data.code ==200){
+						console.log(res.data)
+					}
+				})
+			},
 			NavChange: function(e) {
 				this.PageCur = e.currentTarget.dataset.cur
 			},
@@ -184,9 +220,24 @@
 }
 .new-height{height: 30px;line-height: 18px;padding: 6px 0px; color: rgba(255, 255, 255, .8);}
 .new-class-right{border-right: 1px solid rgba(255, 255, 255, .8);}
-.cu-timeline>.cu-item[class*="cuIcon-"]::before {
+/* .cu-timeline>.cu-item[class*="cuIcon-newll"]::before {
 	background-image: url('./../../static/icon_home.png');
+	background-color: #fff;
+	background-repeat: no-repeat;
 	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-position: center 0;
+} */
+.cuIcon-newll::before {
+	content: ' ';
+	background-image: url('./../../static/icon_home.png');
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-position: center 0;
 }
 </style>
 

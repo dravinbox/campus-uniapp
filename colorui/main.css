@@ -881,7 +881,7 @@ button.cuIcon.lg {
 	text-align: center;
 	justify-content: center;
 	align-items: center;
-	background-color: #ccc;
+	background-color: #f3f3f3;
 	color: #ffffff;
 	white-space: nowrap;
 	position: relative;
@@ -1212,6 +1212,20 @@ button.cuIcon.lg {
 
 .cu-list.menu-avatar {
 	overflow: hidden;
+}
+
+.status_bar {  
+    height: var(--status-bar-height);  
+    width: 100%;  
+    background-color: #F8F8F8;  
+}  
+.top_view {  
+    height: var(--status-bar-height);  
+    width: 100%;  
+    position: fixed;  
+    background-color: #F8F8F8;  
+    top: 0;  
+    z-index: 999;  
 }
 
 .cu-list.menu-avatar>.cu-item {
