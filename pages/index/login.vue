@@ -123,6 +123,9 @@
 						})
 					 },(res)=>{
 					 	console.log("wx fail ",res)
+						uni.navigateTo({
+							url: 'register'
+						})
 					 })
 				  }
 				});
