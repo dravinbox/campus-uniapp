@@ -18,8 +18,12 @@
 			<view class="padding-xl">
 				<button class="cu-btn block bg-blue margin-tb-sm lg" @click="login">登录</button>
 			</view>
+			<view class="padding text-sl text-center text-green">
+				<text class="cuIcon-weixin" @click="wxLogin"></text>
+			</view>
+			
 
-			<view class="padding-sm">
+			<view class="padding-xl">
 				<view class="text-center text-blue" @click="jumpToRegister">
 					没帐号？去注册
 				</view>
@@ -93,6 +97,16 @@
 					this.modalName = "Modal"
 				})
 
+			},
+			wxLogin(){
+				let _this = this
+				uni.login({
+				  provider: 'weixin',
+				  success: function (loginRes) {
+				    console.log(loginRes.authResult);
+					 _this.wxLoginRes = loginRes.authResult
+				  }
+				});
 			},
 			jumpToRegister() {
 				this.recover()
