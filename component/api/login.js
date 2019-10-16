@@ -39,13 +39,8 @@ function loginUser(data,success,fail){//账号登录
     })
 }
 
-function signUser(data,success){//账号注册
-	api.post("/api/v1/sign",data,
-    success,(res)=>{
-        console.log("fail: ",res)
-    },(res)=>{
-        console.log("complete")
-    })
+function signUser(data,success,fail){//账号注册
+	api.post("/api/v1/sign",data,success,fail)
 }
 
 
