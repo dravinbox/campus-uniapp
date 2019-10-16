@@ -6,9 +6,9 @@
 				<view slot="content" >
 					<view class="new-content justify-center">
 						<view class="backImg">
-							<image :src='detail.user.userInfo.headImage'></image>
+							<image :src='detail.user.userChartInfo.headImage'></image>
 						</view>
-						<view class="new-backText">{{detail.user.userInfo.nickName||''}} </view>
+						<view class="new-backText">{{detail.user.userChartInfo.nickName||''}} </view>
 					</view>
 				</view>
 			</cu-custom>	
@@ -31,10 +31,10 @@
 				<!-- 评论区 start -->
 				<view class="uni-comment">
 					<view class="uni-comment-list" v-for="(item,index) in commentList" :key="index">
-						<view class="uni-comment-face"><image :src="item.user.userInfo.headImage" lazy-load mode="widthFix"></image></view>
+						<view class="uni-comment-face"><image :src="item.user.userChartInfo.headImage" lazy-load mode="widthFix"></image></view>
 						<view class="uni-comment-body new-border-bottom">
 							<view class="uni-comment-top">
-								<text>{{item.user.userInfo.nickName||''}} </text>
+								<text>{{item.user.userChartInfo.nickName||''}} </text>
 							</view>
 						
 							<view class="uni-comment-content" @tap='toReply(item)'>{{item.content}}

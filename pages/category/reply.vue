@@ -9,10 +9,10 @@
 			<!-- 评论区 start -->
 			<view class="uni-comment">
 				<view class="uni-comment-list" v-for="(item,index) in commentList" :key="index">
-					<view class="uni-comment-face"><image :src="item.user.userInfo.headImage" lazy-load mode="widthFix"></image></view>
+					<view class="uni-comment-face"><image :src="item.user.userChartInfo.headImage" lazy-load mode="widthFix"></image></view>
 					<view class="uni-comment-body new-border-bottom">
 						<view class="uni-comment-top">
-							<text>{{item.user.userInfo.nickName||''}} </text>
+							<text>{{item.user.userChartInfo.nickName||''}} </text>
 							<view class=" uni-comment-replay-btn " v-if="index==0">
 								<text class="cuIcon-message" ></text>
 								<text class="cuIcon-appreciate" @tap='likeComment(item.id,index)' :class="item.userLikeComment?'new-text-red':''" >

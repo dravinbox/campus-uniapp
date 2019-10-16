@@ -6,10 +6,10 @@
 			</cu-custom>
 			<view  class="new-yu-blue bg-person-newblue">	
 				<view class="text-center head-portrait">
-					<image v-if="user.userInfo" lazy-load :src='user.userInfo.headImage'></image>
+					<image v-if="user.userChartInfo" lazy-load :src='user.userChartInfo.headImage'></image>
 				</view>
 				<view class="text-center head-name">
-					<text v-if="user.userInfo">{{user.userInfo.nickName}}</text>
+					<text v-if="user.userChartInfo">{{user.userChartInfo.nickName}}</text>
 				</view>
 				<view class="flex text-center new-height">
 					<view class="cu-item flex-sub new-class-right"   :data-id="0">

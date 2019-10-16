@@ -6,10 +6,10 @@
 				<view class="cu-list menu-avatar new-overflow" >
 					<view class="cu-item new-cu-item">
 						<view class="cu-avatar round lm" 
-						:style="[{backgroundImage:'url('+newItem.user.userInfo.headImage||''+')'}]">
+						:style="[{backgroundImage:'url('+newItem.user.userChartInfo.headImage||''+')'}]">
 						</view>
 						<view class="content flex-sub">
-							<view class="new-text-black">{{newItem.user.userInfo.nickName||''}} 
+							<view class="new-text-black">{{newItem.user.userChartInfo.nickName||''}} 
 								<text class="new-text-background text-center" v-if="hotNotes">HOT</text>
 							</view>
 							<view class="text-gray text-sm flex justify-between">

@@ -194,7 +194,7 @@
 				      provider: 'weixin',
 				      success: function (infoRes) {
 						  console.log(infoRes)
-				        console.log('用户昵称为：' + infoRes.userInfo.nickName);
+				        console.log('用户昵称为：' + infoRes.userChartInfo.nickName);
 						
 				      }
 				    })
