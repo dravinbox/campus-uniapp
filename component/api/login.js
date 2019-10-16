@@ -15,6 +15,9 @@ function loginRequest(mobile,vcode,success,fail){
 	})
 		
 }
+function wxLoginRequest(openid,success,fail){
+	api.post("/api/v1/wxLogin?openid="+openid,{},success,fail)
+}
 /**
  * @description 获取验证码请求
  * @param {String} mobile 手机号码
@@ -52,6 +55,7 @@ function getName(){
 
 export let loginApi = {
 	login: loginRequest,
+	wxLogin: wxLoginRequest,
 	getVCode: vcodeRequest,
 	getName: getName,
 	loginUser:loginUser,

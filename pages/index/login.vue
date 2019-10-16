@@ -69,6 +69,14 @@
 					"password": "",
 				},
 				modalName: null,
+				wxLoginRes: {
+					access_token: "26_ApGeD6wzsFrQTCs4TBxSBuY9Q76ddtxImeyZrR8mmVUoym86IN-TNd-bgUwrszHRvbAhFwqTWP8OX2eCi-SmOZV5NziXxIMbaoKYw-8nINg",
+					expires_in: 7200,
+					refresh_token: "26_2cVIwca212G3aioWbyB4WdGpK-kVtBqp6N4YwU2_xFCkAAVKhYzUnrILcL_7wE6xBn17AoxYWnWBV8ExMUgzrdmGjDcVOuUa81ySIVw6Qpo",
+					openid: "oRrdQt8SVe2KLNutP002xfEf0tIc1",
+					scope: "snsapi_userinfo",
+					unionid: "oU5Yyt2mu5NDFK73nn_5VlVyRiBQ",
+				},
 			}
 
 		},
@@ -86,7 +94,7 @@
 						try {
 							uni.setStorageSync('token', res.data.data.token);
 							uni.navigateTo({
-								url: '/'
+								url: 'index'
 							})
 						} catch (error) {
 							console.log(error)
@@ -99,12 +107,23 @@
 
 			},
 			wxLogin(){
+				
 				let _this = this
 				uni.login({
 				  provider: 'weixin',
 				  success: function (loginRes) {
 				    console.log(loginRes.authResult);
 					 _this.wxLoginRes = loginRes.authResult
+					 
+					 loginApi.wxLogin(_this.wxLoginRes.openid,(res)=>{
+					 	console.log("wx success",res)
+						uni.setStorageSync('token', res.data.data.token);
+						uni.navigateTo({
+							url: 'index'
+						})
+					 },(res)=>{
+					 	console.log("wx fail ",res)
+					 })
 				  }
 				});
 			},
