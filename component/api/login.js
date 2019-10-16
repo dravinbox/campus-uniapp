@@ -29,11 +29,9 @@ function vcodeRequest(mobile){
 		console.log("complete")
 	})
 }
-function loginUser(data,success){//账号登录
+function loginUser(data,success,fail){//账号登录
 	api.post("/api/v1/login",data,
-    success,(res)=>{
-        console.log("fail: ",res)
-    },(res)=>{
+    success,fail,(res)=>{
         console.log("complete")
     })
 }

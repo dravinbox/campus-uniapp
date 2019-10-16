@@ -3,12 +3,12 @@ export default {
 	map:{
 		//本地开发环境
 		"dev":{
-			// protocol: "http",
-			// domain: "127.0.0.1",
-			// port: "8080"
-			protocol: "https",
-			domain: "api.campus.gzmytech.com",
-			port: "443",
+			protocol: "http",
+			domain: "127.0.0.1",
+			port: "8080"
+			// protocol: "https",
+			// domain: "api.campus.gzmytech.com",
+			// port: "443",
 		},
 		//演示环境
 		"pre":{
@@ -38,7 +38,7 @@ export default {
 			env = "dev"
 		}
 		// #ifdef  H5  
-			return ''
+			return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 		// #endif
 
 		//#ifdef APP-PLUS || MP-WEIXIN
@@ -58,14 +58,26 @@ export default {
 	 * @param {Function} complete 完成回调
 	 */
 	post: function(url,data,success,fail,complete){
+		
 		uni.request({
 			url: this.getPath() + url,
 			method: "POST",
 			data:data,
 			dataType: "json",
 			responseType: "text",
-			success: success,
-			fail: fail,
+			success: (res)=>{
+				if(res.data.code==200){
+					//业务操作成功
+					success(res)
+				}else{
+					//业务操作不成功
+					fail(res)
+				}
+			},
+			fail: (err)=>{
+				//网络异常等引起发送请求异常
+				console.log("请求异常",err)
+			},
 			complete: complete
 		})
 	},
@@ -78,13 +90,25 @@ export default {
 	 * @param {Function} complete
 	 */
 	get: function(url,success,fail,complete){
+		
 		uni.request({
 			url: this.getPath() + url,
 			method: "GET",
 			dataType: "json",
 			responseType: "text",
-			success: success,
-			fail: fail,
+			success: (res)=>{
+				if(res.data.code==200){
+					//业务操作成功
+					success(res)
+				}else{
+					//业务操作不成功
+					fail(res)
+				}
+			},
+			fail: (err)=>{
+				//网络异常等引起发送请求异常
+				console.log("请求异常",err)
+			},
 			complete: complete
 		})
 	},
@@ -108,11 +132,27 @@ export default {
 			data:data,
 			dataType: "json",
 			responseType: "text",
-			success: success,
-			fail: fail,
-			complete: (res)=>{
-				console.log("complete",'dsagdajsgdjsafg')
-			}
+			success: (res)=>{
+				
+				if(res.data.code==200){
+					//业务操作成功
+					success(res)
+				}else if(res.data.code==401){
+					//授权token已过期，跳转到登录页面
+					uni.navigateTo({
+						url:'/pages/index/login'
+					})
+				}else{
+					//业务操作不成功
+					fail(res)
+				}
+				
+			},
+			fail: (err)=>{
+				//网络异常等引起发送请求异常
+				console.log("请求异常",err)
+			},
+			complete: complete
 		})
 	},
 
@@ -133,8 +173,25 @@ export default {
 			data:data,
 			dataType: "json",
 			responseType: "text",
-			success: success,
-			fail: fail,
+			success: (res)=>{
+				if(res.data.code==200){
+					//业务操作成功
+					success(res)
+				}else if(res.data.code==401){
+					//授权token已过期，跳转到登录页面
+					uni.navigateTo({
+						url:'/pages/index/login'
+					})
+				}else{
+					//业务操作不成功
+					fail(res)
+				}
+			},
+			fail: (err)=>{
+				//网络异常等引起发送请求异常
+				console.log("请求异常",err)
+				
+			},
 			complete: complete
 		})
 	},

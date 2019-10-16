@@ -4,7 +4,8 @@
 		<cu-custom bgColor="bg-gradual-pink" >
 			<block slot="content">消息</block>
 		</cu-custom>
-		
+		<button @click="wstest">连接websocket</button>
+		<button @click="sendMsgToUser2">发送消息给用户2</button>
 		<view class="cu-list menu-avatar">
 			<view class="cu-item" @click="openMsg">
 				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
@@ -90,7 +91,7 @@
 	export default {
 		data() {
 			return {
-				
+				socketOpen:false,
 			}
 		},
 		methods: {
@@ -98,6 +99,34 @@
 				uni.navigateTo({
 				    url: '../message/chat'
 				});
+			},
+			wstest(){
+				let _this  = this
+				uni.connectSocket({
+				    url: 'ws://localhost:8080/api/v1/ws/im/imWebSocketHandler?token=eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNoki0EKwyAQAP-yZ4Xd1SbGe26FQkrPwbUG7KUSDRRK_15Lb8MM84Z6CHgoqaUdFBw17Wu-g2cFNT5L6m25nOf1dp2X3tOrgKfTSOzQklWQQ_sLmiz-xKPl_jC6EAcXtInGaMudHJlNb8I4oYyCg8DnCwAA__8.ecbeK_vpmbsRvX7_q-SfaSi6kfZCtqSyfmiGzTyDKbk',
+				   
+				});
+				uni.onSocketOpen(function (res) {
+				  console.log('WebSocket连接已打开！');
+				  _this.socketOpen = true
+				});
+				uni.onSocketMessage(function (res) {
+				  console.log('收到服务器内容：' + res.data);
+				});
+			},
+			sendMsgToUser2(){
+				let msg = {
+					toId: 2,
+					contentType: "text",
+					message: "通过ws的发送的消息"
+				}
+				 if (this.socketOpen) {
+				    uni.sendSocketMessage({
+				      data: JSON.stringify(msg)
+				    });
+				}else{
+					console.log("未连接ws")
+				}
 			}
 			
 		}
