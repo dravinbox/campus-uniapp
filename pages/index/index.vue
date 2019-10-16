@@ -1,34 +1,35 @@
 <template>
 	<view>
 		<mainpage v-if="PageCur=='mainpage'"></mainpage>
-		<discover v-if="PageCur=='discover'"></discover>
+		<good-friend-list v-if="PageCur=='discover'"></good-friend-list>
 		<message v-if="PageCur=='message'"></message>
 		<me v-if="PageCur=='me'"></me>
+		
 		<view class="cu-bar tabbar bg-white shadow foot">
 			<view class="action" :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
 				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view>
 				<view >那些人</view>
 			</view>
 			<view class="action " :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
-				<view :class="PageCur=='discover'?'cuIcon-discoverfill':'cuIcon-discover'"></view> 
+				<view :class="PageCur=='discover'?'cuIcon-messagefill':'cuIcon-message'"></view> 
 				<view>那些话</view>
 			</view>
-			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="errands" >
-				<view :class="PageCur=='message'?'cuIcon-messagefill':'cuIcon-message'">
-					<view class="cu-tag badge">99</view>
+			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="errands" >
+				<view :class="PageCur=='errands'?'cuIcon-goodsnewfill':'cuIcon-goodsnew'">
+					<!-- <view class="cu-tag badge">99</view> -->
 				</view>
 				跑腿
 			</view>
 			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="message" >
-				<view :class="PageCur=='message'?'cuIcon-messagefill':'cuIcon-message'">
-					<view class="cu-tag badge">99</view>
+				<view :class="PageCur=='message'?'cuIcon-shopfill':'cuIcon-shop'">
+					<!-- <view class="cu-tag badge">99</view> -->
 				</view>
 				商城
 			</view>
 			
 			<view class="action" :class="PageCur=='me'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="me" >
-				<view :class="PageCur=='me'?'cuIcon-myfill':'cuIcon-my'">
-					<view class="cu-tag badge"></view>
+				<view :class="PageCur=='me'?'cuIcon-formfill':'cuIcon-form'">
+					<!-- <view class="cu-tag badge"></view> -->
 				</view>
 				<view >分类</view>
 			</view>
@@ -55,8 +56,9 @@
 </template>
 
 <script>
-	
+	import goodFriendList from '../../component/friendship/good-friend-list.vue'
 	export default {
+		components: {goodFriendList},
 		data() {
 		return {
 				PageCur: 'mainpage',

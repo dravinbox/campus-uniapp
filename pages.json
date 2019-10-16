@@ -57,7 +57,7 @@
 		},
 		
 		{
-            "path" : "pages/category/personal",
+            "path" : "pages/me/personal",
             "style" : {
 				"navigationBarTitleText": "个人主页"
 			}
