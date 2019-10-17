@@ -165,10 +165,10 @@
 					url: '../category/commentDetails?postId='+id
 				});
 			},
-			shareEvent(postId,id){
+			shareEvent(postId,index){
 				console.log("share ..")
 				
-				
+				let _this = this
 				uni.share({
 				    provider: "weixin",
 				    scene: "WXSceneSession",
@@ -182,14 +182,15 @@
 						discoverApi.sharePost('/'+postId,{},(res)=>{
 							console.log(res.data.data)
 							if(res.data.code == 200){
-								if(res.data.data){
 									uni.showToast({
 										title: '分享成功',
 										mask:true,
 										icon:'none',
 										duration: 2000
 									});	
-									}}})
+									_this.itemList[index].share++;
+								}
+									})
 				    },
 				    fail: function (err) {
 				        console.log("fail:" + JSON.stringify(err));
