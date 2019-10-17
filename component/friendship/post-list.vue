@@ -167,6 +167,11 @@
 			},
 			shareEvent(postId,index){
 				console.log("share ..")
+				let title = this.itemList[index].content
+				if(title==""||title==null||title==undefined){
+					title="校园通知"
+				}
+
 				
 				let _this = this
 				uni.share({
@@ -174,8 +179,8 @@
 				    scene: "WXSceneSession",
 				    type: 0,
 				    href: "http://uniapp.dcloud.io/",
-				    title: "uni-app分享",
-				    summary: "我正在使用校园APP看学校通知呢，赶紧跟我一起来体验！",
+				    title: title,
+				    summary: "校园APP看学校重要的通知，赶紧跟我一起来体验！",
 				    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
 				    success: function (res) {
 				        console.log("success:" + JSON.stringify(res));
