@@ -35,6 +35,15 @@ function likePost(url,data,success){//点赞或取消点赞某个帖子
     })
 }
 
+function sharePost(url,data,success){//分享某个帖子
+    api.postToken("/api/v1/user/discover/sharePost"+url,data,
+    success,(res)=>{
+        console.log("fail: ",res)
+    },(res)=>{
+        console.log("complete")
+    })
+}
+
 function likeComment(url,data,success){//点赞或取消点赞 某个评论
     api.postToken("/api/v1/user/discover/likeComment"+url,data,
     success,(res)=>{
@@ -112,6 +121,7 @@ export let discoverApi = {
     getCategory: getCategory,
     getPostList: getPostList,
     sendAPost:sendAPost,
+	sharePost:sharePost,
     likePost:likePost,
     likeComment:likeComment,
     collectPost:collectPost,

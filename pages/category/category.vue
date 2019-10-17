@@ -52,7 +52,7 @@
 				let PageCur = e.currentTarget.dataset.cur
 				if(PageCur=='me'){
 					uni.navigateTo({
-						url: '../category/personal?classItem=me'
+						url: '../me/personal?classItem=me'
 					});
 				}else if(PageCur=='release'){
 					uni.navigateTo({

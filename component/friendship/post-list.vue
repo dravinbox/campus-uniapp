@@ -75,8 +75,8 @@
                         <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="collectionEvent(newItem.id,newIndex)" :data-id="1">
                             <text class="new-text-grey new-text-padding"> {{newItem.collected||0}}</text>
                         </view>
-                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="2">
-                            <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
+                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="shareEvent(newItem.id,newIndex)" :data-id="2">
+                            <text class="new-text-grey new-text-padding"> {{newItem.share||0}}</text>
                         </view>
                          <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="commentEvent(newItem.id)" :data-id="3">
                             <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
@@ -163,6 +163,43 @@
 				console.log(id)
 				uni.navigateTo({
 					url: '../category/commentDetails?postId='+id
+				});
+			},
+			shareEvent(postId,index){
+				console.log("share ..")
+				let title = this.itemList[index].content
+				if(title==""||title==null||title==undefined){
+					title="校园通知"
+				}
+
+				
+				let _this = this
+				uni.share({
+				    provider: "weixin",
+				    scene: "WXSceneSession",
+				    type: 0,
+				    href: "http://uniapp.dcloud.io/",
+				    title: title,
+				    summary: "校园APP看学校重要的通知，赶紧跟我一起来体验！",
+				    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+				    success: function (res) {
+				        console.log("success:" + JSON.stringify(res));
+						discoverApi.sharePost('/'+postId,{},(res)=>{
+							console.log(res.data.data)
+							if(res.data.code == 200){
+									uni.showToast({
+										title: '分享成功',
+										mask:true,
+										icon:'none',
+										duration: 2000
+									});	
+									_this.itemList[index].share++;
+								}
+									})
+				    },
+				    fail: function (err) {
+				        console.log("fail:" + JSON.stringify(err));
+				    }
 				});
 			},
 

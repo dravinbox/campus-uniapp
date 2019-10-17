@@ -83,7 +83,9 @@
                     "video": "",
                     "videoGif": "",
                     "voice": "",
-                    "weather": 0
+                    "weather": 0,
+					"onlyMe":false,
+					"showArea":0
                 },
                 array: ["公开  (所有人可见)",'主页可见','私密 (仅自己可见)'],
 				index: 0,
@@ -111,6 +113,17 @@
             bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为：' + e.target.value)
 				this.index = e.target.value
+				console.log(this.index)
+				if(this.index==0){
+					this.params.onlyMe=false
+					this.params.showArea=0
+				}else if(this.index==1){
+					this.params.onlyMe=false
+					this.params.showArea=1
+				}else {
+					this.params.onlyMe=true
+					this.params.showArea=1
+				}
 			},
 
             releaseEvent(){//发布
