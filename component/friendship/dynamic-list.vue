@@ -43,7 +43,7 @@
 					"oneCateId": 1,
 					"pageNum": 1,
 					"pageSize": 10,
-					"pullLast": false,
+					"pullLast": true,//为true时，一直拉取新的动态
 				},
 			};
 		},
