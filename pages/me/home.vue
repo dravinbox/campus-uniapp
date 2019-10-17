@@ -28,14 +28,14 @@
 			</view>
 		</view>
 
-		<!-- <view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
 				<view class="content" @tap="getToken">
 					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
 					<text class="text-black new-cate">获取token</text>
 				</view>
 			</view>
-		</view> -->
+		</view>
 
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
@@ -109,13 +109,13 @@
 			getToken(){
 				let data ={
 					"email": "12@21.com",
-					"name": "reply",
+					"name": "seller",
 					"nickName": "dravin",
 					"password": "123456",
 					"phone": "13012341234"
 				}
 				// #ifdef  H5  
-					data.name = 'timer'//admin timer
+					data.name = 'admin'//admin  peter  runner   seller
 				// #endif
 
 				//#ifdef APP-PLUS 

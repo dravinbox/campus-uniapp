@@ -2023,7 +2023,7 @@ button.cuIcon.lg {
 }
 
 .cu-timeline>.cu-item {
-	padding: 30rpx 30rpx 30rpx 80rpx;
+	padding: 30rpx 30rpx 0rpx 80rpx;
 	position: relative;
 	display: block;
 	z-index: 0;

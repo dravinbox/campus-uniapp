@@ -59,7 +59,9 @@
 		{
             "path" : "pages/category/personal",
             "style" : {
-				"navigationBarTitleText": "个人主页"
+				"navigationBarTitleText": "个人主页",
+				"onReachBottomDistance":50,
+				"enablePullDownRefresh":true
 			}
         }
 	],

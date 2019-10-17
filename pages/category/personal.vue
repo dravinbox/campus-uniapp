@@ -29,86 +29,21 @@
 			<view class="homepage-content">
 				<view class="cu-timeline">
 					<view class="cu-time "></view>
-					<view class="cu-item cur cuIcon-newll text-blue">
-						<view class="content bg-green shadow-blur">
-							<text>22:22</text> 【广州市】快件已到达地球
+					<view class="cu-item cur cuIcon-newll new-bottom" v-for="(item,index) in commentList" :key="index">
+						<view class="content bg-white new-contont">
+							<text>{{item.content}}</text>
+							<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="item.imagesJsonList.length>1?'col-3 grid-square':'col-3 grid-square'">
+								<view class="bg-img"  
+								v-for="(imgUrl,index2) in item.imagesJsonList" :key="index2">
+								<image  lazy-load :src='imgUrl.url'></image>
+								</view>
+							</view>
+							<view>{{item.createTime|formatTime}}</view>
 						</view>
-					</view>
-					<view class="cu-item  ">
-						<view class="content bg-red shadow-blur">
-							这是第一次，我家的铲屎官走了这么久。久到足足有三天！！
-						</view>
-					</view>
-					<view class="cu-item text-grey cuIcon-evaluate_fill">
-						<view class="content bg-grey shadow-blur">
-							这是第一次，我家的铲屎官走了这么久。
-						</view>
-					</view>
-					<view class="cu-item ">
-						<view class="bg-blue content">
-							<text>20:00</text> 【月球】快件已到达月球，准备发往地球
-						</view>
-						<view class="bg-cyan content">
-							<text>10:00</text> 【银河系】快件已到达银河系，准备发往月球
-						</view>
+						
 					</view>
 				</view>
 
-				<view class="cu-timeline">
-					<!-- <view class="cu-time">06-17</view> -->
-					<view class="cu-item cuIcon-evaluate_fill text-red">
-						<view class="content solids-bottom">
-							<text>01:30</text> 【喵星】 MX-12138 已揽收，准备发往银河系
-						</view>
-					</view>
-				</view>
-
-				<view class="cu-timeline">
-					<!-- <view class="cu-time">06-17</view> -->
-					<view class="cu-item">
-						<view class="content">
-							<view class="cu-capsule radius">
-								<view class="cu-tag bg-cyan">上午</view>
-								<view class="cu-tag line-cyan">10:00</view>
-							</view>
-							<view class="margin-top">这是第一次，我家的铲屎官走了这么久。久到足足有三天！！ 在听到他的脚步声响在楼梯间的那一刻，我简直想要破门而出，对着他狠狠地吼上10分钟，然后再看心情要不要他进门。</view>
-						</view>
-					</view>
-					<view class="cu-item text-blue">
-						<view class="bg-blue shadow-blur content">
-							<view class="cu-list menu-avatar radius">
-								<view class="cu-item">
-									<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-									<view class="content">
-										<view class="text-grey">文晓港</view>
-										<view class="text-gray text-sm">
-											<text class="cuIcon-infofill text-red"></text> 消息未送达</view>
-									</view>
-									<view class="action">
-										<view class="text-grey text-xs">22:20</view>
-										<view class="cu-tag round bg-grey sm">5</view>
-									</view>
-								</view>
-								<view class="cu-item">
-									<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);">
-										<view class="cu-tag badge">99+</view>
-									</view>
-									<view class="content">
-										<view class="text-grey">文晓港
-											<view class="cu-tag round orange sm">SVIP</view>
-										</view>
-										<view class="text-gray text-sm">
-											<text class="cuIcon-redpacket_fill text-red"></text> 收到红包</view>
-									</view>
-									<view class="action">
-										<view class="text-grey text-xs">22:20</view>
-										<text class="cuIcon-notice_forbid_fill text-gray"></text>
-									</view>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
 			</view>
 		</view>	
 		
@@ -132,8 +67,10 @@
 				user:{},
 				params:{
 					"pageNum": 1,
-  					"pageSize": 20
+  					"pageSize": 10
 				},
+				isNextPage:true,
+				commentList:[],
 			}
 		},
 		onLoad(option) {
@@ -149,6 +86,20 @@
 			//console.log(pages)
 			//console.log(this.$mp.query)
 		},
+		onPullDownRefresh(){
+			console.log('下拉刷新')
+			this.params.pageNum = 1;
+			this.isNextPage = true;
+			this.getMyPostHistory()
+		},
+		onReachBottom(){
+			if(this.commentList.length>0){
+				//console.log(this.isNextPage)
+				if(this.isNextPage){
+					this.getMyPostHistory()
+				}
+			}	
+		},
 		mounted(){
 			this.getInfoEvent();
 			this.getMyPostHistory()
@@ -162,6 +113,31 @@
 				}
 			});
 		},
+		filters: {
+			formatTime(date) {
+				//console.log(date,'参数')
+				//#ifdef H5 || MP-WEIXIN
+				let oldDate  = new Date(date);
+				//#endif
+
+				//#ifdef APP-PLUS
+				let dd = new Date()
+				var nd = dd.getTimezoneOffset();
+				let timeDifference =Math.abs(Math.floor(nd*60*1000));
+				var data = date.substr(0, 19); //'2019-08-09T18:23:27'
+				var oldDate = new Date(data.replace(/T/g, ' ').replace(/-/g, '/'));
+				let oldTime = timeDifference + oldDate.getTime();
+				var oldDate = new Date(oldTime)
+				//#endif
+
+				let y = oldDate.getFullYear();
+				let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
+				let d = oldDate.getDate() < 10 ? '0' + oldDate.getDate() : oldDate.getDate(); // 获取当前几号，不足10补0
+				let h =  oldDate.getHours() < 10 ? '0' + oldDate.getHours() : oldDate.getHours(); // 获取当前几点，不足10补0
+				let minute =  oldDate.getMinutes() < 10 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(); // 获取当前几分，不足10补0
+				return y + '-' + m + '-' + d +'  '+h+':'+minute;
+			},
+		},
 		methods: {
 			getInfoEvent(){//获取用户基本信息
 				userApi.getInfo({},(res)=>{
@@ -174,6 +150,31 @@
 			getMyPostHistory(){//获取本人的个人主页动态列表
 				userApi.getMyPostHistory(this.params,(res)=>{
 					if(res.data.code ==200){
+						if(this.params.pageNum==1){
+							this.commentList = []
+							uni.stopPullDownRefresh()
+						}
+						res.data.data.list.forEach((item,index) => {
+							if(item.imagesJsonList){
+								console.log(item.imagesJsonList)
+								try {
+									item.imagesJsonList = JSON.parse(item.imagesJsonList);
+								} catch (error) {
+									item.imagesJsonList = []
+								}	
+							}else{
+								item.imagesJsonList = []
+							}
+							this.commentList.push(item);
+						});
+						if(res.data.data.list.length>=this.params.pageSize){
+							this.isNextPage = true;
+							this.params.pageNum++;
+						}else{
+							this.isNextPage = false;
+						}
+						
+						console.log(this.commentList)
 						console.log(res.data)
 					}
 				})
@@ -215,8 +216,13 @@
 	border-radius: 50%;
 }
 .homepage-content{
-	min-height: 500rpx;
+	/* min-height: 200rpx; */
 	background: #ffffff;
+}
+.new-contont{
+	border-radius: none !important;
+	padding: 0px 0rpx  20rpx 10rpx !important;
+	border-bottom: 20rpx solid #f3f3f3;
 }
 .new-height{height: 30px;line-height: 18px;padding: 6px 0px; color: rgba(255, 255, 255, .8);}
 .new-class-right{border-right: 1px solid rgba(255, 255, 255, .8);}
