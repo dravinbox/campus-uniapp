@@ -75,8 +75,8 @@
                         <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="collectionEvent(newItem.id,newIndex)" :data-id="1">
                             <text class="new-text-grey new-text-padding"> {{newItem.collected||0}}</text>
                         </view>
-                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="shareEvent(newItem.id)" :data-id="2">
-                            <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
+                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="shareEvent(newItem.id,newIndex)" :data-id="2">
+                            <text class="new-text-grey new-text-padding"> {{newItem.share||0}}</text>
                         </view>
                          <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="commentEvent(newItem.id)" :data-id="3">
                             <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
@@ -165,7 +165,7 @@
 					url: '../category/commentDetails?postId='+id
 				});
 			},
-			shareEvent(id){
+			shareEvent(postId,id){
 				console.log("share ..")
 				
 				
@@ -179,6 +179,17 @@
 				    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
 				    success: function (res) {
 				        console.log("success:" + JSON.stringify(res));
+						discoverApi.sharePost('/'+postId,{},(res)=>{
+							console.log(res.data.data)
+							if(res.data.code == 200){
+								if(res.data.data){
+									uni.showToast({
+										title: '分享成功',
+										mask:true,
+										icon:'none',
+										duration: 2000
+									});	
+									}}})
 				    },
 				    fail: function (err) {
 				        console.log("fail:" + JSON.stringify(err));
