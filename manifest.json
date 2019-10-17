@@ -56,13 +56,16 @@
             /* SDK配置 */
             "sdkConfigs" : {
                 "share" : {
+                    "qq" : {
+                        "appid" : "1109859811"
+                    },
+                    "weixin" : {
+                        "appid" : "wxfa9f5fc30b7a56c3"
+                    },
                     "sina" : {
                         "appkey" : "1903616716",
                         "appsecret" : "3fbc4ebed4e28aef5166974190fc002b",
                         "redirect_uri" : "http://www.baidu.com"
-                    },
-                    "qq" : {
-                        "appid" : "1109859811"
                     }
                 },
                 "oauth" : {

@@ -75,7 +75,7 @@
                         <view class="flex-sub new-class-sub cuIcon-favor" :class="newItem.userCollectPost?'new-text-red':'new-text-grey'"  @tap="collectionEvent(newItem.id,newIndex)" :data-id="1">
                             <text class="new-text-grey new-text-padding"> {{newItem.collected||0}}</text>
                         </view>
-                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="tabSelect" :data-id="2">
+                        <view class="flex-sub new-class-sub cuIcon-forward"  :class="2==TabCur?'new-text-red':'new-text-grey'"  @tap="shareEvent(newItem.id)" :data-id="2">
                             <text class="new-text-grey new-text-padding"> {{newItem.comment||0}}</text>
                         </view>
                          <view class="flex-sub new-class-sub cuIcon-message text-right"  :class="3==TabCur?'new-text-red':'new-text-grey'"  @tap="commentEvent(newItem.id)" :data-id="3">
@@ -163,6 +163,26 @@
 				console.log(id)
 				uni.navigateTo({
 					url: '../category/commentDetails?postId='+id
+				});
+			},
+			shareEvent(id){
+				console.log("share ..")
+				
+				
+				uni.share({
+				    provider: "weixin",
+				    scene: "WXSceneSession",
+				    type: 0,
+				    href: "http://uniapp.dcloud.io/",
+				    title: "uni-app分享",
+				    summary: "我正在使用校园APP看学校通知呢，赶紧跟我一起来体验！",
+				    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+				    success: function (res) {
+				        console.log("success:" + JSON.stringify(res));
+				    },
+				    fail: function (err) {
+				        console.log("fail:" + JSON.stringify(err));
+				    }
 				});
 			},
 
