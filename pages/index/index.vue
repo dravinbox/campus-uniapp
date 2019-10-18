@@ -14,7 +14,7 @@
 				<view :class="PageCur=='discover'?'cuIcon-messagefill':'cuIcon-message'"></view> 
 				<view>那些话</view>
 			</view>
-			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="errands" >
+			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="openMsg" data-cur="errands" >
 				<view :class="PageCur=='errands'?'cuIcon-goodsnewfill':'cuIcon-goodsnew'">
 					<!-- <view class="cu-tag badge">99</view> -->
 				</view>
@@ -36,7 +36,7 @@
 			
 		</view>
 		
-		<view class="cu-modal" :class="modalName=='RadioModal'?'show':''" @tap="hideModal">
+		<!-- <view class="cu-modal" :class="modalName=='RadioModal'?'show':''" @tap="hideModal">
 			<view class="cu-dialog" @tap.stop="">
 				<radio-group class="block" @change="RadioChange">
 					<view class="cu-list menu text-left">
@@ -50,7 +50,7 @@
 					</view>
 				</radio-group>
 			</view>
-		</view>
+		</view> -->
 		
 	</view>
 </template>
@@ -71,7 +71,13 @@
 		},
 		methods: {
 			NavChange: function(e) {
-				this.PageCur = e.currentTarget.dataset.cur
+				this.PageCur = e.currentTarget.dataset.cur;
+				
+			},
+			openMsg(){
+				uni.navigateTo({
+				    url: '../errands/index'
+				});
 			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target

@@ -61,14 +61,14 @@
 					{
 						cuIcon: 'cardboardfill',
 						color: 'red',
-						badge: 120,
+						badge: 0,
 						name: 'VR',
 						url: '/pages/message/chat'
 					}, 
 					{
 						cuIcon: 'recordfill',
 						color: 'orange',
-						badge: 1,
+						badge: 0,
 						name: '录像'
 					},
 					{
@@ -80,7 +80,7 @@
 					{
 						cuIcon: 'noticefill',
 						color: 'olive',
-						badge: 22,
+						badge: 0,
 						name: '通知'
 					},
 				

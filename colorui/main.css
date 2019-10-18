@@ -910,6 +910,12 @@ button.cuIcon.lg {
 	font-size: 2em;
 }
 
+.cu-avatar.ly {
+	width: 70rpx;
+	height: 70rpx;
+	font-size: 2em;
+}
+
 .cu-avatar.xl {
 	width: 128upx;
 	height: 128upx;
@@ -1469,7 +1475,7 @@ button.cuIcon.lg {
 .cu-list.grid>.cu-item text {
 	display: block;
 	margin-top: 10upx;
-	color: #888;
+	color: #000000;
 	font-size: 26upx;
 	line-height: 40upx
 }
@@ -3069,17 +3075,17 @@ scroll-view.cu-steps .cu-item {
 }
 
 .margin-top-sm {
-	margin-top: 20upx;
+	margin-top: 2rupx;
 }
 
 .margin-top {
-	margin-top: 30upx;
+	margin-top: 30rpx;
 }
 .new-margin-top {
-	margin-top: 20upx;
+	margin-top: 20rpx;
 }
 .margin-top-lg {
-	margin-top: 40upx;
+	margin-top: 4rupx;
 }
 
 .margin-top-xl {
