@@ -89,6 +89,7 @@
 				</view>
 			</view>
 		</view>
+		<view class="cu-tabbar-height "></view>
 	</view>
 </template>
 
