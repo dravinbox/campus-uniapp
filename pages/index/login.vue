@@ -103,9 +103,9 @@
 					if (res.data.code == 200) {
 						try {
 							uni.setStorageSync('token', res.data.data.token);
-							uni.navigateTo({
-								url: 'index'
-							})
+							uni.redirectTo({
+								url: './index'
+							});
 						} catch (error) {
 							console.log(error)
 						}

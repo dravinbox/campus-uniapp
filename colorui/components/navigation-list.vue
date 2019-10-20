@@ -7,7 +7,7 @@
 						<block v-if="item.badge!=1">{{item.badge>99?'99+':item.badge}}</block>
 					</view>
 				</view>
-				<text>{{item.name}}</text>
+				<text >{{item.name}}</text>
 			</view>
 		</view>
 	</view>

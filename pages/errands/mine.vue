@@ -2,7 +2,7 @@
 	<view >
 		<view>	
 			<cu-custom bgColor="bg-person-newblue "   :isBack="true">
-				<block slot="content">个人主页</block>
+				<block slot="content"></block>
 			</cu-custom>
 			<view  class="new-yu-blue bg-person-newblue">	
 				<view class="text-center head-portrait">
@@ -11,42 +11,50 @@
 				<view class="text-center head-name">
 					<text v-if="user.userChartInfo">{{user.userChartInfo.nickName}}</text>
 				</view>
-				<view class="flex text-center new-height">
-					<view class="cu-item flex-sub new-class-right"   :data-id="0">
-						我的帖子
-					</view>
-					<view class="cu-item flex-sub new-class-right"   :data-id="1">
-						我的粉丝
-					</view>
-					<view class="cu-item flex-sub new-class-right"   :data-id="2">
-						我的关注
-					</view>
-					<view class="cu-item flex-sub"   :data-id="3">
-						我的收藏
-					</view>
-				</view>
 			</view>	
 			<view class="homepage-content">
-				<view class="cu-timeline">
-					<view class="cu-time "></view>
-					<view class="cu-item cur cuIcon-newll new-bottom" v-for="(item,index) in commentList" :key="index">
-						<view class="content bg-white new-contont">
-							<text>{{item.content}}</text>
-							<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="item.imagesJsonList.length>1?'col-3 grid-square':'col-3 grid-square'">
-								<view class="bg-img"  
-								v-for="(imgUrl,index2) in item.imagesJsonList" :key="index2">
-								<image  lazy-load :src='imgUrl.url'></image>
-								</view>
-							</view>
-							<view>{{item.createTime|formatTime}}</view>
-						</view>
-						
-					</view>
-				</view>
-
+				<view class="cu-list menu sm-border"  >
+                    <view class="cu-item arrow new-height"  >
+                        <view class="content new-text-black" >
+                            我的金库
+                            <text class="text-grey new-cate new-size">  (可提现到微信零钱) </text>
+                        </view>
+                    </view>
+                    <view class="cu-item arrow new-height"  >
+                        <view class="content new-text-black" >
+                            我的消息
+                        </view>
+                    </view>
+                    <view class="cu-item arrow new-height"  >
+                        <view class="content new-text-black" >
+                            我的地址
+                            <view class="cuIcon-add text-grey new-cate fr"><text>新增</text></view>
+                        </view>
+                    </view>
+                    <view class="new-cu-item" >
+                        <view class="content">
+                            <view class="text-sm flex">
+                                <view class="text-cut">
+                                    <text class="errand-type type-second">地址地址地了进口发动机了酷酷酷酷酷酷酷酷酷酷酷酷址地址</text>
+                                </view>
+                                <view class="old-border cuIcon-writefill"> <text>修改</text> </view> 
+                                <view class="old-border cuIcon-deletefill"> <text>删除</text> </view> 
+                            </view>
+                        </view>
+                        <view class="content">
+                            <view class="text-sm flex">
+                                <view class="text-cut">
+                                    <text class="errand-type type-second">地址地址地了进口发动机了酷酷酷酷酷酷酷酷酷酷酷酷址地址</text>
+                                </view>
+                                <view class="old-border cuIcon-writefill"> <text>修改</text> </view> 
+                                <view class="old-border cuIcon-deletefill"> <text>删除</text> </view> 
+                            </view>
+                        </view>
+				    </view>
+                </view>
 			</view>
 		</view>	
-		
+		<view class="cu-tabbar-height "></view>
 	</view>
 </template>
 
@@ -102,16 +110,6 @@
 		},
 		mounted(){
 			this.getInfoEvent();
-			this.getMyPostHistory()
-			uni.getLocation({
-				type: 'wgs84',
-				geocode:true,
-				success: function (res) {
-					console.log(res)
-					console.log('当前位置的经度：' + res.longitude);
-					console.log('当前位置的纬度：' + res.latitude);
-				}
-			});
 		},
 		filters: {
 			formatTime(date) {
@@ -147,38 +145,6 @@
 					}
 				})
 			},
-			getMyPostHistory(){//获取本人的个人主页动态列表
-				userApi.getMyPostHistory(this.params,(res)=>{
-					if(res.data.code ==200){
-						if(this.params.pageNum==1){
-							this.commentList = []
-							uni.stopPullDownRefresh()
-						}
-						res.data.data.list.forEach((item,index) => {
-							if(item.imagesJsonList){
-								console.log(item.imagesJsonList)
-								try {
-									item.imagesJsonList = JSON.parse(item.imagesJsonList);
-								} catch (error) {
-									item.imagesJsonList = []
-								}	
-							}else{
-								item.imagesJsonList = []
-							}
-							this.commentList.push(item);
-						});
-						if(res.data.data.list.length>=this.params.pageSize){
-							this.isNextPage = true;
-							this.params.pageNum++;
-						}else{
-							this.isNextPage = false;
-						}
-						
-						console.log(this.commentList)
-						console.log(res.data)
-					}
-				})
-			},
 			NavChange: function(e) {
 				this.PageCur = e.currentTarget.dataset.cur
 			},
@@ -198,10 +164,10 @@
 
 <style scoped>
 .new-yu-blue{
-	height: 170px;
+	height: 230rpx;
 }
 .head-portrait{
-	height: 75px;
+	height: 70px;
 }
 .head-name{
 	height: 20px;overflow: hidden;padding: 0px 20px;
@@ -219,31 +185,34 @@
 	/* min-height: 200rpx; */
 	background: #ffffff;
 }
-.new-contont{
-	border-radius: none !important;
-	padding: 0px 0rpx  20rpx 10rpx !important;
-	border-bottom: 20rpx solid #f3f3f3;
+.homepage-content .cu-list.menu .new-height{
+    height: 111rpx;
 }
-.new-height{height: 30px;line-height: 18px;padding: 6px 0px; color: rgba(255, 255, 255, .8);}
-.new-class-right{border-right: 1px solid rgba(255, 255, 255, .8);}
-/* .cu-timeline>.cu-item[class*="cuIcon-newll"]::before {
-	background-image: url('./../../static/icon_home.png');
-	background-color: #fff;
-	background-repeat: no-repeat;
-	background-size: cover;
-	-webkit-background-size: cover;
-	-o-background-size: cover;
-	background-position: center 0;
-} */
-.cuIcon-newll::before {
-	content: ' ';
-	background-image: url('./../../static/icon_home.png');
-	background-color: #fff;
-	background-repeat: no-repeat;
-	background-size: cover;
-	-webkit-background-size: cover;
-	-o-background-size: cover;
-	background-position: center 0;
+.new-cate{
+    padding-left: 10rpx;
+}
+.new-size{
+    font-size: 24rpx;
+}
+.new-cu-item{
+  
+    color: #999999;
+    font-size: 24rpx;
+    padding: 0rpx 30rpx;
+}
+.new-cu-item .content{
+    height: 90rpx;
+    line-height: 90rpx;
+}
+.new-cu-item .text-cut{
+    width: calc(100% - 230rpx);
+}
+.new-cu-item .old-border{
+    width: 110rpx;
+    text-align: center;
+}
+.new-cu-item .content:last-of-type{
+    border-bottom: 1px solid #dddddd;
 }
 </style>
 

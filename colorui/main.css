@@ -910,6 +910,12 @@ button.cuIcon.lg {
 	font-size: 2em;
 }
 
+.cu-avatar.ly {
+	width: 70rpx;
+	height: 70rpx;
+	font-size: 2em;
+}
+
 .cu-avatar.xl {
 	width: 128upx;
 	height: 128upx;
@@ -1469,7 +1475,7 @@ button.cuIcon.lg {
 .cu-list.grid>.cu-item text {
 	display: block;
 	margin-top: 10upx;
-	color: #888;
+	color: #000000;
 	font-size: 26upx;
 	line-height: 40upx
 }
@@ -2023,7 +2029,7 @@ button.cuIcon.lg {
 }
 
 .cu-timeline>.cu-item {
-	padding: 30rpx 30rpx 30rpx 80rpx;
+	padding: 30rpx 30rpx 0rpx 80rpx;
 	position: relative;
 	display: block;
 	z-index: 0;
@@ -2868,6 +2874,9 @@ scroll-view.cu-steps .cu-item {
 .flex-treble {
 	flex: 3;
 }
+.flex-four {
+	flex: 4;
+}
 
 .flex-direction {
 	flex-direction: column;
@@ -3069,17 +3078,17 @@ scroll-view.cu-steps .cu-item {
 }
 
 .margin-top-sm {
-	margin-top: 20upx;
+	margin-top: 2rupx;
 }
 
 .margin-top {
-	margin-top: 30upx;
+	margin-top: 30rpx;
 }
 .new-margin-top {
-	margin-top: 20upx;
+	margin-top: 20rpx;
 }
 .margin-top-lg {
-	margin-top: 40upx;
+	margin-top: 4rupx;
 }
 
 .margin-top-xl {
