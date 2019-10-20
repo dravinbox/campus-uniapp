@@ -1,5 +1,5 @@
 <template >
-	<!-- 我的关注 -->
+	<!-- 关注我的 -->
     <view class="cu-list menu-avatar " >
         <view class="cu-item" @click="openMsg">
             <view class="cu-avatar new-cu-avatar radius lg" :style="[{backgroundImage:'url('+ src +')'}]"></view>

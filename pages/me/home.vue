@@ -126,7 +126,7 @@
 			},
 			openMsg(){
 				uni.navigateTo({
-				    url: '../friend/friendship'
+				    url: '../me/personal'
 				});
 			},
 			openClass(item,id){

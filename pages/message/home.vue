@@ -4,8 +4,8 @@
 		<cu-custom bgColor="bg-gradual-pink" >
 			<block slot="content">消息</block>
 		</cu-custom>
-		<button @click="wstest">连接websocket</button>
-		<button @click="sendMsgToUser2">发送消息给用户2</button>
+		<!-- <button @click="wstest">连接websocket</button>
+		<button @click="sendMsgToUser2">发送消息给用户2</button> -->
 		<view class="cu-list menu-avatar">
 			<view class="cu-item" @click="openMsg">
 				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>

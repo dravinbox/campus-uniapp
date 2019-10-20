@@ -6,8 +6,8 @@
 		</cu-custom>
 		
 		<!-- 栏目 -->
-        <scroll-view scroll-x class="bg-white nav" style="padding:0 20upx;">
-			<view class="flex text-center new-solids-bottom">
+        <scroll-view scroll-x class="bg-white nav new-solids-bottom" scroll-with-animation :scroll-left="scrollLeft" style="padding:0 20upx;">
+			<view class="flex text-center ">
 				<view class="cu-item flex-sub"  v-for="(item,index) in cateList" :key="index" @tap="tabSelect" :data-id="index">
 					<view :class="index==TabCur?'new-text-blue new-border':'new-text-black'">{{item}}</view>
 				</view>
@@ -16,7 +16,7 @@
 		
 		<!-- 列表 -->
 		<view style="padding:0 20upx;background:#ffffff;">
-			<view class="cu-list menu-avatar" >
+			<!-- <view class="cu-list menu-avatar" >
 				<view class="cu-item" :class="modalName=='move-box-'+ index?'move-cur':''" v-for="(item,index) in 4" :key="index"
 					@touchstart="ListTouchStart" @touchmove="ListTouchMove" @touchend="ListTouchEnd" :data-target="'move-box-' + index">
 					<view class="cu-avatar new-cu-avatar round lg" :style="[{backgroundImage:'url(https://ossweb-img.qq.com/images/lol/web201310/skin/big2100'+ (index+2) +'.jpg)'}]"></view>
@@ -35,7 +35,7 @@
 						<view class="bg-red">删除</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<words-list></words-list>
 			<voice-list></voice-list>
 			<follow-list></follow-list>
@@ -50,6 +50,8 @@
 	import wordsList from './words-list.vue';
 	import voiceList from './voice-list.vue';
 	import followList from './follow-list.vue';
+	import followMeList from './follow-me-list.vue';
+	import followEachotherList from './follow-eachother-list.vue';
 	import { discoverApi } from '../api/discover.js';
 	export default {
 		components: {wordsList,voiceList,followList},
@@ -67,10 +69,12 @@
 					"pullLast": false,
 					"twoCateId": 1
 				},
-				cateList:['文字匹配','语音匹配','关注'],
+				cateList:['文字匹配','语音匹配','相互关注','我的关注','关注我的'],
                 list:[],
 				PageCur: 'discover',
 				modalName: null,
+				listTouchStartX:0,
+				listTouchStartY:0,
 			}
 		},
 		onHide: function(){
@@ -79,7 +83,8 @@
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
-				// this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+				 this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+				
 			},
 			sendPosting(){//发帖子
 				let data = {
@@ -103,8 +108,10 @@
 					'background-image':'url('+src+')'
 				}
 			},
+			/*
 			// ListTouch触摸开始
 			ListTouchStart(e) {
+				console.log("start",e.currentTarget.dataset.target)
 				this.listTouchStart = e.touches[0].pageX
 			},
 
@@ -115,6 +122,7 @@
 
 			// ListTouch计算滚动
 			ListTouchEnd(e) {
+				console.log("end",e.currentTarget.dataset.target)
 				if (this.listTouchDirection == 'left') {
 					this.modalName = e.currentTarget.dataset.target
 				} else {
@@ -122,6 +130,7 @@
 				}
 				this.listTouchDirection = null
 			}
+			*/
 			
 		},
 		mounted() {
