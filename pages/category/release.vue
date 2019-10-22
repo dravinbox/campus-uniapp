@@ -138,6 +138,9 @@
                 discoverApi.sendAPost(data,(res) => {
                     if(res.data.code == 200){
                         console.log(res.data)
+                        uni.redirectTo({
+                            url: './category?cateId='+this.params.oneCate 
+                        });
                     }
                 });
             },
