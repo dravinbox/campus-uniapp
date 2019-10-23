@@ -114,7 +114,8 @@
 						cuIcon: 'recordfill',
 						color: 'orange',
 						badge: 0,
-						name: '寄件'
+						name: '寄件',
+						url: '/pages/errands/running'
 					},
 					{
 						cuIcon: 'picfill',

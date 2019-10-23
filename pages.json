@@ -77,6 +77,24 @@
             "style" : {
 				"navigationBarTitleText": "跑腿"
 			}
+		}
+		,{
+            "path" : "pages/errands/running",
+            "style" : {
+				"navigationBarTitleText": "跑腿发布"
+			}
+        }
+        ,{
+            "path" : "pages/auction/auction",
+            "style" : {
+				"navigationBarTitleText": "拍卖城"
+			}
+        }
+        ,{
+            "path" : "pages/shopping/shopping",
+            "style" : {
+				"navigationBarTitleText": "购物城"
+			}
         }
     ],
 	"permission": {
