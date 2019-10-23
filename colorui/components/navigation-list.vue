@@ -30,75 +30,23 @@ export default {
         },
         cuIconList: {
             type:Array,
-            default:[
-                {
-                    cuIcon: 'cardboardfill',
-                    color: 'red',
-                    badge: 120,
-                    name: 'VR',
-                    url: '/pages/message/chat'
-                }, 
-                {
-                    cuIcon: 'recordfill',
-                    color: 'orange',
-                    badge: 1,
-                    name: '录像'
-                },
-                {
-                    cuIcon: 'picfill',
-                    color: 'yellow',
-                    badge: 0,
-                    name: '图像'
-                },
-                {
-                    cuIcon: 'noticefill',
-                    color: 'olive',
-                    badge: 22,
-                    name: '通知'
-                },
-                {
-                    cuIcon: 'upstagefill',
-                    color: 'cyan',
-                    badge: 0,
-                    name: '排行榜'
-                }, 
-                {
-                    cuIcon: 'clothesfill',
-                    color: 'blue',
-                    badge: 0,
-                    name: '皮肤'
-                },
-                {
-                    cuIcon: 'discoverfill',
-                    color: 'purple',
-                    badge: 0,
-                    name: '发现'
-                }, 
-                {
-                    cuIcon: 'questionfill',
-                    color: 'mauve',
-                    badge: 0,
-                    name: '帮助'
-                }, 
-                {
-                    cuIcon: 'commandfill',
-                    color: 'purple',
-                    badge: 0,
-                    name: '问答'
-                }, 
-                {
-                    cuIcon: 'brandfill',
-                    color: 'mauve',
-                    badge: 0,
-                    name: '版权'
-                }
-            ]
+            default:[]
         },
     },
     data(){
         return{
 
         }
+    },
+    methods:{
+        jumpTo(url){
+            console.log(url);
+            if(url != undefined && url != null){
+                uni.navigateTo({
+                    url: url
+                })
+            }
+        },
     }
 }
 </script>
