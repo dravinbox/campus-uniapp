@@ -50,7 +50,7 @@
 
 <script>
 	import dynamicList from '../../component/friendship/dynamic-list.vue'
-	import goodFriendList from '../../component/friendship/good-friend-list.vue'
+	import goodFriendList from '../message/good-friend-list.vue'
 	export default {
 		components: {dynamicList,goodFriendList},
 		data() {

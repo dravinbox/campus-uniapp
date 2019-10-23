@@ -10,11 +10,11 @@
 				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view>
 				<view >那些人</view>
 			</view>
-			<view class="action " :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
+			<view class="action " :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="openMsg" data-cur="discover" >
 				<view :class="PageCur=='discover'?'cuIcon-messagefill':'cuIcon-message'"></view> 
 				<view>那些话</view>
 			</view>
-			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="openMsg" data-cur="errands" >
+			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="openRun" data-cur="errands" >
 				<view :class="PageCur=='errands'?'cuIcon-goodsnewfill':'cuIcon-goodsnew'">
 					<!-- <view class="cu-tag badge">99</view> -->
 				</view>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-	import goodFriendList from '../../component/friendship/good-friend-list.vue'
+	import goodFriendList from '../message/good-friend-list.vue'
 	export default {
 		components: {goodFriendList},
 		data() {
@@ -76,6 +76,11 @@
 			},
 			openMsg(){
 				uni.navigateTo({
+				    url: '/pages/message/good-friend-list'
+				});
+			},
+			openRun(){
+				uni.navigateTo({
 				    url: '../errands/index'
 				});
 			},
@@ -89,6 +94,9 @@
 				this.radio = e.detail.value
 			},
 		},
+		// onReachBottom(){
+		// 	console.log("index==========")
+		// }
 		
 	}
 </script>

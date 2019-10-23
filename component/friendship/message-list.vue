@@ -1,6 +1,5 @@
 <template >
     <view class="cu-list menu-avatar" >
-		<!-- 语音匹配 -->
         <view class="cu-item" 
 			:class="modalName=='move-box-'+ index?'move-cur':''" 
 			v-for="(item,index) in messageList" :key="index"

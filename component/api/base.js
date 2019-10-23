@@ -4,7 +4,7 @@ export default {
 		//本地开发环境
 		"dev":{
 			// protocol: "http",
-			// domain: "127.0.0.1",
+			// domain: "192.168.1.5",
 			// port: "8080"
 			protocol: "https",
 			domain: "api.campus.gzmytech.com",
@@ -42,7 +42,7 @@ export default {
 		// #endif
 
 		//#ifdef APP-PLUS || MP-WEIXIN
-			return this.map[env].protocol+"://"+this.map[env].domain
+			return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 		// #endif
 
 		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
@@ -121,6 +121,7 @@ export default {
 		} catch (e) {
 			// error
 		}
+		
 		let token = "Bearer "+value
 		//console.log(data)
 		uni.request({
@@ -165,6 +166,7 @@ export default {
 		}
 		let token = "Bearer "+value
 		uni.request({
+			
 			url: this.getPath() + url,
 			header:{
 				"Authorization":token
