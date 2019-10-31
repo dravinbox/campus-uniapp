@@ -1,6 +1,7 @@
 <template >
     <view class="cu-list menu-avatar" >
 		<!-- 文字匹配 -->
+	
         <view class="cu-item" 
 			:class="modalName=='move-box-'+ index?'move-cur':''" 
 			v-for="(item,index) in messageList" :key="index"
@@ -9,6 +10,7 @@
 			@touchend="ListTouchEnd" 
 			@tap="openChart(item.userId)"
 			:data-target="'move-box-' + index">
+			
             <view class="cu-avatar new-cu-avatar round lg" :style="[{backgroundImage:'url('+item.userChartInfo.headImage||''+')'}]"></view>
             <view class="content">
                 <view class="text-grey">{{item.userChartInfo.nickName}}</view>
@@ -21,7 +23,9 @@
             </view>
             <view class="action">
                 <view class="text-grey text-xs">{{item.latestTime|formatTime}}</view>
-                <view class="cu-tag round bg-red sm">{{item.unRead}}</view>
+				
+				<view v-if="item.unRead!=0" class="cu-tag round bg-red sm">{{item.unRead}}</view>
+                
             </view>
             <view class="move">
                 <view class="bg-grey">屏蔽</view>
@@ -37,37 +41,38 @@
 		props:{
 			//0:文字匹配  1:语音匹配  2:相互关注  3:我的关注 4:关注我的
 			messageType: String,
+			
 			messageList:{
 				type: Array,
 				default:()=>[
-					{
-					        "userId": "user_3",
-					        "unRead": 1,
-					        "latestMessage": "您好,来自runner1",
-					        "latestTime": 1571624344060,
-					        "userChartInfo": {
-					          "userId": "user_3",
-					          "sexuality": "FEMALE",
-					          "nickName": "runner",
-					          "age": 18,
-					          "sign": "哥是个传说 runner",
-					          "headImage": "https://tb-campus.oss-cn-shenzhen.aliyuncs.com/ts/image/1570586829531.png"
-					        }
-					      },
-					      {
-					        "userId": "user_2",
-					        "unRead": 3,
-					        "latestMessage": "您好3",
-					        "latestTime": 1571623757703,
-					        "userChartInfo": {
-					          "userId": "user_2",
-					          "sexuality": "MALE",
-					          "nickName": "peter",
-					          "age": 18,
-					          "sign": "哥是个传说 peter",
-					          "headImage": "https://tb-campus.oss-cn-shenzhen.aliyuncs.com/ts/image/1570586829531.png"
-					        }
-					      },
+					// {
+					//         "userId": "user_3",
+					//         "unRead": 1,
+					//         "latestMessage": "您好,来自runner1",
+					//         "latestTime": 1571624344060,
+					//         "userChartInfo": {
+					//           "userId": "user_3",
+					//           "sexuality": "FEMALE",
+					//           "nickName": "runner",
+					//           "age": 18,
+					//           "sign": "哥是个传说 runner",
+					//           "headImage": "https://tb-campus.oss-cn-shenzhen.aliyuncs.com/ts/image/1570586829531.png"
+					//         }
+					//       },
+					//       {
+					//         "userId": "user_2",
+					//         "unRead": 3,
+					//         "latestMessage": "您好3",
+					//         "latestTime": 1571623757703,
+					//         "userChartInfo": {
+					//           "userId": "user_2",
+					//           "sexuality": "MALE",
+					//           "nickName": "peter",
+					//           "age": 18,
+					//           "sign": "哥是个传说 peter",
+					//           "headImage": "https://tb-campus.oss-cn-shenzhen.aliyuncs.com/ts/image/1570586829531.png"
+					//         }
+					//       },
 				],
 				}
 		},
@@ -87,21 +92,10 @@
                 }
 		},
 		filters: {
+			
 			formatTime(date) {
-				//console.log(date,'参数')
-				//#ifdef H5 || MP-WEIXIN
-				let oldDate  = new Date(date);
-				//#endif
-		
-				//#ifdef APP-PLUS
-				let dd = new Date()
-				var nd = dd.getTimezoneOffset();
-				let timeDifference =Math.abs(Math.floor(nd*60*1000));
-				var data = date.substr(0, 19); //'2019-08-09T18:23:27'
-				var oldDate = new Date(data.replace(/T/g, ' ').replace(/-/g, '/'));
-				let oldTime = timeDifference + oldDate.getTime();
-				 oldDate = new Date(oldTime)
-				//#endif
+				
+				let oldDate = new Date(date)
 					
 				let y = oldDate.getFullYear();
 				let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
@@ -109,6 +103,7 @@
 				let h =  oldDate.getHours() < 10 ? '0' + oldDate.getHours() : oldDate.getHours(); // 获取当前几点，不足10补0
 				let minute =  oldDate.getMinutes() < 10 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(); // 获取当前几分，不足10补0
 				// return y + '-' + m + '-' + d +'  '+h+':'+minute;
+				
 				return h+':'+minute;
 				
 			},
@@ -155,9 +150,50 @@
 				this.listTouchDirectionX = null
 			},
 			openChart(userId){
+				let _this = this
 				console.log("oenchar ",userId)
+				let type = 0
+				if(this.messageType=='0'){
+					type = 1
+				}else if(this.messageType=='1'){
+					type=2
+					
+				}else if(this.messageType=='2'){
+					type=0
+				}else{
+					
+				}
+				
+				try {
+					let urc = uni.getStorageSync('unReadCount');
+					if(urc){
+						let flag = false
+						for (var i = 0; i < urc[type].data.messageList.length; i++) {
+							if(urc[type].data.messageList[i].userId==userId){
+								console.log("找到了userId",userId)
+								_this.messageList[i].unRead = 0
+								urc[type].data.messageList[i].unRead =0
+								
+								flag = true
+								break;
+							}
+						}
+						if(flag){
+							try{
+								uni.setStorageSync('unReadCount',urc)
+							}catch(e){
+								//TODO handle the exception
+							}
+						}
+						
+						
+					}	
+				}catch(e){
+						//TODO handle the exception
+				}
+				
 				uni.navigateTo({
-					url: '/pages/message/chat?userId='+userId
+					url: '/pages/message/chat?userId='+userId+'&type='+type
 				})
 			},
 			

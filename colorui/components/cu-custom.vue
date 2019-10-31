@@ -53,7 +53,7 @@
 		methods: {
 			BackPage() {
 				var pages = getCurrentPages();
-				console.log(pages)
+				// console.log(pages)
 				//return
 				uni.navigateBack({
 					delta: 1

@@ -37,8 +37,8 @@ function getFollowMeListRequest(data,success,fail){
  * @param {Object} success
  * @param {Object} fail
  */
-function checkSyncTableAndCountUnreadMessages(success,fail){	
-	api.getToken("/api/v1/user/im/checkSyncTableAndCountUnreadMessages",{},success,fail)
+function checkSyncTableAndCountUnreadMessages(type,success,fail){	
+	api.getToken("/api/v1/user/im/checkSyncTableAndCountUnreadMessages/"+type,{},success,fail)
 		
 }
 /**

@@ -1,15 +1,15 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-white" :isBack="true">
-			<block slot="backText"></block> <block slot="content" >聊天{{timelineId}}</block>
+		<cu-custom bgColor="bg-white" :isBack="true" >
+			<block slot="backText"></block> <block slot="content" >聊天</block>
 			<view slot="right" class="new-backText">关注</view>
 		</cu-custom>
 		
 		
-		<view class="cu-chat">
+		<view id="chat-main" class="cu-chat">
 			
 			<!-- 历史聊天记录 -->
-			<view class="cu-item " 
+			<view  ref="box" class="cu-item " 
 				v-for="(item,index) in timeline"
 				:key="index"
 				:class="item.timelineMessage.fields.sender.value.value==userId?'':'self'" 
@@ -43,7 +43,7 @@
 					
 				</view>
 				<view v-if="item.timelineMessage.fields.sender.value.value!=userId" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
-				<!-- <view class="date">{{item.timelineMessage.fields.send_time.value.value|formatTime}}</view> -->
+				<view class="date">{{item.timelineMessage.fields.send_time.value.value|formatTime}}</view>
 				
 			</view>
 			
@@ -182,6 +182,9 @@
 			
 			
 		</view>
+		<view id="chat-bottom">
+			
+		</view>
 
 		<view class="cu-bar foot input" :style="[{bottom:InputBottom+'px'}]">
 			<view class="action">
@@ -203,6 +206,12 @@
 
 <script>
 	import {ImApi} from '@/component/api/im.js'
+	import api from "@/component/api/base.js"
+	
+	  // #ifdef APP-PLUS
+	  const dom = weex.requireModule('dom')
+	  // #endif
+	  
 	export default {
 		computed:{
 			// reverseTimeline(){
@@ -212,17 +221,20 @@
 		},
 		data() {
 			return {
+				type:0,
 				InputBottom: 0,
 				userId:null,
 				audioPaused:null,
 				inputMessage:'',
 				timelineId:null,
 				isSocketOpen:false,
+				isScroll:false,
+				
 				socketMsgQueue:[],//发送缓存区
 				wsMsg:[
-					{"message":"111","contentType":"text","toId":"user_2","time":1571806730975},
-					{"message":"111","contentType":"text","toId":"user_1","time":1571806730976},
-					{"message":"222","contentType":"text","toId":"user_2","time":1571806730977},
+					// {"message":"111","contentType":"text","toId":"user_2","time":1571806730975},
+					// {"message":"111","contentType":"text","toId":"user_1","time":1571806730976},
+					// {"message":"222","contentType":"text","toId":"user_2","time":1571806730977},
 				],
 				
 				cacheMsg:[],//缓存最新消息，方向：旧-》新 遗弃
@@ -530,21 +542,8 @@
 		filters: {
 			formatTime(date) {
 				//console.log(date,'参数')
-				//#ifdef H5 || MP-WEIXIN
+			
 				let oldDate  = new Date(date);
-				
-				//#endif
-		
-				//#ifdef APP-PLUS
-				let dd = new Date()
-				var nd = dd.getTimezoneOffset();
-				let timeDifference =Math.abs(Math.floor(nd*60*1000));
-				var data = date.substr(0, 19); //'2019-08-09T18:23:27'
-				var oldDate = new Date(data.replace(/T/g, ' ').replace(/-/g, '/'));
-				let oldTime = timeDifference + oldDate.getTime();
-				 oldDate = new Date(oldTime)
-				//#endif
-					
 				let nowDate = new Date();
 				let y = oldDate.getFullYear();
 				let m = oldDate.getMonth() + 1 < 10 ? '0' + (oldDate.getMonth() + 1) : oldDate.getMonth() + 1; // 获取当前月份的日期，不足10补0
@@ -584,49 +583,79 @@
 				
 			},
 		},
+		updated() {
+			
+			if(this.isScroll){
+				this.isScroll = false
+				this.scrolleToBottom();
+			}
+			
+			
+			
+		},
+		onUnload(e){
+			console.log("unload chat",)
+			 uni.closeSocket();
+		},
 		onLoad(option) {
+			console.log("进入聊天页面")
+			if(option.type){
+				this.type=option.type
+			}
 		    if(option.userId){
 				//开场加载前30条数据
 				this.userId = option.userId
 				ImApi.showConversationMessages({
+					type:new Number(this.type),
 					userId:this.userId,
 					lastSequenceId:0
 				},(res)=>{
-					console.log("获取服务器聊天信息成功",res)
+					// console.log("获取服务器聊天信息成功",res)
 					this.timelineId = res.data.data.timelineId
 					this.timeline = res.data.data.list.reverse()
+					this.isScroll = true
 				},(res)=>{
 					console.log("获取服务器聊天信息失败",res)
 				})
 				
 				
+				
 				let _this = this
+				
 				if(!_this.isSocketOpen){
 					//如果还没有连接socket,进行连接
 					try {
 						let token = uni.getStorageSync('token');	
 						if(token){
 							uni.connectSocket({
-							  url: 'ws://127.0.0.1:8080/api/v1/ws/im/imWebSocketHandler?token='+token
+							  url: api.getWsPath()+'/api/v1/ws/im/imWebSocketHandler?token='+token
 							});
 						}		
 					} catch (e) {
 						// error
 					}
 				}
+				
 				uni.onSocketOpen(function (res) {
-				  console.log('WebSocket连接已打开！');
+					console.log('WebSocket连接已打开！');
 					_this.isSocketOpen = true;
 				    for (var i = 0; i < _this.socketMsgQueue.length; i++) {
 				      _this.sendMessage(_this.socketMsgQueue[i]);
 				    }
 				    _this.socketMsgQueue = [];
 				});
+				
 				uni.onSocketMessage(function (res) {
 				  // console.log('收到服务器内容：' , res);
 				  let d = JSON.parse(res.data)
 				  if(d.code==200){
 					  _this.wsMsg.push(d.data)
+					  _this.isScroll = true
+				  }else if(d.code==405){
+					  uni.showModal({
+					  	content: '对方已删除了你',
+					  	showCancel: false
+					  });
 				  }else{
 					  console.log('无效ws消息',res)
 				  }
@@ -636,7 +665,14 @@
 				
 				uni.onSocketError(function (res) {
 				  console.log('WebSocket连接打开失败，请检查！');
+				  
 				});
+				
+				uni.onSocketClose(function (res) {
+				  console.log('WebSocket 已关闭！');
+				});
+				
+				
 				
 				/*
 				ImApi.showConversationMessages({
@@ -774,6 +810,50 @@
 			InputBlur(e) {
 				this.InputBottom = 0
 			},
+			scrolleToBottom(){
+				//#ifdef APP-PLUS || MP-WEIXIN
+				//这断代码在原生中使用
+				uni.pageScrollTo({
+					scrollTop: 10000000000,
+					duration: 0
+				});
+				//#endif
+				
+				
+				//#ifdef H5 
+				//下面这段代码在h5中可以使用
+
+					
+					const query = uni.createSelectorQuery().in(this);
+					
+					// console.log(query)
+					let y1=0
+					let y2=0
+					//获取节点信息
+					
+					
+					query.select('#chat-main').boundingClientRect(d1 => {
+					  console.log("得到布局位置信息" + JSON.stringify(d1));
+					  // console.log("节点离页面顶部的距离为" + d1.top);
+					  y1=d1.top
+					  
+					}).exec();
+					
+					query.select('#chat-bottom').boundingClientRect(d2 => {
+						// console.log("得到布局位置信息" + JSON.stringify(d2));
+						// console.log("节点离页面顶部的距离为" + d2.top);
+						y2=d2.top
+						// console.log("高度：",y2-y1)
+						uni.pageScrollTo({
+							scrollTop: y2-y1,
+							duration: 0
+						});
+						
+					}).exec();
+					
+					
+				// #endif
+			},
 			sendMessage(){
 				console.log(this.inputMessage)
 			
@@ -784,24 +864,39 @@
 					  time: t,
 				      message: this.inputMessage,
 					  contentType: 'text',
-					  toId: this.userId
+					  toId: this.userId,
+					  type: this.type
 				    }
 				
 				//本地缓存
 				this.wsMsg.push(data)
 				
-				// return 
+				
+				
 				//发送给服务器
 				let wsData = JSON.stringify(data)
 				 if (this.isSocketOpen) {
+					 console.log("goto send")
 				    uni.sendSocketMessage({
 						data:wsData
+					},(data)=>{
+						console.log("send success",data)
+					},(err)=>{
+						console.log("send fail",err)
+					},(e)=>{
+						console.log("send complete",e)
 					});
 				  } else {
+					  console.log("push queue")
 				    this.socketMsgQueue.push(wsData);
 				  }
 				  //清空输入框
 				  this.inputMessage=''
+				  
+				  this.isScroll = true
+			},
+			closeWs(){
+				console.log('close ws')
 			},
 			videoPlay(index,newIndex){
 				//console.log('之前', document.body.scrollHeight)

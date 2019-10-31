@@ -48,6 +48,18 @@ export default {
 		//return this.map[env].protocol+"://"+this.map[env].domain+":"+this.map[env].port
 	},
 	
+	/**
+	 * 获取websocket地址
+	 * @param {Object} env
+	 */
+	getWsPath: function(env){
+		if(env==undefined|| env == null){
+			env = "dev"
+		}
+		return "ws://"+this.map[env].domain+":8080"
+		
+	},
+	
 	
 	/**
 	 * @description 发起POST请求
