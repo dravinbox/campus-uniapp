@@ -4,20 +4,24 @@
 		<me v-if="PageCur=='me'"></me>
 		
 		<view class="cu-bar tabbar bg-white shadow foot">
+			<view class="action " :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
+				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view> 
+				<view>首页</view>
+			</view>
 			<view class="action" :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @tap='secondEvent(1)'  data-cur="discover" >
 				<view :class="PageCur=='discover'?'cuIcon-friendfill':'cuIcon-friend'"></view>
 				<view >那些人</view>
 				<view class="new-text" :class="second==1?'active':''">
-					<view @tap="openMsg">文字匹配</view>
-					<view @tap="openMsg">语音匹配</view>
+					<view @tap="openRun(1)">文字匹配</view>
+					<view @tap="openRun(1)">语音匹配</view>
 					<text class="new-index-cuIcon"></text>
 				</view>
 			</view>
-			<view class="action " :class="PageCur=='mainpage'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="mainpage" >
-				<view :class="PageCur=='mainpage'?'cuIcon-messagefill':'cuIcon-message'"></view> 
+			<view class="action " :class="PageCur=='mainpagge'?'new-text-blue':'new-text-black'"  @click="openRun(3)"  data-cur="maignpage" >
+				<view :class="PageCur=='mainpgage'?'cuIcon-messagefill':'cuIcon-message'"></view> 
 				<view>那些话</view>
 			</view>
-			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="openRun" data-cur="errands" >
+			<view class="action" :class="PageCur=='errands'?'new-text-blue':'new-text-black'" @click="openRun(2)" data-cur="errands" >
 				<view :class="PageCur=='errands'?'cuIcon-goodsnewfill':'cuIcon-goodsnew'">
 					<!-- <view class="cu-tag badge">99</view> -->
 				</view>
@@ -64,15 +68,21 @@
 				this.PageCur = e.currentTarget.dataset.cur;
 				this.second = 0;
 			},
-			openMsg(){
-				uni.navigateTo({
-				    url: '/pages/message/good-friend-list'
-				});
-			},
 			openRun(ev){
-				uni.navigateTo({
-					url: '../errands/index'
-				});				
+				if(ev==1){
+					uni.navigateTo({
+						url: '/pages/message/good-friend-list'
+					});
+				}else if(ev==2){
+					uni.navigateTo({
+						url: '/pages/errands/index'
+					});	
+				}else if(ev==3){
+					uni.navigateTo({
+						url: '/pages/message/home'
+					});	
+				}
+							
 			},
 			secondEvent(index){
 				this.second = index;
@@ -101,7 +111,7 @@
 .new-text{
 	position: absolute;
 	top: -195rpx;
-	left: 20rpx;
+	left: 0rpx;
 	width: 150rpx;
 	height: 160rpx;
 	background: #fff;
@@ -128,7 +138,7 @@
 	left: 35rpx;
 	width: 0;
     height: 0;
-	border-top: 20rpx solid #fff;
+	border-top: 20rpx solid #f3f3f3;
 	border-left: 20rpx solid transparent;
 	border-right: 20rpx solid transparent; 
 	

@@ -13,7 +13,14 @@
 			"style":{
 				"navigationBarTitleText": "登录"
 			}
-		},{
+		},
+		{
+			"path":"pages/message/home",
+			"style":{
+				"navigationBarTitleText": "聊天列表"
+			}
+		},
+		{
 			"path":"pages/index/register",
 			"style":{
 				"navigationBarTitleText": "注册"
@@ -67,7 +74,9 @@
 		{
             "path" : "pages/me/personal",
             "style" : {
-				"navigationBarTitleText": "个人主页",
+				"navigationBarTitleText": "个人主页",	
+				"backgroundColor":"#ffffff",
+				"backgroundColorBottom":"#ffffff",
 				"onReachBottomDistance":50,
 				"enablePullDownRefresh":true
 			}
