@@ -103,7 +103,7 @@
 					if (res.data.code == 200) {
 						try {
 							uni.setStorageSync('token', res.data.data.token);
-							uni.redirectTo({
+							uni.reLaunch({
 								url: './index'
 							});
 						} catch (error) {

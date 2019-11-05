@@ -4,10 +4,10 @@
 		<me v-if="PageCur=='me'"></me>
 		
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="discover" >
+			<view class="action" :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @tap='secondEvent(1)'  data-cur="discover" >
 				<view :class="PageCur=='discover'?'cuIcon-friendfill':'cuIcon-friend'"></view>
 				<view >那些人</view>
-				<view class="new-text" :class="PageCur=='discover'?'active':''">
+				<view class="new-text" :class="second==1?'active':''">
 					<view @tap="openMsg">文字匹配</view>
 					<view @tap="openMsg">语音匹配</view>
 					<text class="new-index-cuIcon"></text>
@@ -23,10 +23,10 @@
 				</view>
 				跑腿
 			</view>
-			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @click="NavChange" data-cur="message" >
+			<view class="action" :class="PageCur=='message'?'new-text-blue':'new-text-black'" @tap='secondEvent(2)' data-cur="message" >
 				<view :class="PageCur=='message'?'cuIcon-shopfill':'cuIcon-shop'"></view>
 				<view >商城</view>
-				<view class="new-shop new-text" :class="PageCur=='message'?'active':''">
+				<view class="new-shop new-text" :class="second==2?'active':''">
 					<view>拍卖城</view>
 					<view>购物城</view>
 					<text class="new-index-cuIcon"></text>
@@ -53,6 +53,7 @@
 				PageCur: 'mainpage',
 				modalName: null,
 				radio: 'radio1',
+				second:0,
 			}
 		},
 		onShow(){
@@ -61,7 +62,7 @@
 		methods: {
 			NavChange: function(e) {
 				this.PageCur = e.currentTarget.dataset.cur;
-				
+				this.second = 0;
 			},
 			openMsg(){
 				uni.navigateTo({
@@ -72,6 +73,9 @@
 				uni.navigateTo({
 					url: '../errands/index'
 				});				
+			},
+			secondEvent(index){
+				this.second = index;
 			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target
