@@ -30,15 +30,15 @@
 				<view class="cu-timeline">
 					<view class="cu-time "></view>
 					<view class="cu-item cur cuIcon-newll new-bottom" v-for="(item,index) in commentList" :key="index">
-						<view class="content bg-white new-contont">
-							<text>{{item.content}}</text>
+						<view class="content bg-white " :class="index==commentList.length-1?'other-content':'new-contont'">
+							<text class="text-lg">{{item.content}}</text>
 							<view class="grid flex-sub padding-lr-lm margin-bottom"  :class="item.imagesJsonList.length>1?'col-3 grid-square':'col-3 grid-square'">
 								<view class="bg-img"  
 								v-for="(imgUrl,index2) in item.imagesJsonList" :key="index2">
 								<image  lazy-load :src='imgUrl.url'></image>
 								</view>
 							</view>
-							<view>{{item.createTime|formatTime}}</view>
+							<view class="text-lg">{{item.createTime|formatTime}}</view>
 						</view>
 						
 					</view>
@@ -64,13 +64,37 @@
 					otherUserId:null,
 				},
 				scrollHeight:0,
-				user:{},
+				user:{
+					userChartInfo:{
+						headImage:'http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export',
+						nickName:'冬天'
+					}
+				},
 				params:{
 					"pageNum": 1,
   					"pageSize": 10
 				},
 				isNextPage:true,
-				commentList:[],
+				commentList:[
+					{
+						content:'一个人，只有放低自己的姿态，才能拔高自己的人生。自以为是，不是本事；常思己过，才能少错。',
+						imagesJsonList:[
+							{url:'http://image.uczzd.cn/2883789093405661048.jpg?id=0&from=export'},
+							{url:'http://image.uczzd.cn/4220351132325296517.jpg?id=0&from=export'},
+							{url:'http://image.uczzd.cn/934252461801745646.jpg?id=0&from=export'},
+						],
+						createTime:'2019-10-12 08:24',
+					},
+					{
+						createTime:'2019-09-12 08:24',
+						content:'如果你有信仰，你可以呼求心中的主宰，希望他把宁静、专注、踏实的恩典赐予你，让你能关照自己，守护自己。如果你没有明确的信仰，你可以去阅读、去学习、去了解、去观察，直到明白人生的意义。',
+						imagesJsonList:[
+							{url:'http://res.youth.cn/img-detail/f911a2bebea6394800a25400651a3898:640:338.jpg'},
+							{url:'http://res.youth.cn/img-detail/d4e4cb0822014751b7512f80690b5726:640:322.jpg'},
+							{url:'http://res.youth.cn/img-detail/df0932a1545087c2560dc593f6e7bf32:640:309.jpg'},
+						],
+					}
+				],
 			}
 		},
 		onLoad(option) {
@@ -85,6 +109,7 @@
 			var pages = getCurrentPages();
 			//console.log(pages)
 			//console.log(this.$mp.query)
+			
 		},
 		onPullDownRefresh(){
 			console.log('下拉刷新')
@@ -223,6 +248,10 @@
 	border-radius: none !important;
 	padding: 0px 0rpx  20rpx 10rpx !important;
 	border-bottom: 20rpx solid #f3f3f3;
+}
+.other-content{
+	border-radius: none !important;
+	padding: 0px 0rpx  20rpx 10rpx !important;
 }
 .new-height{height: 30px;line-height: 18px;padding: 6px 0px; color: rgba(255, 255, 255, .8);}
 .new-class-right{border-right: 1px solid rgba(255, 255, 255, .8);}

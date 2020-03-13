@@ -5,7 +5,7 @@
 			<block slot="content">分类</block>
 		</cu-custom>
 		<!-- 个人主页 -->
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
+		<!-- <view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
 				<view class="content" @tap="openLogin">
 					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
@@ -14,16 +14,16 @@
 			</view>
 			
 		
-		</view>
+		</view> -->
 
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
+		<!-- <view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
 				<view class="content" @tap="getToken">
 					<image lazy-load src='./../../static/icon_home.png' class="png new-image"></image>
 					<text class="text-black new-cate">获取token</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu':'']" >
 			<view class="cu-item"  :class="menuArrow?'arrow':''">
@@ -63,10 +63,54 @@
 				menuCard: false,
 				skin: false,
 				cateList:[],
-				firstList:[],
-				secondList:[],
-				thirdList:[],
-				fourList:[],
+				firstList:[
+					{
+						oneCateName:'校园通知',
+						id:1,
+						iconUrl:'./../../static/tubiaoheji-@2x.png'
+					},
+					{
+						oneCateName:'校园圈子',
+						id:2,
+						iconUrl:'./../../static/xiaoyuan@2x.png'
+					},
+				],
+				secondList:[
+					{
+						oneCateName:'创业园',
+						id:3,
+						iconUrl:'./../../static/chuangyezhe@2x.png'
+					},
+					{
+						oneCateName:'跳骚市场',
+						id:4,
+						iconUrl:'./../../static/ershoushichang@2x.png'
+					},
+					{
+						oneCateName:'潮流街',
+						id:5,
+						iconUrl:'./../../static/chaoliujingpin@2x.png'
+					},
+				],
+				thirdList:[
+					{
+						oneCateName:'游戏组队',
+						id:6,
+						iconUrl:'./../../static/youxi@2x.png'
+					},
+					{
+						oneCateName:'学习组队',
+						id:7,
+						iconUrl:'./../../static/xuexi@2x.png'
+					},
+				],
+				fourList:[
+					{
+						oneCateName:'我爱公益',
+						id:8,
+						iconUrl:'./../../static/gongyihuodong@2x.png'
+					},
+				],
 				
 
 				
@@ -164,8 +208,12 @@
 			
 		},
 		mounted(){
-			this.getCategory()
-			
+			//this.getCategory()
+			this.cateList = [];
+			this.cateList.push(this.firstList);
+			this.cateList.push(this.secondList);
+			this.cateList.push(this.thirdList);
+			this.cateList.push(this.fourList);
 		}
 	}
 </script>

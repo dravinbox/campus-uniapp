@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 标题 -->
-		<cu-custom bgColor="bg-gradual-pink" >
+		<cu-custom bgColor="bg-person-newblue" :isBack="true">
 			<block slot="content">消息</block>
 		</cu-custom>
 		<!-- <button @click="wstest">连接websocket</button>

@@ -3,12 +3,12 @@ export default {
 	map:{
 		//本地开发环境
 		"dev":{
-			// protocol: "http",
-			// domain: "192.168.1.5",
-			// port: "8080"
-			protocol: "https",
-			domain: "api.campus.gzmytech.com",
-			port: "443",
+			protocol: "http",
+			domain: "192.168.1.5",
+			port: "8080"
+			// protocol: "https",
+			// domain: "api.campus.gzmytech.com",
+			// port: "443",
 		},
 		//演示环境
 		"pre":{
