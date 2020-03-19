@@ -22,7 +22,7 @@
                 </view>
             </view>
             <view class="action">
-                <view class="text-grey text-xs">{{item.latestTime|formatTime}}</view>
+                <view class="text-grey text-xs">{{item.latestTime}}</view>
 				
 				<view v-if="item.unRead!=0" class="cu-tag round bg-red sm">{{item.unRead}}</view>
                 
