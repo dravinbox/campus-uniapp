@@ -14,7 +14,7 @@
 				:key="index"
 				:class="item.timelineMessage.fields.sender.value.value==userId?'':'self'" 
 			>
-				<view v-if="item.timelineMessage.fields.sender.value.value==userId" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+				<view v-if="item.timelineMessage.fields.sender.value.value==userId" class="cu-avatar radius" style="background-image:url(http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export);"></view>
 				<view class="main">
 					<!-- 文字 -->
 					<view v-if="item.timelineMessage.fields.content_type.value.value=='text'" class="content shadow" :class="item.timelineMessage.fields.sender.value.value==userId?'':'bg-my-blue'" >
@@ -42,7 +42,7 @@
 					
 					
 				</view>
-				<view v-if="item.timelineMessage.fields.sender.value.value!=userId" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+				<view v-if="item.timelineMessage.fields.sender.value.value!=userId" class="cu-avatar radius" style="background-image:url(http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export);"></view>
 				<view class="date">{{item.timelineMessage.fields.send_time.value.value|formatTime}}</view>
 				
 			</view>
@@ -53,7 +53,7 @@
 				:key="item.time"
 				:class="item.toId!=userId?'':'self'" 
 			>
-				<view v-if="item.toId!=userId" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+				<view v-if="item.toId!=userId" class="cu-avatar radius" style="background-image:url(http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export);"></view>
 				<view class="main">
 					<!-- 文字 -->
 					<view v-if="item.contentType=='text'" class="content shadow" :class="item.toId!=userId?'':'bg-my-blue'" >
@@ -81,7 +81,7 @@
 					
 					
 				</view>
-				<view v-if="item.toId==userId" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+				<view v-if="item.toId==userId" class="cu-avatar radius" style="background-image:url(http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export);"></view>
 				<!-- <view class="date">{{item.timelineMessage.fields.send_time.value.value|formatTime}}</view> -->
 				
 			</view>
@@ -355,7 +355,7 @@
 					          "message": {
 					            "name": "message",
 					            "value": {
-					              "value": "https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg",
+					              "value": "http://image.uczzd.cn/6022595161099782603.jpg?id=0&from=export",
 					              "type": "STRING",
 					              "dataSize": 7
 					            },

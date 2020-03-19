@@ -8,13 +8,13 @@
 		<button @click="sendMsgToUser2">发送消息给用户2</button> -->
 		<view class="cu-list menu-avatar">
 			<view class="cu-item" @click="openMsg">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+				<view class="cu-avatar round lg" style="background-image:url(http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export);"></view>
 				<view class="content">
-					<view class="text-grey">凯尔</view>
+					<view class="text-grey">新的开始</view>
 					<view class="text-gray text-sm flex">
 						<view class="text-cut">
 							<text class="cuIcon-infofill text-red  margin-right-xs"></text>
-							我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。
+							人生一世，折磨我们的不是贫穷，而是这样和那样的贪欲！
 						</view> </view>
 				</view>
 				<view class="action">
@@ -23,17 +23,17 @@
 				</view>
 			</view>
 			<view class="cu-item" @click="openMsg">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+				<view class="cu-avatar round lg" style="background-image:url(http://image.uczzd.cn/15206017539861396166.jpg?id=0&from=export);">
 					<view class="cu-tag badge">99+</view>
 				</view>
 				<view class="content">
 					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
+						<view class="text-cut">秋天</view>
+						<view class="cu-tag round bg-orange sm">勇士</view>
 					</view>
 					<view class="text-gray text-sm flex">
 						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
+							与其说爱情是一种感情，倒不如说它是一种魔法，一种令人神魂颠倒的魔法。
 						</view>
 					</view>
 				</view>
@@ -43,10 +43,10 @@
 				</view>
 			</view>
 			<view class="cu-item" @click="openMsg">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+				<view class="cu-avatar radius lg" style="background-image:url(http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export);"></view>
 				<view class="content">
-					<view class="text-pink"><view class="text-cut">莫甘娜</view></view>
-					<view class="text-gray text-sm flex"> <view class="text-cut">凯尔，你被自己的光芒变的盲目！</view></view>
+					<view class="text-pink"><view class="text-cut">冬天</view></view>
+					<view class="text-gray text-sm flex"> <view class="text-cut">一个人，只有放低自己的姿态，才能拔高自己的人生。自以为是，不是本事；常思己过，才能少错。</view></view>
 				</view>
 				<view class="action">
 					<view class="text-grey text-xs">22:20</view>
@@ -54,12 +54,12 @@
 				</view>
 			</view>
 			<view class="cu-item grayscale" @click="openMsg">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81007.jpg);"></view>
+				<view class="cu-avatar radius lg" style="background-image:url(http://image.uczzd.cn/7775233441626866136.jpg?id=0&from=export);"></view>
 				<view class="content">
-					<view><view class="text-cut">伊泽瑞尔</view>
+					<view><view class="text-cut">春天</view>
 						<view class="cu-tag round bg-orange sm">断开连接...</view>
 					</view>
-					<view class="text-gray text-sm flex"> <view class="text-cut"> 等我回来一个打十个</view></view>
+					<view class="text-gray text-sm flex"> <view class="text-cut"> 人活在这个世界上，最终要学会的，还是和自己相处的能力。</view></view>
 				</view>
 				<view class="action">
 					<view class="text-grey text-xs">22:20</view>
@@ -67,16 +67,16 @@
 				</view>
 			</view>
 			<view class="cu-item cur" @click="openMsg">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg);">
+				<view class="cu-avatar radius lg" style="background-image:url(http://image.uczzd.cn/4436671288977152410.jpg?id=0&from=export);">
 					<view class="cu-tag badge"></view>
 				</view>
 				<view class="content">
 					<view>
-						<view class="text-cut">瓦罗兰大陆-睡衣守护者-新手保护营</view>
+						<view class="text-cut">夏天</view>
 						<view class="cu-tag round bg-orange sm">6人</view>
 					</view>
 					<view class="text-gray text-sm flex">
-						<view class="text-cut"> 伊泽瑞尔：<text class="cuIcon-locationfill text-orange margin-right-xs"></text> 传送中...</view></view>
+						<view class="text-cut"> 无论生活怎样，都不要忘记微笑。<text class="cuIcon-locationfill text-orange margin-right-xs"></text>愿你成为自己的太阳，无须凭借谁的光。</view></view>
 				</view>
 				<view class="action">
 					<view class="text-grey text-xs">22:20</view>

@@ -2,7 +2,7 @@
 	<view>
 		<!-- 标题 -->
 		<cu-custom bgColor="bg-gradual-white" isBack="true">
-			<block slot="content">那些话</block>
+			<block slot="content">那些人</block>
 		</cu-custom>
 
 		<!-- 栏目 -->
@@ -101,7 +101,31 @@
 						},
 						data:{
 							messageList:[
-								
+									{
+									userChartInfo:{
+										nickName:'新的开始',
+										headImage:'http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export'
+									},
+									latestTime:'2019-11-22 12:24',
+									latestMessage:'人生一世，折磨我们的不是贫穷，而是贪欲！'
+								},
+								{
+									userChartInfo:{
+										nickName:'秋天',
+										headImage:'http://image.uczzd.cn/15206017539861396166.jpg?id=0&from=export'
+									},
+									latestTime:'2020-10-29 12:45:50',
+									latestMessage:'爱情就如一株含苞待放的玫瑰'
+								},
+								{
+									userChartInfo:{
+										nickName:'冬天',
+										headImage:'http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export'
+									},
+									latestTime:'2019-10-12 08:24',
+									latestMessage:'；常思己过，才能少错。'
+								},
+
 							],
 							newMessageAgg:{
 								
@@ -117,7 +141,30 @@
 						},
 						data:{
 							messageList:[
-								
+								{
+									userChartInfo:{
+										nickName:'新的开始',
+										headImage:'http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export'
+									},
+									latestTime:'2019-11-22 12:24',
+									latestMessage:'人生一世，折磨我们的不是贫穷，而是贪欲！'
+								},
+								{
+									userChartInfo:{
+										nickName:'秋天',
+										headImage:'http://image.uczzd.cn/15206017539861396166.jpg?id=0&from=export'
+									},
+									latestTime:'2020-10-29 12:45:50',
+									latestMessage:'爱情就如一株含苞待放的玫瑰'
+								},
+								{
+									userChartInfo:{
+										nickName:'冬天',
+										headImage:'http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export'
+									},
+									latestTime:'2019-10-12 08:24',
+									latestMessage:'；常思己过，才能少错。'
+								},
 							],
 							newMessageAgg:{
 								
@@ -132,7 +179,30 @@
 						},
 						data:{
 							messageList:[
-								
+								{
+									userChartInfo:{
+										nickName:'新的开始',
+										headImage:'http://image.uczzd.cn/7338690865420014518.jpg?id=0&from=export'
+									},
+									latestTime:'2019-11-22 12:24',
+									latestMessage:'人生一世，折磨我们的不是贫穷，而是贪欲！'
+								},
+								{
+									userChartInfo:{
+										nickName:'秋天',
+										headImage:'http://image.uczzd.cn/15206017539861396166.jpg?id=0&from=export'
+									},
+									latestTime:'2020-10-29 12:45:50',
+									latestMessage:'爱情就如一株含苞待放的玫瑰'
+								},
+								{
+									userChartInfo:{
+										nickName:'冬天',
+										headImage:'http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export'
+									},
+									latestTime:'2019-10-12 08:24',
+									latestMessage:'；常思己过，才能少错。'
+								},
 							],
 							newMessageAgg:{
 								

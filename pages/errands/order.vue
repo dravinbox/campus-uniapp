@@ -6,9 +6,9 @@
         <view>
             <view class="cu-list menu-avatar">
 				<view class="cu-item" >
-					<view class="cu-avatar round ly" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+					<view class="cu-avatar round ly" style="background-image:url(http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export);"></view>
 					<view class="content">
-						<view class="new-text-black ">凯尔</view>	
+						<view class="new-text-black ">冬天</view>	
 					</view>
                     
 				</view>
@@ -53,9 +53,9 @@
 
             <view class="cu-list menu-avatar">
 				<view class="cu-item" >
-					<view class="cu-avatar round ly" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+					<view class="cu-avatar round ly" style="background-image:url(http://image.uczzd.cn/10786026896486406429.jpg?id=0&from=export);"></view>
 					<view class="content">
-						<view class="new-text-black ">凯尔</view>	
+						<view class="new-text-black ">冬天</view>	
 					</view>
                     
 				</view>

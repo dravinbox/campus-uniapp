@@ -8,7 +8,7 @@
 				<view :class="PageCur=='mainpage'?'cuIcon-homefill':'cuIcon-home'"></view> 
 				<view>首页</view>
 			</view>
-			<view class="action" :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @tap='secondEvent(1)'  data-cur="discover" >
+			<view class="action" :class="PageCur=='discover'?'new-text-blue':'new-text-black'" @tap='openRun(1)'  data-cur="discover" >
 				<view :class="PageCur=='discover'?'cuIcon-friendfill':'cuIcon-friend'"></view>
 				<view >那些人</view>
 				<view class="new-text" :class="second==1?'active':''">

@@ -161,9 +161,9 @@
 			},
 			commentEvent(id){
 				console.log(id)
-				uni.navigateTo({
-					url: '../category/commentDetails?postId='+id
-				});
+				// uni.navigateTo({
+				// 	url: '../category/commentDetails?postId='+id
+				// });
 			},
 			shareEvent(postId,index){
 				console.log("share ..")
